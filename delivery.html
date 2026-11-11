@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delivery | Maison Anna Flowers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#FCE4EC;--card:#FFF5F8;--green:#1F3D33;--rose:#B5173F;--blush:#F5C6D4}
+*{box-sizing:border-box}body{margin:0;padding:22px 14px 60px;background:var(--pink);color:var(--green);font:500 16px/1.5 Nunito,system-ui,sans-serif}
+a{color:inherit}.wrap{max-width:760px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-radius:28px;padding:16px 20px;box-shadow:0 8px 24px #b5173f22}.brand{text-decoration:none;font-size:1.35rem;font-weight:800;letter-spacing:.06em}.back{font-weight:800;text-decoration:none}.panel{margin-top:24px;background:var(--card);padding:clamp(20px,5vw,36px);border-radius:28px;box-shadow:0 8px 24px #b5173f18}.eyebrow{font-size:.75rem;letter-spacing:.2em;font-weight:800;color:#8b5267}.panel h1{font-size:clamp(1.8rem,6vw,2.6rem);line-height:1.1;margin:8px 0}.muted{color:#63776d}.origin{margin:18px 0;padding:12px 15px;border-radius:16px;background:#f9e5ec;font-size:.9rem}.summary{border-top:1px solid var(--blush);border-bottom:1px solid var(--blush);padding:14px 0;margin:18px 0}.item{display:flex;justify-content:space-between;gap:14px;padding:5px 0}.total{font-size:1.2rem;font-weight:800;margin-top:10px}label{display:block;font-size:.88rem;font-weight:800;margin-top:13px}input,select,textarea{width:100%;margin-top:5px;padding:12px 14px;border:1.5px solid var(--blush);border-radius:13px;background:#fff;color:var(--green);font:inherit}textarea{min-height:90px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.methods{display:grid;gap:10px;margin-top:10px}.method{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1.5px solid var(--blush);border-radius:16px;background:#fff;cursor:pointer}.method input{width:auto;margin:4px 0 0;accent-color:var(--green)}.method strong{display:block}.method small{display:block;color:#63776d;font-weight:500}.quote{font-size:.85rem;background:#f9e5ec;padding:12px 14px;border-radius:14px;margin-top:12px}.submit{margin-top:20px;width:100%;border:0;border-radius:999px;background:var(--green);color:#fff;padding:15px;font:800 1rem Nunito;cursor:pointer}.fine{font-size:.78rem;color:#63776d;margin-top:12px}@media(max-width:520px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><a class="brand" href="index.html">MAISON ANNA</a><a class="back" href="index.html">← Back to shop</a></header>
+<main class="panel">
+<div class="eyebrow">CHECKOUT · DELIVERY</div>
+<h1>Where should we deliver?</h1>
+<p class="muted">Add your delivery details and choose your preferred international shipping service.</p>
+<div class="origin"><strong>Dispatch location:</strong> Miami, Florida, USA · ZIP code 33131 <br><span class="muted">Temporary dispatch ZIP selected by the shop owner.</span></div>
+<section class="summary"><strong>Your order</strong><div id="orderLines" class="muted" style="margin-top:8px"></div><div id="orderTotal" class="total"></div></section>
+<form id="deliveryForm">
+<label>Full name<input name="name" autocomplete="name" required></label>
+<div class="two"><label>Email address<input name="email" type="email" autocomplete="email" required></label><label>Phone number<input name="phone" type="tel" autocomplete="tel" required></label></div>
+<div class="two"><label>Country<select name="country" id="country" autocomplete="country-name" required><option value="">Choose destination country</option></select></label><label>State / province<input name="state" autocomplete="address-level1" required></label></div>
+<label>Street address and apartment / suite<input name="address" autocomplete="street-address" required></label>
+<div class="two"><label>City<input name="city" autocomplete="address-level2" required></label><label>ZIP / postal code<input name="postal" autocomplete="postal-code" required></label></div>
+<label>Choose delivery method</label>
+<div class="methods">
+<label class="method"><input type="radio" name="shipping" value="DHL Express" required><span><strong>DHL Express</strong><small>International express courier. Final rate confirmed for your destination and parcel.</small></span></label>
+<label class="method"><input type="radio" name="shipping" value="FedEx Express"><span><strong>FedEx Express</strong><small>Priority international courier. Final rate confirmed for your destination and parcel.</small></span></label>
+<label class="method"><input type="radio" name="shipping" value="UPS Express"><span><strong>UPS Express</strong><small>International express courier. Final rate confirmed for your destination and parcel.</small></span></label>
+<label class="method"><input type="radio" name="shipping" value="Air cargo"><span><strong>Air cargo (by plane)</strong><small>Air-freight option; airport handling and local delivery may be additional.</small></span></label>
+</div>
+<div class="quote"><strong>Delivery price:</strong> Shipping quote requested. The exact price depends on destination, packed flower dimensions, weight and service availability. We will confirm the amount before payment. No made-up shipping charges are added.</div>
+<label>Delivery notes (optional)<textarea name="notes" placeholder="Gate code, preferred delivery date, or other instructions"></textarea></label>
+<button class="submit" type="submit">REQUEST DELIVERY &amp; ORDER CONFIRMATION</button>
+<p class="fine">Card and bank payment checkout will be connected after the payment provider is configured. This form sends an order request by email; it does not charge your card.</p>
+</form>
+</main>
+</div>
+<script>
+const EMAIL="Riayoung280@gmail.com";
+const countries=["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Costa Rica","Croatia","Cuba","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+const sel=document.getElementById("country");
+countries.sort((a,b)=>a.localeCompare(b)).forEach(n=>{const o=document.createElement("option");o.value=n;o.textContent=n;sel.appendChild(o)});
+let order={items:[],total:0};try{order=JSON.parse(sessionStorage.getItem("maisonAnnaCart")||"{}")}catch(e){}
+const lines=document.getElementById("orderLines"),total=document.getElementById("orderTotal");
+if(Array.isArray(order.items)&&order.items.length){lines.innerHTML=order.items.map(x=>"<div class=\"item\"><span>"+escapeHtml(x.name)+"</span><span>$"+Number(x.price).toLocaleString("en-US")+"</span></div>").join("");total.textContent="Order total: $"+Number(order.total||0).toLocaleString("en-US")}else{lines.textContent="Cart details could not be loaded. Please return to the shop and add your flowers again.";document.querySelector(".submit").disabled=true}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+document.getElementById("deliveryForm").addEventListener("submit",e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.currentTarget));const itemText=(order.items||[]).map(x=>x.name+" - $"+x.price).join("\n");const body="MAISON ANNA ORDER REQUEST\n\n"+itemText+"\nOrder total: $"+Number(order.total||0)+"\n\nCUSTOMER\n"+Object.entries(f).map(([k,v])=>k+": "+v).join("\n")+"\n\nDispatch from Miami, Florida 33131\nShipping charge: quote required; not yet calculated.\nPayment: not collected; awaiting confirmed quote and payment setup.";location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Maison Anna international order request")+"&body="+encodeURIComponent(body)});
+</script>
+</body>
+</html>
