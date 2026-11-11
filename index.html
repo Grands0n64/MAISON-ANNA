@@ -1,249 +1,200 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f9dce8">
-<meta name="description" content="Maison Anna — a luxury floral house devoted to timeless romance, exceptional roses and bespoke floral experiences.">
-<title>Maison Anna — The Art of Giving Flowers</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Anna Flowers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#29231f;--muted:#81766e;--paper:#f8f5ef;--cream:#eee7dc;--rose:#a45f65;--line:#e5ddd2;--white:#fffdfa}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}a{color:inherit;text-decoration:none}button,input,select{font:inherit}.announcement{background:#302824;color:#f7eee4;text-align:center;padding:10px 16px;font-size:10px;letter-spacing:.2em;text-transform:uppercase}.nav{height:82px;display:flex;align-items:center;justify-content:space-between;padding:0 5.5%;border-bottom:1px solid var(--line);background:#f8f5efed;position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}.brand{font-family:'Cormorant Garamond',serif;font-size:32px;letter-spacing:.13em;line-height:1}.brand small{display:block;text-align:center;font:9px 'DM Sans';letter-spacing:.28em;margin-top:6px;color:var(--muted)}.navlinks{display:flex;gap:30px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}.navlinks a:hover{color:var(--rose)}.navright{font-size:11px;letter-spacing:.12em;text-transform:uppercase}.hero{min-height:630px;display:grid;grid-template-columns:1fr 1fr;background:#e9dfd3}.hero-copy{padding:100px 9% 90px 12%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.eyebrow{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--rose);font-weight:600}.hero h1{font:500 clamp(55px,6.5vw,94px)/.91 'Cormorant Garamond',serif;letter-spacing:-.035em;margin:26px 0}.hero p{max-width:390px;color:#655b54;font:17px/1.8 'Cormorant Garamond',serif}.btn{border:1px solid var(--ink);padding:16px 24px;display:inline-flex;align-items:center;justify-content:center;gap:12px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;background:transparent;cursor:pointer;transition:.2s}.btn.dark{background:var(--ink);color:white}.btn:hover{background:var(--rose);border-color:var(--rose);color:white}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.hero-image{min-height:630px;background:linear-gradient(0deg,#241b1720,#241b1700),url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1600&q=88') center/cover}.intro{text-align:center;padding:88px 20px 58px}.intro h2,.section-title{font:500 clamp(38px,4vw,56px)/1 'Cormorant Garamond',serif;margin:14px 0}.intro p{max-width:590px;margin:18px auto 0;color:var(--muted);font:17px/1.7 'Cormorant Garamond',serif}.catalog{padding:20px 5.5% 100px}.toolbar{display:flex;justify-content:space-between;gap:18px;align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin:24px 0 28px;flex-wrap:wrap}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:transparent;padding:10px 14px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}.filter.active,.filter:hover{background:var(--ink);color:white;border-color:var(--ink)}.tools{display:flex;gap:10px}.tools input,.tools select{border:1px solid var(--line);background:var(--white);padding:11px 12px;font-size:11px;min-width:145px;color:var(--ink)}.count{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:34px 18px}.product{min-width:0}.photo{position:relative;aspect-ratio: .82;overflow:hidden;background:#e9e0d7}.photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s}.product:hover .photo img{transform:scale(1.045)}.tag{position:absolute;top:13px;left:13px;background:#f8f5efed;padding:8px 10px;font-size:8px;letter-spacing:.16em;text-transform:uppercase}.product-info{padding:14px 2px 0}.product-type{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose)}.product h3{font:500 25px/1.05 'Cormorant Garamond',serif;margin:8px 0}.desc{font-size:11px;line-height:1.65;color:var(--muted);min-height:37px}.product-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px}.price{font:600 16px 'Cormorant Garamond',serif}.details{border:0;border-bottom:1px solid var(--ink);background:none;padding:4px 0;font-size:9px;letter-spacing:.13em;text-transform:uppercase;cursor:pointer}.empty{text-align:center;padding:60px;color:var(--muted);grid-column:1/-1}.manifesto{display:grid;grid-template-columns:1fr 1fr;background:#e9dfd3}.manifesto-img{min-height:500px;background:url('https://images.unsplash.com/photo-1494972308805-463bc619d34e?auto=format&fit=crop&w=1200&q=85') center/cover}.manifesto-copy{padding:80px 12%;display:flex;flex-direction:column;justify-content:center}.manifesto-copy h2{font:500 54px/.98 'Cormorant Garamond',serif;margin:18px 0}.manifesto-copy p{font:17px/1.8 'Cormorant Garamond',serif;color:#655b54}.private{padding:100px 20px;text-align:center;background:#302824;color:#f8f2e9}.private h2{font:500 clamp(42px,5vw,68px)/.98 'Cormorant Garamond',serif;margin:18px auto;max-width:760px}.private p{max-width:600px;margin:0 auto 28px;color:#d2c5b8;font:17px/1.7 'Cormorant Garamond',serif}.private .btn{border-color:#d8c8b8;color:#f8f2e9}.notes{padding:60px 6%;display:grid;grid-template-columns:repeat(3,1fr);gap:35px;text-align:center}.notes h3{font:500 25px 'Cormorant Garamond',serif}.notes p{font-size:11px;color:var(--muted);line-height:1.8;max-width:280px;margin:auto}.footer{background:#eee7dc;padding:55px 6% 25px}.foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}.footer p{font:16px/1.6 'Cormorant Garamond',serif;color:var(--muted);max-width:340px}.foot-links{display:flex;gap:22px;align-items:flex-start;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.copyright{border-top:1px solid #d9d0c5;margin-top:40px;padding-top:18px;display:flex;justify-content:space-between;color:var(--muted);font-size:9px;letter-spacing:.12em;text-transform:uppercase}.modal{position:fixed;inset:0;background:#211a17a8;z-index:30;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.modal-card{background:var(--paper);max-width:540px;width:100%;padding:36px;position:relative;max-height:90vh;overflow:auto}.close{position:absolute;right:18px;top:15px;border:0;background:none;font-size:24px;cursor:pointer}.modal-card h2{font:500 38px 'Cormorant Garamond',serif;margin:10px 0}.modal-card p{color:var(--muted);font-size:13px;line-height:1.7}.modal-price{font:600 24px 'Cormorant Garamond',serif}.fine{font-size:10px!important;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:20px}.contact-link{display:inline-block;margin-top:12px;border-bottom:1px solid;padding-bottom:5px;font-size:10px;letter-spacing:.15em;text-transform:uppercase}
-@media(max-width:950px){.grid{grid-template-columns:repeat(3,1fr)}.hero-copy{padding-left:8%}.navlinks{gap:15px}}@media(max-width:650px){.nav{height:70px;padding:0 5%}.brand{font-size:26px}.navlinks{display:none}.hero{grid-template-columns:1fr}.hero-copy{padding:75px 8%}.hero-image{min-height:390px;grid-row:1}.hero{display:flex;flex-direction:column-reverse}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:25px 12px}.catalog{padding-left:4%;padding-right:4%}.tools{width:100%}.tools input{flex:1;min-width:0}.tools select{min-width:110px}.manifesto{grid-template-columns:1fr}.manifesto-img{min-height:330px}.manifesto-copy{padding:60px 8%}.notes{grid-template-columns:1fr;padding:45px 8%}.copyright{gap:12px;flex-direction:column}.intro{padding:65px 20px 35px}.product h3{font-size:22px}.desc{font-size:10px}.photo{aspect-ratio:.78}}
+:root{--pink:#FCE4EC;--card:#FFF5F8;--green:#1F3D33;--rose:#B5173F;--yellow:#F7D861;--blush:#F5C6D4}
+*{box-sizing:border-box;margin:0}
+body{background:var(--pink);color:var(--green);font:500 16px/1.5 "Nunito",system-ui,sans-serif;padding:12px 12px 90px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
 
-.delivery[hidden]{display:none!important}.delivery{padding:100px 7%;display:grid;grid-template-columns:1fr 1fr;gap:8%;background:#eee7dc}.delivery-copy h2{font:500 clamp(44px,5vw,68px)/.95 'Cormorant Garamond',serif;margin:18px 0}.delivery-copy>p{font:17px/1.8 'Cormorant Garamond',serif;color:#655b54;max-width:550px}.delivery-points{margin-top:35px;border-top:1px solid #d9d0c5}.delivery-points>div{display:flex;gap:20px;padding:18px 0;border-bottom:1px solid #d9d0c5}.delivery-points b{font:500 20px 'Cormorant Garamond',serif;color:var(--rose)}.delivery-points strong,.delivery-points small{display:block}.delivery-points strong{font:500 21px 'Cormorant Garamond',serif}.delivery-points small{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}.delivery-form{background:var(--white);padding:32px;display:flex;flex-direction:column;gap:13px}.delivery-form h3{font:500 34px 'Cormorant Garamond',serif;margin:0 0 6px}.delivery-form label{display:flex;flex-direction:column;gap:6px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.delivery-form input,.delivery-form select,.delivery-form textarea{width:100%;border:1px solid var(--line);background:#fff;padding:12px;color:var(--ink);font:12px 'DM Sans',sans-serif;letter-spacing:normal;text-transform:none}.delivery-form textarea{resize:vertical}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-note{font-size:10px;line-height:1.6;color:var(--muted);margin:0}.delivery-form .btn{width:100%}
-@media(max-width:750px){.delivery{grid-template-columns:1fr;padding:65px 6%;gap:35px}.form-row{grid-template-columns:1fr}}
+.top{position:sticky;top:10px;z-index:20;background:var(--card);border-radius:32px;padding:14px 18px;box-shadow:0 8px 24px #b5173f22;max-width:1100px;margin:0 auto}
+.row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.left{display:flex;gap:6px}
+.icon{background:none;border:0;font-size:1.5rem;padding:6px}
+.logo{text-align:center;text-decoration:none;font-weight:800;font-size:clamp(1.4rem,6vw,2.2rem);letter-spacing:.04em;line-height:1}
+.logo small{display:block;font-size:.5rem;letter-spacing:.3em;color:#5c7a6c;margin-top:6px;font-weight:700}
+.cart{justify-self:end;position:relative}
+#badge{position:absolute;top:-2px;right:-4px;background:#E8508A;color:#fff;border-radius:50%;min-width:22px;height:22px;font-size:.8rem;font-weight:800;display:grid;place-items:center}
+#menu{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--blush)}
+#menu[hidden],#q[hidden]{display:none}
+.chip{background:none;border:1.5px solid var(--green);border-radius:999px;padding:5px 14px;font-size:.85rem;font-weight:700}
+.chip[aria-pressed="true"]{background:var(--green);color:#fff}
+#q{width:100%;margin-top:12px;padding:10px 16px;border-radius:999px;border:1.5px solid var(--blush);font:inherit;background:#fff}
 
-/* MAISON ANNA blush-pink storefront refresh */
-:root{--ink:#34212b;--muted:#8e6c7a;--paper:#fff5f8;--cream:#fce3ec;--rose:#d63384;--line:#f0cbd9;--white:#fffafd}
-body{background:#fff5f8;color:#34212b}
-.announcement{background:#bd3975;color:#fff4f8}
-.nav{background:#fff0f5f2;border-bottom:1px solid #efc4d5;box-shadow:0 5px 22px #a43b6810}
-.brand{color:#bd3975}
-.brand small{color:#986b7e}
-.navlinks a:hover,.navright:hover{color:#d63384}
-.hero{background:#f8dce8}
-.hero-copy{background:linear-gradient(135deg,#ffeaf1,#f7cddd)}
-.hero h1{color:#492737}
-.hero p{color:#765464}
-.hero-image{background-image:linear-gradient(0deg,#6e244015,#6e244000),url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1600&q=88')}
-.eyebrow,.product-type{color:#c12d73}
-.btn{border-color:#c12d73;color:#a72b68}
-.btn.dark{background:#c12d73;border-color:#c12d73;color:white}
-.btn:hover,.filter.active,.filter:hover{background:#a92764;border-color:#a92764;color:#fff}
-.intro{background:#fff5f8}
-.catalog{background:#fff5f8}
-.toolbar{border-color:#efcbd9}
-.filter{border-color:#ecc5d5;color:#814d65;background:#fffafd}
-.tools input,.tools select{border-color:#ecc5d5;background:#fffafd}
-.photo{background:#f8dce8;border-radius:24px;border:2px solid #fff;box-shadow:0 8px 25px #b84e7b16}
-.photo img{border-radius:22px}
-.tag{background:#f8d34c;color:#372b21;border-radius:30px;font-weight:700;padding:10px 14px}
-.product-info{padding:14px 4px 0}
-.product h3{font-family:'DM Sans',sans-serif;font-weight:700;font-size:17px;color:#3b2932}
-.price{font-family:'DM Sans',sans-serif;color:#bd286c;font-size:16px;font-weight:700}
-.product-bottom{align-items:center}
-.details{border:0;border-radius:30px;background:#c12d73;color:white;padding:12px 15px;font-weight:700;font-size:9px;letter-spacing:.08em}
-.details:hover{background:#922354;color:white}
-.manifesto{background:#f8dce8}
-.manifesto-copy{background:#f8dce8}
-.private{background:#bd3975;color:#fff5f8}
-.private p{color:#ffe0eb}
-.private .btn{border-color:#fff;color:#fff}
-.notes{background:#fff0f5}
-.notes h3{color:#542b3e}
-.footer{background:#f8dce8}
-.modal-card{background:#fff5f8}
-.delivery{background:#f8dce8}
-.delivery-form{background:#fffafd;border:1px solid #efc5d7}
-.delivery-form input,.delivery-form select,.delivery-form textarea{border-color:#edc5d6;background:#fff7fa}
-.delivery-points{border-color:#e8b7cb}
-.delivery-points>div{border-color:#e8b7cb}
-.mobile-menu,.search-shortcut,.cart-button{border:0;background:transparent;color:#4d293b;cursor:pointer}
-.mobile-menu{display:none;font-size:23px}
-.nav-actions{display:flex;align-items:center;gap:17px}
-.search-shortcut{font-size:29px}
-.cart-button{font-size:24px;position:relative}
-.cart-button span{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border-radius:50%;background:#e83e91;color:white;font-size:11px;vertical-align:top}
-@media(max-width:650px){
- .announcement{font-size:8px;padding:9px}
- .nav{height:78px;padding:0 4%;border-radius:0 0 22px 22px}
- .mobile-menu{display:block}
- .brand{font-size:23px;letter-spacing:.08em}
- .brand small{font-size:8px}
- .navlinks{display:none;position:absolute;top:78px;left:0;right:0;background:#fff0f5;padding:18px 24px;box-shadow:0 12px 18px #87365318;flex-direction:column;gap:18px}
- .navlinks.show{display:flex}
- .nav-actions{gap:9px}
- .hero{display:flex;flex-direction:column-reverse}
- .hero-image{min-height:320px}
- .hero-copy{padding:45px 7% 55px}
- .hero h1{font-size:58px}
- .intro{padding:48px 18px 30px}
- .catalog{padding:28px 4% 65px}
- .section-title{font-size:39px}
- .toolbar{margin:18px 0 22px}
- .filters{flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:5px}
- .filter{white-space:nowrap}
- .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 12px}
- .photo{aspect-ratio:.78;border-radius:22px}
- .product h3{font-size:15px;line-height:1.2}
- .desc{min-height:0;font-size:10px}
- .product-bottom{align-items:flex-start;flex-direction:column;gap:10px}
- .details{width:100%;padding:12px 6px}
- .manifesto-img{min-height:290px}
- .manifesto-copy h2{font-size:45px}
- .delivery{padding:55px 5%}
- .delivery-form{padding:22px}
-}
+.intro{max-width:1100px;margin:28px auto 8px;padding:0 8px}
+.intro h1{font-size:clamp(1.6rem,5vw,2.6rem);line-height:1.15;font-weight:800}
+.intro p{margin-top:6px;color:#5c7a6c}
+#followers{font-weight:700}
+
+.grid{max-width:1100px;margin:20px auto 0;display:grid;grid-template-columns:repeat(2,1fr);gap:28px 14px}
+@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr);gap:36px 20px}}
+.ph{position:relative;aspect-ratio:4/5;border-radius:28px;overflow:hidden;background:linear-gradient(160deg,#F9D3DF,#EFB3C6);box-shadow:0 8px 20px #b5173f1f;border:1px solid #fff8}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.save{position:absolute;top:12px;left:12px;background:var(--yellow);color:var(--green);font-weight:800;font-size:.75rem;padding:8px 14px;border-radius:999px;z-index:2;transform:rotate(-4deg)}
+.add{position:absolute;right:10px;bottom:10px;background:var(--green);color:#fff;border:1px solid #ffffff55;border-radius:999px;padding:11px 16px;font-weight:800;font-size:.78rem;letter-spacing:.1em;text-decoration:none;display:inline-block}
+.card h3{font-size:1.1rem;font-weight:800;margin-top:12px;line-height:1.25}
+.pr{margin-top:2px;font-size:1.05rem}
+.pr b{font-weight:800}.pr b.sale{color:var(--rose)}
+.pr s{color:#6d7c74;margin-left:6px}
+.where{font-size:.8rem;color:#5c7a6c}
+.empty{grid-column:1/-1;padding:30px 0}
+
+.chat{position:fixed;right:14px;bottom:16px;z-index:25;background:var(--green);color:#fff;text-decoration:none;border-radius:999px;padding:14px 22px;font-size:1.05rem;box-shadow:0 8px 20px #0003}
+footer{max-width:1100px;margin:60px auto 0;padding:24px 8px;border-top:1px solid var(--blush);font-size:.85rem;color:#5c7a6c}
+
+dialog{border:0;border-radius:28px;padding:24px;width:min(92vw,440px);background:var(--card);color:var(--green)}
+dialog::backdrop{background:#1f3d3355}
+dialog h2{font-size:1.4rem;margin-bottom:12px}
+.line{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--blush)}
+.line button{background:none;border:0;color:var(--rose);font-weight:700}
+.total{font-weight:800;font-size:1.2rem;margin:14px 0}
+.actions{display:flex;gap:10px;align-items:center}
+.actions .add{position:static}
+.actions .chip{padding:10px 18px}
 </style>
 </head>
 <body>
-<div class="announcement">Complimentary private consultation on bespoke floral commissions</div>
-<header class="nav"><button class="mobile-menu" aria-label="Open menu" onclick="document.querySelector('.navlinks').classList.toggle('show')">☰</button><a href="#" class="brand">MAISON ANNA<small>MAISON FLORALE</small></a><nav class="navlinks"><a href="#collection">Shop flowers</a><a href="#atelier">Our story</a><a href="#delivery">Delivery</a><a href="#private">Bespoke</a></nav><div class="nav-actions"><button class="search-shortcut" onclick="document.getElementById('search').focus()" aria-label="Search">⌕</button><button class="cart-button" onclick="document.getElementById('delivery').hidden=false;document.getElementById('delivery').scrollIntoView({behavior:'smooth'})">♧ <span id="cartCount">0</span></button></div></header>
-<main>
-<section class="hero"><div class="hero-copy"><span class="eyebrow">The art of giving flowers</span><h1>Love, in its<br>most beautiful<br>form.</h1><p>Romantic flowers, composed with intention. Discover an extraordinary collection of roses, peonies, tulips and bespoke floral gestures.</p><div class="hero-actions"><a class="btn dark" href="#collection">Discover the collection <span>↗</span></a><a class="btn" href="#delivery">Delivery enquiries</a></div></div><div class="hero-image" role="img" aria-label="Romantic floral arrangement"></div></section>
-<section class="intro" id="atelier"><span class="eyebrow">A floral house for meaningful gestures</span><h2>Not simply flowers. A feeling.</h2><p>From a single unforgettable gesture to a room transformed in bloom, every Maison Anna creation begins with a sentiment and is finished with extraordinary care.</p></section>
-<section class="catalog" id="collection"><div class="eyebrow">The Maison Anna collection</div><h2 class="section-title">Choose something unforgettable.</h2><div class="toolbar"><div class="filters"><button class="filter active" data-filter="All">All creations</button><button class="filter" data-filter="Roses">Roses</button><button class="filter" data-filter="Classic">Classic blooms</button><button class="filter" data-filter="Signature">Signature</button><button class="filter" data-filter="Experiences">Grand experiences</button></div><div class="tools"><input id="search" type="search" placeholder="Find a flower or arrangement…" aria-label="Search collection"><select id="sort" aria-label="Sort products"><option value="featured">Featured order</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div></div><div class="count" id="count">50 curated creations</div><div class="grid" id="products"></div></section>
-<section class="manifesto"><div class="manifesto-img" role="img" aria-label="Elegant roses"></div><div class="manifesto-copy"><span class="eyebrow">The Maison Anna signature</span><h2>Romance deserves<br>an extraordinary<br>expression.</h2><p>Considered palettes, beautiful flowers and thoughtful presentation. Our signature is understated elegance, made personal for the person who matters most.</p><a class="btn" href="#private">Discover bespoke design ↗</a></div></section>
 
-<section class="delivery" id="delivery" hidden>
- <div class="delivery-copy"><span class="eyebrow">From our atelier to their door</span><h2>Beautifully delivered.</h2><p>Every order is prepared with care and coordinated around your chosen date. We accept delivery enquiries across the United States and Europe. Delivery availability, flower sourcing and any import or courier requirements are confirmed for your exact destination before payment.</p>
- <div class="delivery-points"><div><b>01</b><span><strong>Choose your flowers</strong><small>Select an arrangement or request a bespoke design.</small></span></div><div><b>02</b><span><strong>Confirm your destination</strong><small>Share the recipient's full address and preferred delivery date.</small></span></div><div><b>03</b><span><strong>Receive your quotation</strong><small>We confirm availability, delivery fees and the final total before you pay.</small></span></div></div>
- </div>
- <form class="delivery-form" id="deliveryForm"><span class="eyebrow">Delivery enquiry</span><h3>Where shall we deliver?</h3>
- <label>Your name<input name="customer" required placeholder="Full name"></label>
- <label>Email address<input name="email" type="email" required placeholder="you@example.com"></label>
- <label>Recipient's name<input name="recipient" required placeholder="Recipient's full name"></label>
- <label>Country<select name="country" required><option value="">Select destination</option><option>United States</option><option>United Kingdom</option><option>France</option><option>Germany</option><option>Italy</option><option>Spain</option><option>Netherlands</option><option>Switzerland</option><option>Other / Europe</option></select></label>
- <label>Full delivery address<textarea name="address" required rows="3" placeholder="Street, city, state/region and postal code"></textarea></label>
- <div class="form-row"><label>Preferred delivery date<input name="date" type="date" required></label><label>Selected flower arrangement<input id="selectedProduct" name="product" required readonly placeholder="Choose a flower first"></label></div>
- <label>Message or special instructions<textarea name="notes" rows="2" placeholder="Card message, colour preferences or delivery notes"></textarea></label>
- <button class="btn dark" type="submit">Prepare delivery request ↗</button><p class="form-note" id="deliveryStatus">After selecting a flower, enter the recipient and delivery address here. Maison Anna must confirm the delivery fee and payment separately.</p>
- </form>
+<header class="top">
+  <div class="row">
+    <div class="left">
+      <button class="icon" id="menuBtn" aria-label="Menu" aria-expanded="false">☰</button>
+      <button class="icon" id="searchBtn" aria-label="Search">🔍</button>
+    </div>
+    <a class="logo" href="#" id="logo" aria-label="Maison Anna Flowers"></a>
+    <button class="icon cart" id="cartBtn" aria-label="Open cart">🛒<span id="badge">0</span></button>
+  </div>
+  <nav id="menu" hidden aria-label="Filters">
+    <div id="regions" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    <div id="prices" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+  </nav>
+  <input id="q" type="search" placeholder="Search flowers" hidden aria-label="Search flowers">
+</header>
+
+<section class="intro">
+  <h1>Luxury flowers for the USA and Europe</h1>
+  <p>Arrangements from $500 to $1,000,000. <span id="followers"></span></p>
 </section>
-<section class="private" id="private"><span class="eyebrow" style="color:#d8a8a8">The private atelier</span><h2>For the gestures that deserve no ordinary measure.</h2><p>Our grand floral commissions are conceived for proposals, anniversaries, private residences, celebrations and extraordinary spaces. Each large-scale experience is scoped individually with a written proposal.</p><a class="btn" href="mailto:">Request a private consultation ↗</a></section>
-<section class="notes"><div><span class="eyebrow">01 / Considered</span><h3>Thoughtful selection</h3><p>Romantic flowers and composed palettes, selected to make every gesture feel personal.</p></div><div><span class="eyebrow">02 / Personal</span><h3>Made to be remembered</h3><p>From intimate bouquets to ambitious floral environments, each commission has its own story.</p></div><div><span class="eyebrow">03 / Worldwide</span><h3>International enquiries</h3><p>Serving clients in the United States, Europe and beyond, subject to location and delivery feasibility.</p></div></section>
-</main>
-<footer class="footer"><div class="foot-top"><div><a href="#" class="brand">MAISON ANNA<small>MAISON FLORALE</small></a><p>Where love meets luxury. An independent floral house devoted to timeless romance and exceptional floral artistry.</p></div><div class="foot-links"><a href="#collection">Collection</a><a href="#atelier">Our atelier</a><a href="#delivery">Delivery</a><a href="#private">Private commissions</a></div></div><div class="copyright"><span>© 2026 Maison Anna</span><span>The art of giving flowers.</span></div></footer>
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button class="close" id="close" aria-label="Close">×</button><span class="eyebrow" id="modalType">Maison Anna</span><h2 id="modalTitle"></h2><div class="modal-price" id="modalPrice"></div><p id="modalDesc"></p><p class="fine">All prices shown are proposed starting prices for the described scale and presentation. Large-scale commissions require a written scope, availability confirmation, delivery assessment and signed quotation. No payment is collected on this preview site.</p></div></div>
+
+<main class="grid" id="grid"></main>
+
+<footer>© Maison Anna Flowers. Every order is confirmed personally.</footer>
+
+<a class="chat" href="mailto:Riayoung280@gmail.com?subject=Live%20chat%20request">💬 Live chat</a>
+
+<dialog id="cartDlg">
+  <h2>Your cart</h2>
+  <div id="items"></div>
+  <p class="total" id="total"></p>
+  <div class="actions">
+    <a class="add" id="checkout" href="#">CHECKOUT</a>
+    <button class="chip" id="closeCart">Close</button>
+  </div>
+</dialog>
+
 <script>
-const items = [
-["The First Red Roses","Roses","A generous hand-tied expression of classic red roses.","$500",500,"red roses flower bouquet","Classic"],
-["A Hundred Reasons","Roses","One hundred premium red roses, presented in an elegant wrap.","$750",750,"red roses bouquet","Classic"],
-["Blush Devotion","Roses","Blush garden roses with soft seasonal accents.","$950",950,"pink garden roses","Classic"],
-["The White Romance","Classic","White roses and delicate lisianthus in an ivory presentation.","$1,250",1250,"white roses lisianthus bouquet","Classic"],
-["Velvet Rose Box","Roses","A keepsake presentation filled with premium red roses.","$1,500",1500,"red rose box","Classic"],
-["The Peony Affair","Classic","Seasonal peonies in a soft, romantic palette.","$1,850",1850,"pink peonies bouquet","Classic"],
-["Pink Champagne","Roses","Pink roses, garden roses and refined seasonal foliage.","$2,250",2250,"pink roses bouquet","Classic"],
-["Ivory Tulip Garden","Classic","An abundant arrangement of premium white tulips.","$2,750",2750,"white tulips bouquet","Classic"],
-["The Juliet Collection","Roses","A garden-inspired arrangement of premium romantic roses.","$3,500",3500,"juliet garden roses","Classic"],
-["Orchid & Rose No. 1","Classic","White orchids paired with timeless long-stem roses.","$4,500",4500,"white orchids roses bouquet","Classic"],
-["A Thousand Kisses","Roses","An abundant rose presentation designed for a grand declaration.","$5,000",5000,"red roses bouquet","Signature"],
-["The Grand Peony Edit","Classic","A generous peony-led composition with premium finishing.","$7,500",7500,"pink peonies","Signature"],
-["Forever in Bloom","Roses","A statement rose arrangement in a bespoke display.","$10,000",10000,"luxury rose arrangement","Signature"],
-["The Orchid Residence","Classic","An elegant orchid and rose installation for a private room.","$12,500",12500,"white orchid arrangement","Signature"],
-["Rose Petal Reverie","Roses","A romantic rose setting with a coordinated floral pathway.","$15,000",15000,"rose petal floral design","Signature"],
-["The Proposal Moment","Experiences","A bespoke proposal setting with premium roses and candlelit styling.","$18,500",18500,"red roses proposal flowers","Signature"],
-["A Garden of Yes","Experiences","A rose-led proposal environment designed around your story.","$22,500",22500,"rose garden proposal flowers","Signature"],
-["The Rose Gallery","Experiences","A curated floral feature wall for a private celebration.","$27,500",27500,"rose flower wall","Signature"],
-["Blush Ballroom","Experiences","A romantic ballroom floral concept with roses and peonies.","$35,000",35000,"pink roses peonies ballroom","Signature"],
-["The Grand Entrance","Experiences","A floral entrance and staircase concept for a private venue.","$45,000",45000,"flower staircase installation","Signature"],
-["A Rose-Filled Suite","Experiences","A full luxury suite styling concept with romantic floral details.","$55,000",55000,"rose suite floral decor","Experiences"],
-["The Anniversary Estate","Experiences","A multi-room anniversary floral design for a private residence.","$65,000",65000,"anniversary estate flowers","Experiences"],
-["The White Orchid Affair","Classic","An expansive white orchid and rose display for a grand occasion.","$75,000",75000,"white orchid rose display","Experiences"],
-["The Rose Conservatory","Experiences","A temporary rose garden concept for a private celebration.","$85,000",85000,"rose garden installation","Experiences"],
-["The Palace Proposal","Experiences","A large-scale proposal concept across a selected venue.","$100,000",100000,"rose proposal floral decor","Experiences"],
-["A Thousand Peonies","Classic","A large-format peony installation, subject to seasonal availability.","$125,000",125000,"peony flower installation","Experiences"],
-["The Rose Staircase","Experiences","A statement staircase dressed in roses and complementary blooms.","$150,000",150000,"rose staircase decor","Experiences"],
-["The Grand Floral Residence","Experiences","A coordinated floral design concept for a large private residence.","$175,000",175000,"luxury residence flowers","Experiences"],
-["The Private Ballroom","Experiences","A bespoke ballroom floral environment for an exceptional celebration.","$200,000",200000,"ballroom flower installation","Experiences"],
-["The Estate in Bloom","Experiences","A multi-area floral transformation concept for a private estate.","$225,000",225000,"estate floral decor","Experiences"],
-["The Rose Pavilion","Experiences","A custom rose pavilion and surrounding floral experience.","$250,000",250000,"rose pavilion flowers","Experiences"],
-["The Royal Garden Celebration","Experiences","A large-scale garden celebration with coordinated floral design.","$300,000",300000,"garden celebration flowers","Experiences"],
-["The Palace in Petals","Experiences","A multi-space palace floral concept with premium seasonal blooms.","$350,000",350000,"palace floral decor","Experiences"],
-["The Grand Rose Weekend","Experiences","A multi-day floral experience for a destination celebration.","$400,000",400000,"rose event installation","Experiences"],
-["The Private Island Romance","Experiences","A destination floral concept for an island proposal or celebration.","$450,000",450000,"island wedding flowers","Experiences"],
-["The Estate Wedding Collection","Experiences","A comprehensive floral production concept for an estate wedding.","$500,000",500000,"estate wedding flowers","Experiences"],
-["The Grand Conservatory","Experiences","A custom botanical-style floral environment for a major private event.","$550,000",550000,"flower conservatory installation","Experiences"],
-["The European Palace Commission","Experiences","A multi-day, multi-space floral commission for a landmark venue.","$600,000",600000,"palace floral installation","Experiences"],
-["The Celebration of a Lifetime","Experiences","A destination-scale floral concept for an extraordinary celebration.","$650,000",650000,"celebration floral installation","Experiences"],
-["The Grand Garden Residence","Experiences","A comprehensive estate garden and interior floral commission.","$700,000",700000,"estate garden flowers","Experiences"],
-["The Royal Wedding Atelier","Experiences","An extensive bespoke floral production for a multi-day wedding.","$750,000",750000,"luxury wedding flowers","Experiences"],
-["The International Floral Gala","Experiences","A large-scale floral production across a major gala venue.","$800,000",800000,"gala flower installation","Experiences"],
-["The Grand Private Estate","Experiences","A full-estate floral concept with several bespoke environments.","$850,000",850000,"private estate flowers","Experiences"],
-["The Palace Celebration","Experiences","A destination palace floral production with custom design and logistics.","$900,000",900000,"palace flower arrangement","Experiences"],
-["The Maison Anna World Commission","Experiences","A multi-location floral concept for an exceptional private celebration.","$925,000",925000,"luxury floral commission","Experiences"],
-["The Grand Romantic Production","Experiences","A comprehensive destination floral production with custom installations.","$950,000",950000,"grand romantic flower installation","Experiences"],
-["The One Million Rose Experience","Experiences","An ambitious, custom-scoped rose-led floral production for a landmark occasion.","$975,000",975000,"million roses installation","Experiences"],
-["The Maison Anna Million-Dollar Commission","Experiences","An individually designed, full-scale floral experience with venue, sourcing, production and logistics scope.","$1,000,000",1000000,"million dollar floral installation","Experiences"],
-["The Eternal Love Collection","Roses","A signature red and blush rose collection for a landmark anniversary.","$1,100",1100,"red blush roses bouquet","Roses"],
-["The Blush Peony Box","Classic","Soft blush peonies in a keepsake presentation.","$1,650",1650,"pink peonies flower box","Classic"],
-];
+const GITHUB_USERNAME="Maison-Anna";
+const EMAIL="Riayoung280@gmail.com";
 
-const flowerPhotoSets={
- rose:[
- "https://static-assets-prod.fnp.com/images/pr/l/v20230123180524/love-snowflake-bouquet_2.jpg",
- "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85",
- "https://images.unsplash.com/photo-1494972308805-463bc619d34e?auto=format&fit=crop&w=1000&q=85",
- "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1000&q=85",
- "https://images.unsplash.com/photo-1548586196-aa5803b77379?auto=format&fit=crop&w=1000&q=85"
- ],
- peony:[
- "https://lovflowers.co.uk/cdn/shop/files/pink_peonies_3200x.jpg?v=1781700608",
- "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=1000&q=85",
- "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=1000&q=85"
- ],
- tulip:[
- "https://content2.flowwow-images.com/data/flowers/524x524/52/1765890901_87941752.jpg",
- "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=1000&q=85",
- "https://images.unsplash.com/photo-1499002238440-d264edd596ec?auto=format&fit=crop&w=1000&q=85"
- ],
- orchid:[
- "https://www.flowersacrossindia.com/cdn/shop/products/FAIHD20170484.jpg?v=1554454183",
- "https://atelierfloralcroix.fr/cdn/shop/files/palais-royal.webp?v=1683557110",
- "https://merchantandgreen.com.au/images/products/zeo0j8uq9p.jpg"
- ],
- mixed:[
- "https://florster.co/cdn/shop/products/just-right-front.jpg?v=1668465251&width=1445",
- "https://www.marmarisflora.com/uploads/default_name_21.webp",
- "https://media.licdn.com/dms/image/v2/D4D10AQFChMZW6vtInA/image-shrink_1280/image-shrink_1280/0/1714543316660?e=2147483647&t=6Rb09Tyxu5lnChxnCybNOvJ-frlzNHcO0GC5QiiFSbU&v=beta"
- ]
+// Photos are free Unsplash images. Replace "img" with your own photo links any time.
+const U=id=>"https://unsplash.com/photos/"+id+"/download?force=true&w=800";
+const products=[
+ {n:"Blush Rose Bouquet",reg:"USA",city:"New York",p:500,from:true,img:"PYP3x1lEUXU"},
+ {n:"Garden Rose Vase",reg:"Europe",city:"Paris",p:1500,sale:true,img:"vN8HQcKv8Lg"},
+ {n:"Bridal Rose Collection",reg:"USA",city:"Los Angeles",p:2200,from:true,img:"ibdyFSFWOkg"},
+ {n:"Pink Peony Cloud",reg:"Europe",city:"Amsterdam",p:4500,img:"QfaXkfe5g3A"},
+ {n:"Parisian Rose Box",reg:"Europe",city:"Paris",p:990,from:true,sale:true,img:"nZc3vd7BoCg"},
+ {n:"Manhattan Pink Garden",reg:"USA",city:"New York",p:7500,from:true,img:"1Dy0nRW1Sas"},
+ {n:"Paper-Wrapped Roses",reg:"Europe",city:"London",p:650,from:true,img:"FXHCqfusN-c"},
+ {n:"Wedding Arch Collection",reg:"USA",city:"Miami",p:18000,from:true,img:"ibdyFSFWOkg"},
+ {n:"Château Estate Installation",reg:"Europe",city:"Loire Valley",p:240000,from:true,img:"vN8HQcKv8Lg"},
+ {n:"The Grand Gala Commission",reg:"Both",city:"New York and Paris",p:1000000,img:"PYP3x1lEUXU"}
+].map((x,i)=>({...x,id:i,price:x.sale?Math.round(x.p*0.9):x.p}));
+
+const fmt=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
+const $=id=>document.getElementById(id);
+
+// logo with coloured letters
+const colors=["#E8508A","#F0762C","#9B6BD6","#E8508A","#4F7A38"];
+$("logo").innerHTML=[..."MAISON ANNA"].map((c,i)=>c===" "?" ":`<span style="color:${colors[i%colors.length]}">${c}</span>`).join("")+"<small>FLOWERS · USA &amp; EUROPE</small>";
+
+// followers
+fetch("https://api.github.com/users/"+GITHUB_USERNAME)
+ .then(r=>r.ok?r.json():Promise.reject())
+ .then(u=>{$("followers").textContent=u.followers.toLocaleString("en-US")+" followers"})
+ .catch(()=>{});
+
+// filters
+const regions=["All","USA","Europe"];
+const bands=[["All prices",0,Infinity],["$500 – $5K",0,5000],["$5K – $50K",5000,50000],["$50K – $1M",50000,Infinity]];
+let region="All",band=0,query="",cart=[];
+
+function chips(box,items,label,set){
+  items.forEach((it,i)=>{
+    const b=document.createElement("button");
+    b.className="chip";b.textContent=label(it);
+    b.onclick=()=>{set(i);sync();render()};
+    $(box).appendChild(b);
+  });
+}
+function sync(){
+  document.querySelectorAll("#regions .chip").forEach((b,i)=>b.setAttribute("aria-pressed",regions[i]===region));
+  document.querySelectorAll("#prices .chip").forEach((b,i)=>b.setAttribute("aria-pressed",i===band));
+}
+chips("regions",regions,x=>x,i=>region=regions[i]);
+chips("prices",bands,x=>x[0],i=>band=i);
+
+$("menuBtn").onclick=()=>{const m=$("menu");m.hidden=!m.hidden;$("menuBtn").setAttribute("aria-expanded",!m.hidden)};
+$("searchBtn").onclick=()=>{const q=$("q");q.hidden=!q.hidden;if(!q.hidden)q.focus()};
+$("q").oninput=e=>{query=e.target.value.toLowerCase();render()};
+
+// products
+function render(){
+  const [,lo,hi]=bands[band];
+  const list=products.filter(x=>
+    (region==="All"||x.reg===region||x.reg==="Both")&&
+    x.price>lo&&x.price<=hi&&
+    (x.n+" "+x.city).toLowerCase().includes(query));
+  $("grid").innerHTML=list.length?list.map(x=>`
+    <article class="card">
+      <div class="ph">
+        ${x.sale?'<span class="save">SAVE 10%</span>':''}
+        <img src="${U(x.img)}" alt="${x.n}" loading="lazy" onerror="this.remove()">
+        <button class="add" data-id="${x.id}" aria-label="Add ${x.n} to cart">ADD TO 🛒</button>
+      </div>
+      <h3>${x.n}</h3>
+      <div class="where">${x.city}</div>
+      <div class="pr">${x.from?"From ":""}<b class="${x.sale?"sale":""}">${fmt(x.price)}</b>${x.sale?`<s>${fmt(x.p)}</s>`:""}</div>
+    </article>`).join(""):'<p class="empty">Nothing matches yet. Try another search or price.</p>';
+}
+$("grid").onclick=e=>{
+  const b=e.target.closest(".add");if(!b)return;
+  cart.push(+b.dataset.id);updateCart();
+  b.textContent="ADDED ✓";setTimeout(()=>b.textContent="ADD TO 🛒",1200);
 };
-function photoFor(p){
- const q=(p[5]+" "+p[0]).toLowerCase();
- const key=q.includes("peon")?"peony":q.includes("tulip")?"tulip":q.includes("orchid")?"orchid":q.includes("rose")?"rose":"mixed";
- const set=flowerPhotoSets[key]||flowerPhotoSets.mixed;
- return set[p.id%set.length];
-}
-function imageFallback(img){
- const set=flowerPhotoSets[img.dataset.kind]||flowerPhotoSets.mixed;
- let attempt=Number(img.dataset.attempt||0)+1;
- img.dataset.attempt=String(attempt);
- if(attempt<set.length){img.src=set[(Number(img.dataset.product||0)+attempt)%set.length];}
-}
 
-const money=n=>"$"+n.toLocaleString("en-US");
-const grid=document.getElementById("products"),count=document.getElementById("count"),search=document.getElementById("search"),sort=document.getElementById("sort");
-let active="All";
-function render(){let q=search.value.toLowerCase();let list=items.map((p,i)=>({...p,id:i})).filter(p=>(active==="All"||p[1]===active||p[6]===active)&&p.slice(0,4).join(" ").toLowerCase().includes(q));if(sort.value==="low")list.sort((a,b)=>a[4]-b[4]);if(sort.value==="high")list.sort((a,b)=>b[4]-a[4]);count.textContent=list.length+" curated creations";grid.innerHTML=list.map(p=>'<article class="product"><div class="photo"><img loading="lazy" src="'+photoFor(p)+'" data-product="'+p.id+'" data-kind="'+(p[5].includes("peon")?"peony":p[5].includes("tulip")?"tulip":p[5].includes("orchid")?"orchid":p[5].includes("rose")?"rose":"mixed")+'" onerror="imageFallback(this)" alt="'+p[0]+'"><span class="tag">'+p[1]+'</span></div><div class="product-info"><div class="product-type">MAISON ANNA · '+p[6]+'</div><h3>'+p[0]+'</h3><div class="desc">'+p[2]+'</div><div class="product-bottom"><span class="price">'+p[3]+'</span><button class="details add-cart" data-id="'+p.id+'">ADD TO CART　＋</button></div></div></article>').join("")||'<div class="empty">No creations found. Try another search.</div>';grid.querySelectorAll(".details").forEach(b=>b.addEventListener("click",()=>selectItem(Number(b.dataset.id))));}
-function selectItem(id){
- const p=items[id];
- document.getElementById("selectedProduct").value=cart.map(x=>x[0]+" — "+x[3]).join(", ");
- document.getElementById("delivery").hidden=false;
- document.getElementById("delivery").scrollIntoView({behavior:"smooth"});
+// cart
+function updateCart(){
+  $("badge").textContent=cart.length;
+  const total=cart.reduce((s,id)=>s+products[id].price,0);
+  $("items").innerHTML=cart.length?cart.map((id,i)=>`<div class="line"><span>${products[id].n}<br><small>${fmt(products[id].price)}</small></span><button data-r="${i}">Remove</button></div>`).join(""):"<p>Your cart is empty.</p>";
+  $("total").textContent=cart.length?"Total: "+fmt(total):"";
+  const body=cart.map(id=>products[id].n+" - "+fmt(products[id].price)).join("%0A")+"%0A%0ATotal: "+fmt(total);
+  $("checkout").href="mailto:"+EMAIL+"?subject=Order%20request&body="+body;
+  $("checkout").style.display=cart.length?"inline-block":"none";
 }
-function openItem(p){document.getElementById("modalType").textContent="Maison Anna · "+p[1];document.getElementById("modalTitle").textContent=p[0];document.getElementById("modalPrice").textContent=p[3];document.getElementById("modalDesc").textContent=p[2]+" This is a proposed commission level; final scope, flower availability, production and delivery are confirmed individually.";document.getElementById("modal").classList.add("open");}
-document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");active=b.dataset.filter;render()}));search.addEventListener("input",render);sort.addEventListener("change",render);document.getElementById("close").addEventListener("click",()=>document.getElementById("modal").classList.remove("open"));document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")e.currentTarget.classList.remove("open")});render();
+$("items").onclick=e=>{const r=e.target.dataset.r;if(r!==undefined){cart.splice(+r,1);updateCart()}};
+$("cartBtn").onclick=()=>$("cartDlg").showModal();
+$("closeCart").onclick=()=>$("cartDlg").close();
 
-document.getElementById("deliveryForm").addEventListener("submit",e=>{
- e.preventDefault();
- const data=new FormData(e.currentTarget);
- const message=["MAISON ANNA — DELIVERY REQUEST","",...Array.from(data.entries()).map(([k,v])=>k.toUpperCase()+": "+v)].join("\\n");
- const status=document.getElementById("deliveryStatus");
- if(navigator.clipboard&&navigator.clipboard.writeText){
-  navigator.clipboard.writeText(message).then(()=>{status.textContent="Your delivery details have been copied. Send them to Maison Anna to confirm availability, delivery fee and payment. No payment has been taken.";}).catch(()=>{status.textContent=message;});
- }else{status.textContent=message;}
-});
-
+sync();render();updateCart();
 </script>
-</body></html>
+</body>
+</html>
