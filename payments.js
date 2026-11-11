@@ -49,13 +49,22 @@
       <button type="button" class="ma-remove">Remove card</button>`;
     card.querySelector(".ma-remove").onclick = () => card.remove();
     $("ma-cards").appendChild(card);
+    card.querySelectorAll("input,select,textarea").forEach(control => { control.disabled = !$("ma-gift") || $("ma-gift").hidden; });
   }
   $("ma-add").onclick = addCard;
   addCard();
+  function setGiftFieldsEnabled(enabled) {
+    $("ma-cards").querySelectorAll("input,select,textarea").forEach(control => {
+      control.disabled = !enabled;
+    });
+  }
+  setGiftFieldsEnabled(false);
   methodInputs.forEach(input => input.addEventListener("change", () => {
     const crypto = input.value === "bitcoin" || input.value === "usdt_bep20";
+    const gift = input.value === "gift_card";
     $("ma-crypto").hidden = !crypto;
-    $("ma-gift").hidden = input.value !== "gift_card";
+    $("ma-gift").hidden = !gift;
+    setGiftFieldsEnabled(gift);
     $("ma-tx").required = crypto;
     if (input.value === "bitcoin") {
       wallet = BTC; $("ma-wallet-title").textContent = "Bitcoin receiving address";
