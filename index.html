@@ -97,10 +97,21 @@ const items = [
 ["The Eternal Love Collection","Roses","A signature red and blush rose collection for a landmark anniversary.","$1,100",1100,"red blush roses bouquet","Roses"],
 ["The Blush Peony Box","Classic","Soft blush peonies in a keepsake presentation.","$1,650",1650,"pink peonies flower box","Classic"],
 ];
+
+function photoFor(p){
+ const q=(p[5]+" "+p[0]).toLowerCase();
+ if(q.includes("peon")) return "https://lovflowers.co.uk/cdn/shop/files/pink_peonies_3200x.jpg?v=1781700608";
+ if(q.includes("tulip")) return "https://dauletten.kz/img/articles/state431_1646473180.jpg";
+ if(q.includes("orchid")) return "https://atelierfloralcroix.fr/cdn/shop/files/palais-royal.webp?v=1683557110";
+ if(q.includes("lily")) return "https://merchantandgreen.com.au/images/products/zeo0j8uq9p.jpg";
+ if(q.includes("mixed")||q.includes("celebration")||q.includes("ballroom")||q.includes("installation")||q.includes("estate")||q.includes("palace")||q.includes("wedding")||q.includes("residence")||q.includes("gala")) return "https://i1.fnp.sg/images/pr/x/v20210628135020/exquisite-mixed-flowers-black-vase-arrangement_3.jpg";
+ return "https://images.unsplash.com/photo-1615911285752-adf21310705a?auto=format&fit=crop&w=900&q=85";
+}
+
 const money=n=>"$"+n.toLocaleString("en-US");
 const grid=document.getElementById("products"),count=document.getElementById("count"),search=document.getElementById("search"),sort=document.getElementById("sort");
 let active="All";
-function render(){let q=search.value.toLowerCase();let list=items.map((p,i)=>({...p,id:i})).filter(p=>(active==="All"||p[1]===active||p[6]===active)&&p.slice(0,4).join(" ").toLowerCase().includes(q));if(sort.value==="low")list.sort((a,b)=>a[4]-b[4]);if(sort.value==="high")list.sort((a,b)=>b[4]-a[4]);count.textContent=list.length+" curated creations";grid.innerHTML=list.map(p=>'<article class="product"><div class="photo"><img loading="lazy" src="https://loremflickr.com/700/850/'+encodeURIComponent(p[5])+'?lock='+(p.id+2100)+'" alt="'+p[0]+'"><span class="tag">'+p[1]+'</span></div><div class="product-info"><div class="product-type">MAISON ANNA · '+p[6]+'</div><h3>'+p[0]+'</h3><div class="desc">'+p[2]+'</div><div class="product-bottom"><span class="price">'+p[3]+'</span><button class="details" data-id="'+p.id+'">View details ↗</button></div></div></article>').join("")||'<div class="empty">No creations found. Try another search.</div>';grid.querySelectorAll(".details").forEach(b=>b.addEventListener("click",()=>openItem(items[Number(b.dataset.id)])));}
+function render(){let q=search.value.toLowerCase();let list=items.map((p,i)=>({...p,id:i})).filter(p=>(active==="All"||p[1]===active||p[6]===active)&&p.slice(0,4).join(" ").toLowerCase().includes(q));if(sort.value==="low")list.sort((a,b)=>a[4]-b[4]);if(sort.value==="high")list.sort((a,b)=>b[4]-a[4]);count.textContent=list.length+" curated creations";grid.innerHTML=list.map(p=>'<article class="product"><div class="photo"><img loading="lazy" src="'+photoFor(p)+'" alt="'+p[0]+'"><span class="tag">'+p[1]+'</span></div><div class="product-info"><div class="product-type">MAISON ANNA · '+p[6]+'</div><h3>'+p[0]+'</h3><div class="desc">'+p[2]+'</div><div class="product-bottom"><span class="price">'+p[3]+'</span><button class="details" data-id="'+p.id+'">View details ↗</button></div></div></article>').join("")||'<div class="empty">No creations found. Try another search.</div>';grid.querySelectorAll(".details").forEach(b=>b.addEventListener("click",()=>openItem(items[Number(b.dataset.id)])));}
 function openItem(p){document.getElementById("modalType").textContent="Maison Anna · "+p[1];document.getElementById("modalTitle").textContent=p[0];document.getElementById("modalPrice").textContent=p[3];document.getElementById("modalDesc").textContent=p[2]+" This is a proposed commission level; final scope, flower availability, production and delivery are confirmed individually.";document.getElementById("modal").classList.add("open");}
 document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");active=b.dataset.filter;render()}));search.addEventListener("input",render);sort.addEventListener("change",render);document.getElementById("close").addEventListener("click",()=>document.getElementById("modal").classList.remove("open"));document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")e.currentTarget.classList.remove("open")});render();
 
