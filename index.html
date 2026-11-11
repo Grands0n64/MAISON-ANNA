@@ -135,11 +135,24 @@ dialog h3{font-size:1.05rem;font-weight:800;margin:18px 0 8px}
 const GITHUB_USERNAME="Maison-Anna";
 const EMAIL="Riayoung280@gmail.com";
 
-// Each product has its own photo, picked by its flower keyword.
-// To use your own photo for a product, put a full link as the 6th item (see the example on the first product).
-const photo=x=>x.img||"https://loremflickr.com/800/1000/"+x.kw+"?lock="+(x.id+1);
+// PHOTOS
+// 1) Put your own photos in an "images" folder next to this file, named after the product:
+//    "Classic Red Rose Dozen"  ->  images/classic-red-rose-dozen.jpg
+// 2) If a photo is missing, the card shows a pink flower picture so it is never empty.
+// 3) Or paste a full photo link as the 6th item on any product line below.
+const slug=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const photo=x=>x.img||"images/"+slug(x.n)+".jpg";
 
-// [name, region (USA / Europe / Both), price, flags, flower keyword, optional own photo link]
+// generated flower picture (used when a photo is missing)
+const EMOJI=[[/rose/,"🌹"],[/tulip/,"🌷"],[/peon|cherry|magnolia/,"🌸"],[/orchid|camellia/,"🌺"],[/lilac|wisteria|delphinium/,"🪻"],[/gardenia|jasmine|sweetpea|stephan/,"🌼"],[/wedding|bridal|proposal/,"💍"],[/hydrangea|lily|ranunculus/,"💐"]];
+const GRADS=[["#F9D3DF","#EFB3C6"],["#FCE4EC","#F5C6D4"],["#F7D9E3","#E8A1BB"],["#FFE3EA","#F2B8C9"],["#F8D6E0","#E9A9C0"],["#FDE7EE","#F0BCCF"]];
+function art(id){
+  const x=products[id],e=(EMOJI.find(m=>m[0].test(x.kw))||[0,"💐"])[1],g=GRADS[id%GRADS.length];
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${g[0]}"/><stop offset="1" stop-color="${g[1]}"/></linearGradient></defs><rect width="400" height="500" fill="url(#g)"/><circle cx="200" cy="250" r="130" fill="#ffffff55"/><text x="200" y="295" font-size="150" text-anchor="middle">${e}</text></svg>`;
+  return "data:image/svg+xml,"+encodeURIComponent(svg);
+}
+
+// [name, region (USA / Europe / Both), price, flags, flower keyword, optional photo link]
 // flags: "f" = shows "From", "s" = 10% sale badge
 const list=[
  // Your originals
@@ -203,7 +216,7 @@ const list=[
  ["Lilac Spring Bouquet","Europe",950,"","lilac"],
  ["Sweet Pea Heirloom Vase","Europe",1050,"s","sweetpea"],
  ["Lily of the Valley Heirloom","Europe",1800,"f","lily,valley"],
- ["Stephanotis Bridal Crown","USA",2300,"","bridal,flowers"],
+ ["Stephanotis Bridal Crown","USA",2300,"","stephanotis,bridal"],
  ["Jasmine Garland Collection","Europe",3100,"","jasmine"],
  ["Camellia Imperial Garden","Europe",4100,"","camellia"],
  ["Magnolia Estate Collection","USA",5600,"s","magnolia"],
@@ -310,7 +323,7 @@ function render(){
     <article class="card">
       <div class="ph">
         ${x.sale?'<span class="save">SAVE 10%</span>':''}
-        <img src="${photo(x)}" alt="${x.n}" loading="lazy" onerror="this.remove()">
+        <img src="${photo(x)}" alt="${x.n}" loading="lazy" onerror="this.onerror=null;this.src=art(${x.id})">
         <button class="add" data-id="${x.id}" aria-label="Add ${x.n} to cart">ADD TO 🛒</button>
       </div>
       <h3>${x.n}</h3>
