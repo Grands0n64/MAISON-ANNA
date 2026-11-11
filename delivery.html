@@ -56,7 +56,7 @@ const hasWeddingFrame=names.some(n=>/arch|chuppah|aisle|wedding installation|cer
 const hasLargeInstall=names.some(n=>/installation|takeover|restoration|canopy|walkway|garden transformation|estate/.test(n));
 if(hasLargeInstall)estimatedKg=250;else if(hasWeddingFrame)estimatedKg=100;
 if(Array.isArray(order.items)&&order.items.length){
- lines.innerHTML=order.items.map(x=>"<div class=\\"item\\"><span>"+escapeHtml(x.name)+"</span><span>$"+Number(x.price).toLocaleString("en-US")+"</span></div>").join("");
+ lines.innerHTML=order.items.map(x=>`<div class="item"><span>${escapeHtml(x.name)}</span><span>$${Number(x.price).toLocaleString("en-US")}</span></div>`).join("");
  total.textContent="Order total: $"+Number(order.total||0).toLocaleString("en-US");
  document.getElementById("weightEstimate").textContent="Planning weight: approximately "+estimatedKg+" kg "+(estimatedKg===20?"for a large packed flower order":estimatedKg===100?"for a wedding arch / standing floral frame":"for a large-scale floral installation")+". Final packed weight and dimensions must be confirmed.";
 }else{lines.textContent="Cart details could not be loaded. Please return to the shop and add your flowers again.";document.querySelector(".submit").disabled=true}
