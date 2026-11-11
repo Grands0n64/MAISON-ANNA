@@ -100,31 +100,13 @@ dialog h3{font-size:1.05rem;font-weight:800;margin:18px 0 8px}
   <div id="items"></div>
   <p class="total" id="total"></p>
 
-  <form id="delivery" hidden>
-    <h3>Delivery details</h3>
-    <label>Full name
-      <input name="name" autocomplete="name" required>
-    </label>
-    <label>Email
-      <input name="email" type="email" autocomplete="email" required>
-    </label>
-    <div class="two">
-      <label>Country
-        <input name="country" autocomplete="country-name" required>
-      </label>
-      <label>State
-        <input name="state" autocomplete="address-level1" required>
-      </label>
-    </div>
-    <label>Delivery address
-      <input name="address" autocomplete="street-address" required>
-    </label>
-    <p class="note">Payment will be added soon. For now we confirm every order personally by email.</p>
+  <div id="delivery" hidden>
+    <p class="note">Your delivery details are collected on a separate page.</p>
     <div class="actions" style="margin-top:12px">
-      <button class="add" type="submit">PLACE ORDER</button>
+      <button class="add" type="button" id="continueDelivery">CONTINUE TO DELIVERY</button>
       <button class="chip" type="button" id="closeCart2">Close</button>
     </div>
-  </form>
+  </div>
 
   <div class="actions" id="emptyActions">
     <button class="chip" type="button" id="closeCart">Close</button>
@@ -377,21 +359,11 @@ $("cartBtn").onclick=()=>$("cartDlg").showModal();
 $("closeCart").onclick=()=>$("cartDlg").close();
 $("closeCart2").onclick=()=>$("cartDlg").close();
 
-// delivery form -> order request email
-// LATER: put your payment code here (Stripe, PayPal, etc.) before the email is sent.
-$("delivery").onsubmit=e=>{
-  e.preventDefault();
+// Continue to the dedicated delivery page. Cart data is carried for this browser session.
+$("continueDelivery").onclick=()=>{
   if(!cart.length)return;
-  const f=Object.fromEntries(new FormData(e.target));
-  const total=cart.reduce((s,id)=>s+products[id].price,0);
-  const lines=cart.map(id=>products[id].n+" - "+fmt(products[id].price)).join("\n");
-  const body="ORDER\n"+lines+"\n\nTotal: "+fmt(total)+
-    "\n\nDELIVERY DETAILS\nName: "+f.name+
-    "\nEmail: "+f.email+
-    "\nCountry: "+f.country+
-    "\nState: "+f.state+
-    "\nAddress: "+f.address;
-  location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Order request")+"&body="+encodeURIComponent(body);
+  try{sessionStorage.setItem("maisonAnnaCart",JSON.stringify(cart));}catch(e){}
+  location.href="delivery.html";
 };
 
 sync();render();updateCart();
