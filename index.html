@@ -78,14 +78,14 @@ dialog h3{font-size:1.05rem;font-weight:800;margin:18px 0 8px}
     <button class="icon cart" id="cartBtn" aria-label="Open cart">🛒<span id="badge">0</span></button>
   </div>
   <nav id="menu" hidden aria-label="Filters">
-    <div id="regions" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    
     <div id="prices" style="display:flex;gap:8px;flex-wrap:wrap"></div>
   </nav>
   <input id="q" type="search" placeholder="Search flowers" hidden aria-label="Search flowers">
 </header>
 
 <section class="intro">
-  <h1>Luxury flowers for the USA and Europe</h1>
+  <h1>Luxury flowers, delivered worldwide</h1>
   <p>Arrangements from $500 to $1,000,000. <span id="followers"></span></p>
 </section>
 
@@ -289,7 +289,7 @@ const $=id=>document.getElementById(id);
 
 // logo with coloured letters
 const colors=["#E8508A","#F0762C","#9B6BD6","#E8508A","#4F7A38"];
-$("logo").innerHTML=[..."MAISON ANNA"].map((c,i)=>c===" "?" ":`<span style="color:${colors[i%colors.length]}">${c}</span>`).join("")+"<small>FLOWERS · USA &amp; EUROPE</small>";
+$("logo").innerHTML=[..."MAISON ANNA"].map((c,i)=>c===" "?" ":`<span style="color:${colors[i%colors.length]}">${c}</span>`).join("")+"<small>FLOWERS · WORLDWIDE</small>";
 
 // followers
 fetch("https://api.github.com/users/"+GITHUB_USERNAME)
@@ -298,7 +298,7 @@ fetch("https://api.github.com/users/"+GITHUB_USERNAME)
  .catch(()=>{});
 
 // filters
-const regions=["All","USA","Europe"];
+const regions=[];
 const bands=[["All prices",0,Infinity],["$500 – $5K",0,5000],["$5K – $50K",5000,50000],["$50K – $1M",50000,Infinity]];
 let region="All",band=0,query="",cart=[];
 
@@ -314,7 +314,6 @@ function sync(){
   document.querySelectorAll("#regions .chip").forEach((b,i)=>b.setAttribute("aria-pressed",regions[i]===region));
   document.querySelectorAll("#prices .chip").forEach((b,i)=>b.setAttribute("aria-pressed",i===band));
 }
-chips("regions",regions,x=>x,i=>region=regions[i]);
 chips("prices",bands,x=>x[0],i=>band=i);
 
 $("menuBtn").onclick=()=>{const m=$("menu");m.hidden=!m.hidden;$("menuBtn").setAttribute("aria-expanded",!m.hidden)};
@@ -325,8 +324,7 @@ $("q").oninput=e=>{query=e.target.value.toLowerCase();render()};
 function render(){
   const [,lo,hi]=bands[band];
   const shown=products.filter(x=>
-    (region==="All"||x.reg===region||x.reg==="Both")&&
-    x.price>lo&&x.price<=hi&&
+        x.price>lo&&x.price<=hi&&
     x.n.toLowerCase().includes(query));
   $("grid").innerHTML=shown.length?shown.map(x=>`
     <article class="card">
