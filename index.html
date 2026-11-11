@@ -140,18 +140,20 @@ const EMAIL="Riayoung280@gmail.com";
 //    "Classic Red Rose Dozen"  ->  images/classic-red-rose-dozen.jpg
 // 2) If a photo is missing, the card shows a pink flower picture so it is never empty.
 // 3) Or paste a full photo link as the 6th item on any product line below.
+// Preserve the first seven supplied photos exactly as provided.
+// Other products receive topic-matched real flower photography with unique lock IDs.
 const slug=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
-const photo=x=>x.img||"images/"+slug(x.n)+".jpg";
-
-// generated flower picture (used when a photo is missing)
-const EMOJI=[[/rose/,"🌹"],[/tulip/,"🌷"],[/peon|cherry|magnolia/,"🌸"],[/orchid|camellia/,"🌺"],[/lilac|wisteria|delphinium/,"🪻"],[/gardenia|jasmine|sweetpea|stephan/,"🌼"],[/wedding|bridal|proposal/,"💍"],[/hydrangea|lily|ranunculus/,"💐"]];
-const GRADS=[["#F9D3DF","#EFB3C6"],["#FCE4EC","#F5C6D4"],["#F7D9E3","#E8A1BB"],["#FFE3EA","#F2B8C9"],["#F8D6E0","#E9A9C0"],["#FDE7EE","#F0BCCF"]];
-function art(id){
-  const x=products[id],e=(EMOJI.find(m=>m[0].test(x.kw))||[0,"💐"])[1],g=GRADS[id%GRADS.length];
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${g[0]}"/><stop offset="1" stop-color="${g[1]}"/></linearGradient></defs><rect width="400" height="500" fill="url(#g)"/><circle cx="200" cy="250" r="130" fill="#ffffff55"/><text x="200" y="295" font-size="150" text-anchor="middle">${e}</text></svg>`;
-  return "data:image/svg+xml,"+encodeURIComponent(svg);
+function photo(x){
+  if(x.id<7 && x.img) return x.img;
+  const n=x.n.toLowerCase(), kw=(x.kw||"flowers bouquet").toLowerCase();
+  let topic=kw;
+  if(/wedding|bridal|chuppah|ceremony|aisle|bridesmaid|chateau|palace|cathedral/.test(n+" "+kw)) topic="luxury wedding flowers floral arch bridal bouquet";
+  else if(/proposal|engagement|ring|valentine|heart|anniversary/.test(n+" "+kw)) topic="romantic proposal red roses heart flower arrangement";
+  else if(/birthday|mother.s day|celebration|gala|party|rehearsal|runway|opera|presidential/.test(n+" "+kw)) topic="luxury celebration birthday flower bouquet centerpiece";
+  else if(/estate|mansion|yacht|penthouse|hotel|museum|garden|installation|transformation/.test(n+" "+kw)) topic="luxury floral installation event flowers";
+  else topic=kw+" fresh florist bouquet arrangement";
+  return "https://loremflickr.com/1000/1250/"+encodeURIComponent(topic)+"?lock="+(x.id+5201);
 }
-
 // [name, region (USA / Europe / Both), price, flags, flower keyword, optional photo link]
 // flags: "f" = shows "From", "s" = 10% sale badge
 const list=[
