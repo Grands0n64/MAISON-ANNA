@@ -362,7 +362,7 @@ $("closeCart2").onclick=()=>$("cartDlg").close();
 // Continue to the dedicated delivery page. Cart data is carried for this browser session.
 $("continueDelivery").onclick=()=>{
   if(!cart.length)return;
-  try{sessionStorage.setItem("maisonAnnaCart",JSON.stringify(cart));}catch(e){}
+  try{sessionStorage.setItem("maisonAnnaCart",JSON.stringify({items:cart.map(id=>({name:products[id].n,price:products[id].price})),total:cart.reduce((s,id)=>s+products[id].price,0)}));}catch(e){}
   location.href="delivery.html";
 };
 
