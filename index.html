@@ -180,25 +180,52 @@ const items = [
 ["The Blush Peony Box","Classic","Soft blush peonies in a keepsake presentation.","$1,650",1650,"pink peonies flower box","Classic"],
 ];
 
+const flowerPhotoSets={
+ rose:[
+ "https://static-assets-prod.fnp.com/images/pr/l/v20230123180524/love-snowflake-bouquet_2.jpg",
+ "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85",
+ "https://images.unsplash.com/photo-1494972308805-463bc619d34e?auto=format&fit=crop&w=1000&q=85",
+ "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1000&q=85",
+ "https://images.unsplash.com/photo-1548586196-aa5803b77379?auto=format&fit=crop&w=1000&q=85"
+ ],
+ peony:[
+ "https://lovflowers.co.uk/cdn/shop/files/pink_peonies_3200x.jpg?v=1781700608",
+ "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=1000&q=85",
+ "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=1000&q=85"
+ ],
+ tulip:[
+ "https://content2.flowwow-images.com/data/flowers/524x524/52/1765890901_87941752.jpg",
+ "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=1000&q=85",
+ "https://images.unsplash.com/photo-1499002238440-d264edd596ec?auto=format&fit=crop&w=1000&q=85"
+ ],
+ orchid:[
+ "https://www.flowersacrossindia.com/cdn/shop/products/FAIHD20170484.jpg?v=1554454183",
+ "https://atelierfloralcroix.fr/cdn/shop/files/palais-royal.webp?v=1683557110",
+ "https://merchantandgreen.com.au/images/products/zeo0j8uq9p.jpg"
+ ],
+ mixed:[
+ "https://florster.co/cdn/shop/products/just-right-front.jpg?v=1668465251&width=1445",
+ "https://www.marmarisflora.com/uploads/default_name_21.webp",
+ "https://media.licdn.com/dms/image/v2/D4D10AQFChMZW6vtInA/image-shrink_1280/image-shrink_1280/0/1714543316660?e=2147483647&t=6Rb09Tyxu5lnChxnCybNOvJ-frlzNHcO0GC5QiiFSbU&v=beta"
+ ]
+};
 function photoFor(p){
  const q=(p[5]+" "+p[0]).toLowerCase();
- const photos={
- rose:["https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85","https://images.unsplash.com/photo-1494972308805-463bc619d34e?auto=format&fit=crop&w=900&q=85","https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=900&q=85"],
- peony:["https://lovflowers.co.uk/cdn/shop/files/pink_peonies_3200x.jpg?v=1781700608","https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=900&q=85"],
- tulip:["https://dauletten.kz/img/articles/state431_1646473180.jpg","https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=900&q=85"],
- orchid:["https://atelierfloralcroix.fr/cdn/shop/files/palais-royal.webp?v=1683557110","https://merchantandgreen.com.au/images/products/zeo0j8uq9p.jpg"],
- lily:["https://merchantandgreen.com.au/images/products/zeo0j8uq9p.jpg"],
- mixed:["https://i1.fnp.sg/images/pr/x/v20210628135020/exquisite-mixed-flowers-black-vase-arrangement_3.jpg","https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=85"]
- };
- const key=q.includes("peon")?"peony":q.includes("tulip")?"tulip":q.includes("orchid")?"orchid":q.includes("lily")?"lily":q.includes("rose")?"rose":"mixed";
- const group=photos[key]||photos.mixed;
- return group[p[4]%group.length];
+ const key=q.includes("peon")?"peony":q.includes("tulip")?"tulip":q.includes("orchid")?"orchid":q.includes("rose")?"rose":"mixed";
+ const set=flowerPhotoSets[key]||flowerPhotoSets.mixed;
+ return set[p.id%set.length];
+}
+function imageFallback(img){
+ const set=flowerPhotoSets[img.dataset.kind]||flowerPhotoSets.mixed;
+ let attempt=Number(img.dataset.attempt||0)+1;
+ img.dataset.attempt=String(attempt);
+ if(attempt<set.length){img.src=set[(Number(img.dataset.product||0)+attempt)%set.length];}
 }
 
 const money=n=>"$"+n.toLocaleString("en-US");
 const grid=document.getElementById("products"),count=document.getElementById("count"),search=document.getElementById("search"),sort=document.getElementById("sort");
 let active="All";
-function render(){let q=search.value.toLowerCase();let list=items.map((p,i)=>({...p,id:i})).filter(p=>(active==="All"||p[1]===active||p[6]===active)&&p.slice(0,4).join(" ").toLowerCase().includes(q));if(sort.value==="low")list.sort((a,b)=>a[4]-b[4]);if(sort.value==="high")list.sort((a,b)=>b[4]-a[4]);count.textContent=list.length+" curated creations";grid.innerHTML=list.map(p=>'<article class="product"><div class="photo"><img loading="lazy" src="'+photoFor(p)+'" alt="'+p[0]+'"><span class="tag">'+p[1]+'</span></div><div class="product-info"><div class="product-type">MAISON ANNA · '+p[6]+'</div><h3>'+p[0]+'</h3><div class="desc">'+p[2]+'</div><div class="product-bottom"><span class="price">'+p[3]+'</span><button class="details add-cart" data-id="'+p.id+'">ADD TO CART　＋</button></div></div></article>').join("")||'<div class="empty">No creations found. Try another search.</div>';grid.querySelectorAll(".details").forEach(b=>b.addEventListener("click",()=>selectItem(Number(b.dataset.id))));}
+function render(){let q=search.value.toLowerCase();let list=items.map((p,i)=>({...p,id:i})).filter(p=>(active==="All"||p[1]===active||p[6]===active)&&p.slice(0,4).join(" ").toLowerCase().includes(q));if(sort.value==="low")list.sort((a,b)=>a[4]-b[4]);if(sort.value==="high")list.sort((a,b)=>b[4]-a[4]);count.textContent=list.length+" curated creations";grid.innerHTML=list.map(p=>'<article class="product"><div class="photo"><img loading="lazy" src="'+photoFor(p)+'" data-product="'+p.id+'" data-kind="'+(p[5].includes("peon")?"peony":p[5].includes("tulip")?"tulip":p[5].includes("orchid")?"orchid":p[5].includes("rose")?"rose":"mixed")+'" onerror="imageFallback(this)" alt="'+p[0]+'"><span class="tag">'+p[1]+'</span></div><div class="product-info"><div class="product-type">MAISON ANNA · '+p[6]+'</div><h3>'+p[0]+'</h3><div class="desc">'+p[2]+'</div><div class="product-bottom"><span class="price">'+p[3]+'</span><button class="details add-cart" data-id="'+p.id+'">ADD TO CART　＋</button></div></div></article>').join("")||'<div class="empty">No creations found. Try another search.</div>';grid.querySelectorAll(".details").forEach(b=>b.addEventListener("click",()=>selectItem(Number(b.dataset.id))));}
 function selectItem(id){
  const p=items[id];
  document.getElementById("selectedProduct").value=cart.map(x=>x[0]+" — "+x[3]).join(", ");
