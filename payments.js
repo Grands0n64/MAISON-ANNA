@@ -101,6 +101,7 @@
   }
   form.addEventListener("submit", async event => {
     event.preventDefault();
+    event.stopImmediatePropagation();
     if (!form.reportValidity()) return;
     const method = form.querySelector('[name="paymentMethod"]:checked')?.value;
     if (!method) return status("Choose a payment method.");
@@ -124,5 +125,5 @@
       }
     } catch (error) { status("Submission failed: " + (error.message || "Please try again.")); }
     finally { submit.disabled = false; submit.textContent = "SUBMIT ORDER & PAYMENT DETAILS"; }
-  });
+  }, true);
 })();
