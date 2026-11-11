@@ -135,132 +135,131 @@ dialog h3{font-size:1.05rem;font-weight:800;margin:18px 0 8px}
 const GITHUB_USERNAME="Maison-Anna";
 const EMAIL="Riayoung280@gmail.com";
 
-// Photos are free Unsplash images (same ones as your site).
-// Replace the ids in IMGS, or add your own photo link per product, any time.
-const U=id=>"https://unsplash.com/photos/"+id+"/download?force=true&w=800";
-const IMGS=["PYP3x1lEUXU","vN8HQcKv8Lg","ibdyFSFWOkg","QfaXkfe5g3A","nZc3vd7BoCg","1Dy0nRW1Sas","FXHCqfusN-c"];
+// Each product has its own photo, picked by its flower keyword.
+// To use your own photo for a product, put a full link as the 6th item (see the example on the first product).
+const photo=x=>x.img||"https://loremflickr.com/800/1000/"+x.kw+"?lock="+(x.id+1);
 
-// [name, region (USA / Europe / Both), price, flags]
+// [name, region (USA / Europe / Both), price, flags, flower keyword, optional own photo link]
 // flags: "f" = shows "From", "s" = 10% sale badge
 const list=[
  // Your originals
- ["Blush Rose Bouquet","USA",500,"f"],
- ["Garden Rose Vase","Europe",1500,"s"],
- ["Bridal Rose Collection","USA",2200,"f"],
- ["Pink Peony Cloud","Europe",4500],
- ["Parisian Rose Box","Europe",990,"fs"],
- ["Manhattan Pink Garden","USA",7500,"f"],
- ["Paper-Wrapped Roses","Europe",650,"f"],
- ["Wedding Arch Collection","USA",18000,"f"],
- ["Château Estate Installation","Europe",240000,"f"],
- ["The Grand Gala Commission","Both",1000000],
+ ["Blush Rose Bouquet","USA",500,"f","pink,rose","https://unsplash.com/photos/PYP3x1lEUXU/download?force=true&w=800"],
+ ["Garden Rose Vase","Europe",1500,"s","garden,rose","https://unsplash.com/photos/vN8HQcKv8Lg/download?force=true&w=800"],
+ ["Bridal Rose Collection","USA",2200,"f","bridal,rose","https://unsplash.com/photos/ibdyFSFWOkg/download?force=true&w=800"],
+ ["Pink Peony Cloud","Europe",4500,"","peony","https://unsplash.com/photos/QfaXkfe5g3A/download?force=true&w=800"],
+ ["Parisian Rose Box","Europe",990,"fs","rose","https://unsplash.com/photos/nZc3vd7BoCg/download?force=true&w=800"],
+ ["Manhattan Pink Garden","USA",7500,"f","pink,flowers","https://unsplash.com/photos/1Dy0nRW1Sas/download?force=true&w=800"],
+ ["Paper-Wrapped Roses","Europe",650,"f","roses,bouquet","https://unsplash.com/photos/FXHCqfusN-c/download?force=true&w=800"],
+ ["Wedding Arch Collection","USA",18000,"f","wedding,arch,flowers"],
+ ["Château Estate Installation","Europe",240000,"f","chateau,garden,flowers"],
+ ["The Grand Gala Commission","Both",1000000,"","floral,installation"],
 
  // Roses
- ["Classic Red Rose Dozen","USA",520],
- ["Two Dozen Long-Stem Roses","USA",780,"s"],
- ["Champagne Rose Bouquet","Europe",860],
- ["Ecuadorian Rose Tower","Europe",1250],
- ["Eternal Rose Hat Box","Europe",1900,"f"],
- ["White Rose Cascade","Europe",2800,"s"],
- ["Velvet Red Rose Hundred","USA",3800],
- ["Juliet Garden Rose Dome","Europe",5200],
- ["Rose Petal Bridal Suite","USA",6400,"f"],
- ["Five Hundred Roses Gift","USA",9800],
- ["Thousand Rose Declaration","Both",24000],
+ ["Classic Red Rose Dozen","USA",520,"","red,rose"],
+ ["Two Dozen Long-Stem Roses","USA",780,"s","longstem,rose"],
+ ["Champagne Rose Bouquet","Europe",860,"","peach,rose"],
+ ["Ecuadorian Rose Tower","Europe",1250,"","roses,vase"],
+ ["Eternal Rose Hat Box","Europe",1900,"f","rose,box"],
+ ["White Rose Cascade","Europe",2800,"s","white,rose"],
+ ["Velvet Red Rose Hundred","USA",3800,"","red,roses"],
+ ["Juliet Garden Rose Dome","Europe",5200,"","garden,roses"],
+ ["Rose Petal Bridal Suite","USA",6400,"f","rose,petals"],
+ ["Five Hundred Roses Gift","USA",9800,"","rose,bouquet"],
+ ["Thousand Rose Declaration","Both",24000,"","roses,heart"],
 
  // Peonies
- ["Coral Charm Peony Bouquet","USA",640,"f"],
- ["Sarah Bernhardt Peony Vase","Europe",1350],
- ["Blush Peony Centerpiece","USA",2100,"s"],
- ["Peony and Ranunculus Cloud","Europe",3300],
- ["White Peony Grand Urn","Europe",4800],
- ["Peony Season Signature Suite","USA",8700,"f"],
+ ["Coral Charm Peony Bouquet","USA",640,"f","coral,peony"],
+ ["Sarah Bernhardt Peony Vase","Europe",1350,"","peony,vase"],
+ ["Blush Peony Centerpiece","USA",2100,"s","blush,peonies"],
+ ["Peony and Ranunculus Cloud","Europe",3300,"","peonies,bouquet"],
+ ["White Peony Grand Urn","Europe",4800,"","white,peony"],
+ ["Peony Season Signature Suite","USA",8700,"f","peony,flowers"],
 
  // Orchids
- ["White Phalaenopsis Duo","USA",560],
- ["Orchid Silk Pavilion","Europe",1700,"s"],
- ["Cymbidium Cascade Planter","Europe",2600],
- ["Black Orchid Collection","USA",3900,"f"],
- ["Vanda Orchid Sculpture","Europe",6900],
- ["Imperial Orchid Conservatory","Both",32000,"f"],
+ ["White Phalaenopsis Duo","USA",560,"","white,orchid"],
+ ["Orchid Silk Pavilion","Europe",1700,"s","orchid"],
+ ["Cymbidium Cascade Planter","Europe",2600,"","cymbidium,orchid"],
+ ["Black Orchid Collection","USA",3900,"f","dark,orchid"],
+ ["Vanda Orchid Sculpture","Europe",6900,"","vanda,orchid"],
+ ["Imperial Orchid Conservatory","Both",32000,"f","orchids,greenhouse"],
 
  // Lilies and tulips
- ["Casablanca Lily Bouquet","USA",590],
- ["Stargazer Lily Arrangement","Europe",720,"s"],
- ["Calla Lily Elegance","Europe",1100],
- ["Dutch Tulip Masterpiece","Europe",1450,"f"],
- ["Parrot Tulip Display","Europe",2400],
- ["Royal Lily Column","USA",3600,"s"],
+ ["Casablanca Lily Bouquet","USA",590,"","white,lily"],
+ ["Stargazer Lily Arrangement","Europe",720,"s","stargazer,lily"],
+ ["Calla Lily Elegance","Europe",1100,"","calla,lily"],
+ ["Dutch Tulip Masterpiece","Europe",1450,"f","tulip,bouquet"],
+ ["Parrot Tulip Display","Europe",2400,"","parrot,tulip"],
+ ["Royal Lily Column","USA",3600,"s","lilies,vase"],
 
  // Hydrangea, ranunculus, delphinium
- ["Blue Hydrangea Grand Bowl","USA",880],
- ["Antique Hydrangea Cloud","Europe",1650,"s"],
- ["Ranunculus Silk Bouquet","Europe",1200],
- ["Delphinium and Larkspur Tower","Europe",2950],
- ["White Garden Hydrangea Wall","USA",7200,"f"],
+ ["Blue Hydrangea Grand Bowl","USA",880,"","blue,hydrangea"],
+ ["Antique Hydrangea Cloud","Europe",1650,"s","hydrangea"],
+ ["Ranunculus Silk Bouquet","Europe",1200,"","ranunculus"],
+ ["Delphinium and Larkspur Tower","Europe",2950,"","delphinium"],
+ ["White Garden Hydrangea Wall","USA",7200,"f","white,hydrangea"],
 
  // Fragrant classics
- ["Gardenia Perfumed Collection","USA",830],
- ["Lilac Spring Bouquet","Europe",950],
- ["Sweet Pea Heirloom Vase","Europe",1050,"s"],
- ["Lily of the Valley Heirloom","Europe",1800,"f"],
- ["Stephanotis Bridal Crown","USA",2300],
- ["Jasmine Garland Collection","Europe",3100],
- ["Camellia Imperial Garden","Europe",4100],
- ["Magnolia Estate Collection","USA",5600,"s"],
- ["Wisteria Cascade Canopy","Europe",8400,"f"],
- ["Cherry Blossom Cloud","USA",11000],
+ ["Gardenia Perfumed Collection","USA",830,"","gardenia"],
+ ["Lilac Spring Bouquet","Europe",950,"","lilac"],
+ ["Sweet Pea Heirloom Vase","Europe",1050,"s","sweetpea"],
+ ["Lily of the Valley Heirloom","Europe",1800,"f","lily,valley"],
+ ["Stephanotis Bridal Crown","USA",2300,"","bridal,flowers"],
+ ["Jasmine Garland Collection","Europe",3100,"","jasmine"],
+ ["Camellia Imperial Garden","Europe",4100,"","camellia"],
+ ["Magnolia Estate Collection","USA",5600,"s","magnolia"],
+ ["Wisteria Cascade Canopy","Europe",8400,"f","wisteria"],
+ ["Cherry Blossom Cloud","USA",11000,"","cherry,blossom"],
 
  // Anniversaries and gifts
- ["Silver Anniversary Bouquet","USA",1600],
- ["Gold Anniversary Collection","USA",2750,"s"],
- ["Mother's Day Signature Box","USA",700,"s"],
- ["Valentine's Grand Declaration","Both",12500],
- ["Birthday Luxe Bouquet","Europe",610],
- ["Sympathy Lily Tribute","USA",900],
- ["Anniversary Rose Garden Box","Europe",3200,"f"],
- ["Proposal Rose Ring Display","Europe",15000,"f"],
- ["Diamond Jubilee Collection","Europe",28000],
- ["Golden Wedding Celebration","USA",14500,"s"],
+ ["Silver Anniversary Bouquet","USA",1600,"","white,bouquet"],
+ ["Gold Anniversary Collection","USA",2750,"s","yellow,roses"],
+ ["Mother's Day Signature Box","USA",700,"s","flower,box"],
+ ["Valentine's Grand Declaration","Both",12500,"","valentine,roses"],
+ ["Birthday Luxe Bouquet","Europe",610,"","colorful,bouquet"],
+ ["Sympathy Lily Tribute","USA",900,"","white,lilies"],
+ ["Anniversary Rose Garden Box","Europe",3200,"f","rose,garden"],
+ ["Proposal Rose Ring Display","Europe",15000,"f","proposal,roses"],
+ ["Diamond Jubilee Collection","Europe",28000,"","white,flowers"],
+ ["Golden Wedding Celebration","USA",14500,"s","wedding,bouquet"],
 
  // Weddings and events
- ["Ceremony Aisle Garland","Europe",9500,"f"],
- ["Wedding Chuppah Florals","USA",13500],
- ["Grand Ballroom Centerpieces","Europe",16000,"f"],
- ["Cathedral Entrance Arrangement","Europe",21000],
- ["Bridal Bouquet and Bridesmaids Set","USA",8200],
- ["Rehearsal Dinner Florals","USA",10500,"f"],
- ["Royal Wedding Collection","Europe",38000,"f"],
- ["Gala Table Suite, 20 Tables","USA",45000],
- ["Red Carpet Floral Walkway","USA",52000,"f"],
- ["Palace Wedding Installation","Europe",85000],
+ ["Ceremony Aisle Garland","Europe",9500,"f","wedding,aisle"],
+ ["Wedding Chuppah Florals","USA",13500,"","wedding,canopy"],
+ ["Grand Ballroom Centerpieces","Europe",16000,"f","ballroom,flowers"],
+ ["Cathedral Entrance Arrangement","Europe",21000,"","church,flowers"],
+ ["Bridal Bouquet and Bridesmaids Set","USA",8200,"","bridal,bouquet"],
+ ["Rehearsal Dinner Florals","USA",10500,"f","dinner,table,flowers"],
+ ["Royal Wedding Collection","Europe",38000,"f","royal,wedding"],
+ ["Gala Table Suite, 20 Tables","USA",45000,"","table,centerpiece"],
+ ["Red Carpet Floral Walkway","USA",52000,"f","red,carpet,flowers"],
+ ["Palace Wedding Installation","Europe",85000,"","palace,flowers"],
 
  // Estates and ultra luxury
- ["Rooftop Garden Transformation","USA",60000,"f"],
- ["Mansion Entry Floral Sculpture","USA",72000],
- ["Yacht Charter Florals","Europe",95000,"f"],
- ["Grand Staircase Floral Cascade","Europe",120000],
- ["Penthouse Seasonal Subscription","USA",150000,"f"],
- ["Chateau Wedding Weekend","Europe",180000],
- ["Museum Gala Floral Takeover","USA",210000,"f"],
- ["Vineyard Estate Floral Season","Europe",260000],
- ["Estate Year of Flowers","Both",320000],
- ["Opera House Opening Night","Europe",360000,"f"],
- ["Royal Garden Party Commission","Europe",400000,"f"],
- ["Presidential Gala Florals","USA",440000],
- ["Hotel Lobby Floral Season","USA",480000],
- ["Fashion Week Floral Runway","Europe",550000,"f"],
- ["Palace Gardens Restoration","Europe",650000],
- ["Riviera Estate Rose Garden","Europe",700000,"f"],
- ["Imperial Wedding Spectacular","Both",750000,"f"],
- ["Crown Jewel Flower Ceremony","Europe",850000],
- ["Hamptons Estate Floral Legacy","USA",920000,"f"],
- ["The Millionaire's Rose Garden","Both",1000000]
+ ["Rooftop Garden Transformation","USA",60000,"f","rooftop,garden"],
+ ["Mansion Entry Floral Sculpture","USA",72000,"","mansion,flowers"],
+ ["Yacht Charter Florals","Europe",95000,"f","yacht,flowers"],
+ ["Grand Staircase Floral Cascade","Europe",120000,"","staircase,flowers"],
+ ["Penthouse Seasonal Subscription","USA",150000,"f","penthouse,flowers"],
+ ["Chateau Wedding Weekend","Europe",180000,"","chateau,wedding"],
+ ["Museum Gala Floral Takeover","USA",210000,"f","museum,flowers"],
+ ["Vineyard Estate Floral Season","Europe",260000,"","vineyard,flowers"],
+ ["Estate Year of Flowers","Both",320000,"","estate,garden"],
+ ["Opera House Opening Night","Europe",360000,"f","opera,flowers"],
+ ["Royal Garden Party Commission","Europe",400000,"f","garden,party"],
+ ["Presidential Gala Florals","USA",440000,"","gala,flowers"],
+ ["Hotel Lobby Floral Season","USA",480000,"","hotel,flowers"],
+ ["Fashion Week Floral Runway","Europe",550000,"f","runway,flowers"],
+ ["Palace Gardens Restoration","Europe",650000,"","palace,garden"],
+ ["Riviera Estate Rose Garden","Europe",700000,"f","rose,garden"],
+ ["Imperial Wedding Spectacular","Both",750000,"f","wedding,flowers"],
+ ["Crown Jewel Flower Ceremony","Europe",850000,"","floral,arrangement"],
+ ["Hamptons Estate Floral Legacy","USA",920000,"f","estate,flowers"],
+ ["The Millionaire's Rose Garden","Both",1000000,"","rose,garden"]
 ];
 
 const products=list.map((a,i)=>{
   const fl=a[3]||"",sale=fl.includes("s");
-  return{n:a[0],reg:a[1],p:a[2],from:fl.includes("f"),sale,img:IMGS[i%IMGS.length],id:i,price:sale?Math.round(a[2]*0.9):a[2]};
+  return{n:a[0],reg:a[1],p:a[2],from:fl.includes("f"),sale,kw:a[4],img:a[5],id:i,price:sale?Math.round(a[2]*0.9):a[2]};
 });
 
 const fmt=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
@@ -311,7 +310,7 @@ function render(){
     <article class="card">
       <div class="ph">
         ${x.sale?'<span class="save">SAVE 10%</span>':''}
-        <img src="${U(x.img)}" alt="${x.n}" loading="lazy" onerror="this.remove()">
+        <img src="${photo(x)}" alt="${x.n}" loading="lazy" onerror="this.remove()">
         <button class="add" data-id="${x.id}" aria-label="Add ${x.n} to cart">ADD TO 🛒</button>
       </div>
       <h3>${x.n}</h3>
