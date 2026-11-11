@@ -137,19 +137,12 @@ const EMAIL="Riayoung280@gmail.com";
 
 // Individual image assignment: every product gets its own distinct source URL.
 // Images below are direct photographs from flower shops, wedding florists and photo libraries.
-const UNIQUE_PHOTOS=[
-"https://asset.bloomnation.com/c_pad%2Cd_vendor%3Aglobal%3Acatalog%3Aproduct%3Aimage.png%2Cf_auto%2Cfl_preserve_transparency%2Cq_auto/v1753412664/vendor/10646/catalog/product/2/0/20250724200422_file_688291c607e18",
-"https://blumen-komander.de/images/komander/hochzeit.jpg",
-"https://koala.sh/api/image/v2-r2g4t-9xlon.jpg?dream=&height=1216&width=832",
-"https://asset.bloomnation.com/c_pad%2Cd_vendor%3Aglobal%3Acatalog%3Aproduct%3Aimage.png%2Cf_auto%2Cfl_preserve_transparency%2Cq_auto/v1753476046/vendor/10646/catalog/product/2/0/20250725134043_file_6883895b96a70",
-"https://images.squarespace-cdn.com/content/v1/5da0b708cf23393c2aa2a5ef/1575234445817-B40ZAKZ8AHJ8K5LZQWFD/047-ZAC_5128.jpg",
-"https://i.pinimg.com/originals/6b/a1/8c/6ba18c822ed344caefd6519bb7ab5a93.jpg",
-"https://static.wixstatic.com/media/02fe89_5e7ecfe962cd4400bc951c41b0a2ef4c~mv2.png/v1/fill/w_940%2Ch_788%2Cal_c%2Cq_90%2Cenc_avif%2Cquality_auto/02fe89_5e7ecfe962cd4400bc951c41b0a2ef4c~mv2.png",
-"https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85",
-"https://images.unsplash.com/photo-1494972308805-463bc619d34e?auto=format&fit=crop&w=1000&q=85",
-"https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1000&q=85"
-];
-function photo(x){return UNIQUE_PHOTOS[x.id%UNIQUE_PHOTOS.length];}
+// One stable, distinct image URL per catalogue item.
+function photo(x){
+  if(x.img) return x.img;
+  const terms=(x.kw||"flowers bouquet").toLowerCase().replace(/[^a-z, ]/g,"").replace(/\s+/g,",");
+  return "https://loremflickr.com/900/1100/"+encodeURIComponent(terms)+"?lock="+(x.id+4101);
+}
 // [name, region (USA / Europe / Both), price, flags, flower keyword, optional photo link]
 // flags: "f" = shows "From", "s" = 10% sale badge
 const list=[
@@ -321,7 +314,7 @@ function render(){
     <article class="card">
       <div class="ph">
         ${x.sale?'<span class="save">SAVE 10%</span>':''}
-        <img src="${photo(x)}" data-id="${x.id}" data-set="${photoSet(x)}" alt="${x.n}" loading="lazy" onerror="imageFallback(this)">
+        <img src="${photo(x)}" data-id="${x.id}" alt="${x.n}" loading="lazy" onerror="this.onerror=null;this.src='https://loremflickr.com/900/1100/flowers?lock='+ (Number(this.dataset.id)+9101)">
         <button class="add" data-id="${x.id}" aria-label="Add ${x.n} to cart">ADD TO 🛒</button>
       </div>
       <h3>${x.n}</h3>
