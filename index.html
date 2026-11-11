@@ -143,27 +143,42 @@ const EMAIL="Riayoung280@gmail.com";
 // Preserve the first seven supplied photos exactly as provided.
 // Other products receive topic-matched real flower photography with unique lock IDs.
 const slug=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+// Real florist and wedding-photography image sources. Keep the first seven product photos unchanged.
+const BOUQUET_PHOTOS=[
+"https://lorashen.ua/static/media/uploads/product/Exclusive/img_8617sq.jpg",
+"https://lorashen.ua/static/media/uploads/product/Spring_Summer/.thumbnails/img_4056sq.jpg/img_4056sq-0x600.jpg",
+"https://asset.bloomnation.com/c_pad%2Cd_vendor%3Aglobal%3Acatalog%3Aproduct%3Aimage.png%2Cf_auto%2Cfl_preserve_transparency%2Cq_auto/v1778537369/vendor/7623/catalog/product/2/0/20200513040916_file_5ebc1bac836f5_5ebc1ccc3410d.jpg",
+"https://www.timyanbuket.com/image/cache/catalog/2026/004_april/6644/0b1a9769-0x800.jpg",
+"https://i.pinimg.com/originals/7c/77/cf/7c77cfc37b3a61476658c9770c003e3a.jpg",
+"https://beverlyhillsflorist.com/cdn/shop/files/blushing-peonies-elegant-peony-hydrangea-mix-same-day-beverly-240_720x.webp?v=1769800891",
+"https://www.petitefleurid.com/cdn/shop/files/DS200297.jpg?v=1724732540&width=3912",
+"https://flowersandplantsco.com/cdn/shop/products/pink-rose-passion-7529279.jpg?v=1775817202",
+"https://www.flowerbx.com/media/wysiwyg/FBX_Wedding-Lily-Bouquet-min.jpeg",
+"https://dhummingbird.com/cdn/shop/products/IMG_8231_1200x1200.png?v=1747679638"
+];
+const EVENT_PHOTOS=[
+"https://cdn.wezoree.com/upload/user_photos/6774/main-florists-la-petite-gardenia-portfolio-photo-153944.jpg",
+"https://images.squarespace-cdn.com/content/v1/63ebfe134190313c343f9853/1677273375426-GO3V7ID7LARYADFMHUD6/Rancho%2BLas%2BLomas%2BWedding-%2BOrange%2BCounty-126.jpg",
+"https://wezoree.com/upload/medialibrary/7ca/rif0i0d86gttjqs4x0r5ykcn9o4ov1r5.jpg",
+"https://images.squarespace-cdn.com/content/v1/67c76c6b6db32b5d449f7245/a2357474-3413-4006-b8b8-fa65da3ac088/Centerpieces.jpg",
+"https://static.wixstatic.com/media/f59b5c_69b37e535bab46b8afbbcf7707d6dbc2~mv2.jpg/v1/fit/w_960%2Ch_640%2Cq_90/f59b5c_69b37e535bab46b8afbbcf7707d6dbc2~mv2.jpg",
+"https://www.modishparties.com/images/portfolio_floral_1778061937389.png",
+"https://blcreations.fr/cdn/shop/articles/IMG_680EF248B58C-1_2048x.jpg?v=1716902848"
+];
+const OCCASION_PHOTOS=[
+"https://lilyandcosg.com/cdn/shop/files/Cambridge_Terrace_1.jpg?v=1691653592",
+"https://aliflowers.com/cdn/shop/files/aliflowers-pure-red-rose-heart-arch-for-wedding-stage-party-backdrop.jpg?v=1754967888&width=1920",
+"https://asset.bloomnation.com/c_fill%2Cd_vendor%3Aglobal%3Acatalog%3Aproduct%3Aimage.png%2Cf_auto%2Cfl_preserve_transparency%2Ch_2000%2Cq_auto%2Cw_2000/v1768749890/vendor/9590/catalog/product/2/0/20240709060056_file_668cd218cb9eb_669090bb0970c.jpeg"
+];
 function photo(x){
   if(x.id<7 && x.img) return x.img;
-  const n=x.n.toLowerCase(), kw=(x.kw||"flowers bouquet").toLowerCase();
-  let topic=kw;
-  if(/wedding|bridal|chuppah|ceremony|aisle|bridesmaid|chateau|palace|cathedral/.test(n+" "+kw)) topic="luxury wedding flowers floral arch bridal bouquet";
-  else if(/proposal|engagement|ring|valentine|heart|anniversary/.test(n+" "+kw)) topic="romantic proposal red roses heart flower arrangement";
-  else if(/birthday|mother.s day|celebration|gala|party|rehearsal|runway|opera|presidential/.test(n+" "+kw)) topic="luxury celebration birthday flower bouquet centerpiece";
-  else if(/estate|mansion|yacht|penthouse|hotel|museum|garden|installation|transformation/.test(n+" "+kw)) topic="luxury floral installation event flowers";
-  else topic=kw+" fresh florist bouquet arrangement";
-  return "https://loremflickr.com/1000/1250/"+encodeURIComponent(topic)+"?lock="+(x.id+5201);
+  const n=(x.n+" "+(x.kw||"")).toLowerCase();
+  if(/wedding|bridal|chuppah|ceremony|aisle|bridesmaid|chateau|palace|cathedral|ballroom|runway|opera|museum|hotel|yacht|estate|mansion|staircase|floral|installation|gala|reception|walkway|restoration/.test(n))
+    return EVENT_PHOTOS[(x.id-7)%EVENT_PHOTOS.length];
+  if(/proposal|engagement|ring|valentine|heart|birthday|mother|anniversary|celebration|sympathy/.test(n))
+    return OCCASION_PHOTOS[(x.id-7)%OCCASION_PHOTOS.length];
+  return BOUQUET_PHOTOS[(x.id-7)%BOUQUET_PHOTOS.length];
 }
-// Reliable local fallback artwork: shown whenever an external flower photo fails.
-const FLOWER_EMOJI=[[/rose/,"🌹"],[/tulip/,"🌷"],[/peon|cherry|magnolia/,"🌸"],[/orchid|camellia/,"🌺"],[/lilac|wisteria|delphinium/,"🪻"],[/gardenia|jasmine|sweetpea|stephan/,"🌼"],[/wedding|bridal|proposal/,"💐"],[/hydrangea|lily|ranunculus/,"🌷"]];
-const FLOWER_BACKGROUNDS=[["#F9D3DF","#EFB3C6"],["#FCE4EC","#F5C6D4"],["#F7D9E3","#E8A1BB"],["#FFE3EA","#F2B8C9"],["#F8D6E0","#E9A9C0"],["#FDE7EE","#F0BCCF"]];
-function art(id){
-  const x=products[id], emoji=(FLOWER_EMOJI.find(m=>m[0].test((x&&x.kw)||""))||[null,"💐"])[1];
-  const colors=FLOWER_BACKGROUNDS[id%FLOWER_BACKGROUNDS.length];
-  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="'+colors[0]+'"/><stop offset="1" stop-color="'+colors[1]+'"/></linearGradient></defs><rect width="600" height="750" fill="url(#g)"/><circle cx="300" cy="340" r="205" fill="#ffffff55"/><text x="300" y="425" font-size="235" text-anchor="middle">'+emoji+'</text><text x="300" y="650" font-family="Georgia,serif" font-size="28" letter-spacing="5" text-anchor="middle" fill="#1F3D33">MAISON ANNA</text></svg>';
-  return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
-}
-
 // [name, region (USA / Europe / Both), price, flags, flower keyword, optional photo link]
 // flags: "f" = shows "From", "s" = 10% sale badge
 const list=[
@@ -335,7 +350,7 @@ function render(){
     <article class="card">
       <div class="ph">
         ${x.sale?'<span class="save">SAVE 10%</span>':''}
-        <img src="${photo(x)}" alt="${x.n}" loading="lazy" onerror="this.onerror=null;this.src=art(${x.id})">
+        <img src="${photo(x)}" alt="${x.n}" loading="lazy" onerror="this.onerror=null;this.src='https://lorashen.ua/static/media/uploads/product/Exclusive/img_3180_s.jpg'">
         <button class="add" data-id="${x.id}" aria-label="Add ${x.n} to cart">ADD TO 🛒</button>
       </div>
       <h3>${x.n}</h3>
