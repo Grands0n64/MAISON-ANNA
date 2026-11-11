@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f8f5ef">
+<meta name="theme-color" content="#f9dce8">
 <meta name="description" content="Maison Anna — a luxury floral house devoted to timeless romance, exceptional roses and bespoke floral experiences.">
 <title>Maison Anna — The Art of Giving Flowers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,11 +13,93 @@
 
 .delivery[hidden]{display:none!important}.delivery{padding:100px 7%;display:grid;grid-template-columns:1fr 1fr;gap:8%;background:#eee7dc}.delivery-copy h2{font:500 clamp(44px,5vw,68px)/.95 'Cormorant Garamond',serif;margin:18px 0}.delivery-copy>p{font:17px/1.8 'Cormorant Garamond',serif;color:#655b54;max-width:550px}.delivery-points{margin-top:35px;border-top:1px solid #d9d0c5}.delivery-points>div{display:flex;gap:20px;padding:18px 0;border-bottom:1px solid #d9d0c5}.delivery-points b{font:500 20px 'Cormorant Garamond',serif;color:var(--rose)}.delivery-points strong,.delivery-points small{display:block}.delivery-points strong{font:500 21px 'Cormorant Garamond',serif}.delivery-points small{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}.delivery-form{background:var(--white);padding:32px;display:flex;flex-direction:column;gap:13px}.delivery-form h3{font:500 34px 'Cormorant Garamond',serif;margin:0 0 6px}.delivery-form label{display:flex;flex-direction:column;gap:6px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.delivery-form input,.delivery-form select,.delivery-form textarea{width:100%;border:1px solid var(--line);background:#fff;padding:12px;color:var(--ink);font:12px 'DM Sans',sans-serif;letter-spacing:normal;text-transform:none}.delivery-form textarea{resize:vertical}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-note{font-size:10px;line-height:1.6;color:var(--muted);margin:0}.delivery-form .btn{width:100%}
 @media(max-width:750px){.delivery{grid-template-columns:1fr;padding:65px 6%;gap:35px}.form-row{grid-template-columns:1fr}}
+
+/* MAISON ANNA blush-pink storefront refresh */
+:root{--ink:#34212b;--muted:#8e6c7a;--paper:#fff5f8;--cream:#fce3ec;--rose:#d63384;--line:#f0cbd9;--white:#fffafd}
+body{background:#fff5f8;color:#34212b}
+.announcement{background:#bd3975;color:#fff4f8}
+.nav{background:#fff0f5f2;border-bottom:1px solid #efc4d5;box-shadow:0 5px 22px #a43b6810}
+.brand{color:#bd3975}
+.brand small{color:#986b7e}
+.navlinks a:hover,.navright:hover{color:#d63384}
+.hero{background:#f8dce8}
+.hero-copy{background:linear-gradient(135deg,#ffeaf1,#f7cddd)}
+.hero h1{color:#492737}
+.hero p{color:#765464}
+.hero-image{background-image:linear-gradient(0deg,#6e244015,#6e244000),url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1600&q=88')}
+.eyebrow,.product-type{color:#c12d73}
+.btn{border-color:#c12d73;color:#a72b68}
+.btn.dark{background:#c12d73;border-color:#c12d73;color:white}
+.btn:hover,.filter.active,.filter:hover{background:#a92764;border-color:#a92764;color:#fff}
+.intro{background:#fff5f8}
+.catalog{background:#fff5f8}
+.toolbar{border-color:#efcbd9}
+.filter{border-color:#ecc5d5;color:#814d65;background:#fffafd}
+.tools input,.tools select{border-color:#ecc5d5;background:#fffafd}
+.photo{background:#f8dce8;border-radius:24px;border:2px solid #fff;box-shadow:0 8px 25px #b84e7b16}
+.photo img{border-radius:22px}
+.tag{background:#f8d34c;color:#372b21;border-radius:30px;font-weight:700;padding:10px 14px}
+.product-info{padding:14px 4px 0}
+.product h3{font-family:'DM Sans',sans-serif;font-weight:700;font-size:17px;color:#3b2932}
+.price{font-family:'DM Sans',sans-serif;color:#bd286c;font-size:16px;font-weight:700}
+.product-bottom{align-items:center}
+.details{border:0;border-radius:30px;background:#c12d73;color:white;padding:12px 15px;font-weight:700;font-size:9px;letter-spacing:.08em}
+.details:hover{background:#922354;color:white}
+.manifesto{background:#f8dce8}
+.manifesto-copy{background:#f8dce8}
+.private{background:#bd3975;color:#fff5f8}
+.private p{color:#ffe0eb}
+.private .btn{border-color:#fff;color:#fff}
+.notes{background:#fff0f5}
+.notes h3{color:#542b3e}
+.footer{background:#f8dce8}
+.modal-card{background:#fff5f8}
+.delivery{background:#f8dce8}
+.delivery-form{background:#fffafd;border:1px solid #efc5d7}
+.delivery-form input,.delivery-form select,.delivery-form textarea{border-color:#edc5d6;background:#fff7fa}
+.delivery-points{border-color:#e8b7cb}
+.delivery-points>div{border-color:#e8b7cb}
+.mobile-menu,.search-shortcut,.cart-button{border:0;background:transparent;color:#4d293b;cursor:pointer}
+.mobile-menu{display:none;font-size:23px}
+.nav-actions{display:flex;align-items:center;gap:17px}
+.search-shortcut{font-size:29px}
+.cart-button{font-size:24px;position:relative}
+.cart-button span{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border-radius:50%;background:#e83e91;color:white;font-size:11px;vertical-align:top}
+@media(max-width:650px){
+ .announcement{font-size:8px;padding:9px}
+ .nav{height:78px;padding:0 4%;border-radius:0 0 22px 22px}
+ .mobile-menu{display:block}
+ .brand{font-size:23px;letter-spacing:.08em}
+ .brand small{font-size:8px}
+ .navlinks{display:none;position:absolute;top:78px;left:0;right:0;background:#fff0f5;padding:18px 24px;box-shadow:0 12px 18px #87365318;flex-direction:column;gap:18px}
+ .navlinks.show{display:flex}
+ .nav-actions{gap:9px}
+ .hero{display:flex;flex-direction:column-reverse}
+ .hero-image{min-height:320px}
+ .hero-copy{padding:45px 7% 55px}
+ .hero h1{font-size:58px}
+ .intro{padding:48px 18px 30px}
+ .catalog{padding:28px 4% 65px}
+ .section-title{font-size:39px}
+ .toolbar{margin:18px 0 22px}
+ .filters{flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:5px}
+ .filter{white-space:nowrap}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 12px}
+ .photo{aspect-ratio:.78;border-radius:22px}
+ .product h3{font-size:15px;line-height:1.2}
+ .desc{min-height:0;font-size:10px}
+ .product-bottom{align-items:flex-start;flex-direction:column;gap:10px}
+ .details{width:100%;padding:12px 6px}
+ .manifesto-img{min-height:290px}
+ .manifesto-copy h2{font-size:45px}
+ .delivery{padding:55px 5%}
+ .delivery-form{padding:22px}
+}
 </style>
 </head>
 <body>
 <div class="announcement">Complimentary private consultation on bespoke floral commissions</div>
-<header class="nav"><a href="#" class="brand">MAISON ANNA<small>MAISON FLORALE</small></a><nav class="navlinks"><a href="#collection">The collection</a><a href="#atelier">Our atelier</a><a href="#delivery">Delivery</a><a href="#private">Bespoke</a></nav><a class="navright" href="#delivery">Order & delivery ↗</a></header>
+<header class="nav"><button class="mobile-menu" aria-label="Open menu" onclick="document.querySelector('.navlinks').classList.toggle('show')">☰</button><a href="#" class="brand">MAISON ANNA<small>MAISON FLORALE</small></a><nav class="navlinks"><a href="#collection">Shop flowers</a><a href="#atelier">Our story</a><a href="#delivery">Delivery</a><a href="#private">Bespoke</a></nav><div class="nav-actions"><button class="search-shortcut" onclick="document.getElementById('search').focus()" aria-label="Search">⌕</button><button class="cart-button" onclick="document.getElementById('delivery').hidden=false;document.getElementById('delivery').scrollIntoView({behavior:'smooth'})">♧ <span id="cartCount">0</span></button></div></header>
 <main>
 <section class="hero"><div class="hero-copy"><span class="eyebrow">The art of giving flowers</span><h1>Love, in its<br>most beautiful<br>form.</h1><p>Romantic flowers, composed with intention. Discover an extraordinary collection of roses, peonies, tulips and bespoke floral gestures.</p><div class="hero-actions"><a class="btn dark" href="#collection">Discover the collection <span>↗</span></a><a class="btn" href="#delivery">Delivery enquiries</a></div></div><div class="hero-image" role="img" aria-label="Romantic floral arrangement"></div></section>
 <section class="intro" id="atelier"><span class="eyebrow">A floral house for meaningful gestures</span><h2>Not simply flowers. A feeling.</h2><p>From a single unforgettable gesture to a room transformed in bloom, every Maison Anna creation begins with a sentiment and is finished with extraordinary care.</p></section>
@@ -116,10 +198,10 @@ function photoFor(p){
 const money=n=>"$"+n.toLocaleString("en-US");
 const grid=document.getElementById("products"),count=document.getElementById("count"),search=document.getElementById("search"),sort=document.getElementById("sort");
 let active="All";
-function render(){let q=search.value.toLowerCase();let list=items.map((p,i)=>({...p,id:i})).filter(p=>(active==="All"||p[1]===active||p[6]===active)&&p.slice(0,4).join(" ").toLowerCase().includes(q));if(sort.value==="low")list.sort((a,b)=>a[4]-b[4]);if(sort.value==="high")list.sort((a,b)=>b[4]-a[4]);count.textContent=list.length+" curated creations";grid.innerHTML=list.map(p=>'<article class="product"><div class="photo"><img loading="lazy" src="'+photoFor(p)+'" alt="'+p[0]+'"><span class="tag">'+p[1]+'</span></div><div class="product-info"><div class="product-type">MAISON ANNA · '+p[6]+'</div><h3>'+p[0]+'</h3><div class="desc">'+p[2]+'</div><div class="product-bottom"><span class="price">'+p[3]+'</span><button class="details" data-id="'+p.id+'">Select flower ↗</button></div></div></article>').join("")||'<div class="empty">No creations found. Try another search.</div>';grid.querySelectorAll(".details").forEach(b=>b.addEventListener("click",()=>selectItem(Number(b.dataset.id))));}
+function render(){let q=search.value.toLowerCase();let list=items.map((p,i)=>({...p,id:i})).filter(p=>(active==="All"||p[1]===active||p[6]===active)&&p.slice(0,4).join(" ").toLowerCase().includes(q));if(sort.value==="low")list.sort((a,b)=>a[4]-b[4]);if(sort.value==="high")list.sort((a,b)=>b[4]-a[4]);count.textContent=list.length+" curated creations";grid.innerHTML=list.map(p=>'<article class="product"><div class="photo"><img loading="lazy" src="'+photoFor(p)+'" alt="'+p[0]+'"><span class="tag">'+p[1]+'</span></div><div class="product-info"><div class="product-type">MAISON ANNA · '+p[6]+'</div><h3>'+p[0]+'</h3><div class="desc">'+p[2]+'</div><div class="product-bottom"><span class="price">'+p[3]+'</span><button class="details add-cart" data-id="'+p.id+'">ADD TO CART　＋</button></div></div></article>').join("")||'<div class="empty">No creations found. Try another search.</div>';grid.querySelectorAll(".details").forEach(b=>b.addEventListener("click",()=>selectItem(Number(b.dataset.id))));}
 function selectItem(id){
  const p=items[id];
- document.getElementById("selectedProduct").value=p[0]+" — "+p[3];
+ document.getElementById("selectedProduct").value=cart.map(x=>x[0]+" — "+x[3]).join(", ");
  document.getElementById("delivery").hidden=false;
  document.getElementById("delivery").scrollIntoView({behavior:"smooth"});
 }
