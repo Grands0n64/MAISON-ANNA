@@ -1,56 +1,54 @@
-html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maison Anna Flowers</title>
-<link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--pink:#FCE4EC;--card:#FFF5F8;--green:#1F3D33;--rose:#B5173F;--yellow:#F7D861;--blush:#F5C6D4}
 *{box-sizing:border-box;margin:0}
 body{background:var(--pink);color:var(--green);font:500 16px/1.5 "Nunito",system-ui,sans-serif;padding:12px 12px 90px}
 button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
 .top{position:sticky;top:10px;z-index:20;background:var(--card);border-radius:32px;padding:14px 18px;box-shadow:0 8px 24px #b5173f22;max-width:1100px;margin:0 auto}
 .row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
-.left{display:flex;gap:6px;align-items:center}
-.right{display:flex;gap:8px;align-items:center;justify-self:end}
+.left{display:flex;gap:6px}
 .icon{background:none;border:0;font-size:1.5rem;padding:6px}
-.curr-btn{background:var(--pink);border:1.5px solid var(--green);border-radius:999px;padding:4px 10px;font-size:.8rem;font-weight:800;letter-spacing:.03em}
-.curr-btn:hover{background:var(--green);color:#fff}
-.logo{text-align:center;text-decoration:none;font-weight:800;font-size:clamp(1.3rem,5.5vw,2.2rem);letter-spacing:.04em;line-height:1}
+.logo{text-align:center;text-decoration:none;font-weight:800;font-size:clamp(1.4rem,6vw,2.2rem);letter-spacing:.04em;line-height:1}
 .logo small{display:block;font-size:.5rem;letter-spacing:.3em;color:#5c7a6c;margin-top:6px;font-weight:700}
-.cart{position:relative}
+.cart{justify-self:end;position:relative}
 #badge{position:absolute;top:-2px;right:-4px;background:#E8508A;color:#fff;border-radius:50%;min-width:22px;height:22px;font-size:.8rem;font-weight:800;display:grid;place-items:center}
 #menu{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--blush)}
 #menu[hidden],#q[hidden]{display:none}
 .chip{background:none;border:1.5px solid var(--green);border-radius:999px;padding:5px 14px;font-size:.85rem;font-weight:700}
 .chip[aria-pressed="true"]{background:var(--green);color:#fff}
 #q{width:100%;margin-top:12px;padding:10px 16px;border-radius:999px;border:1.5px solid var(--blush);font:inherit;background:#fff}
-.intro{max-width:1100px;margin:28px auto 8px;padding:0 8px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+
+.intro{max-width:1100px;margin:28px auto 8px;padding:0 8px}
 .intro h1{font-size:clamp(1.6rem,5vw,2.6rem);line-height:1.15;font-weight:800}
 .intro p{margin-top:6px;color:#5c7a6c}
-#countLabel{font-weight:800;font-size:.9rem;background:var(--card);padding:6px 14px;border-radius:999px}
+#followers{font-weight:700}
+
 .grid{max-width:1100px;margin:20px auto 0;display:grid;grid-template-columns:repeat(2,1fr);gap:28px 14px}
 @media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr);gap:36px 20px}}
 .ph{position:relative;aspect-ratio:4/5;border-radius:28px;overflow:hidden;background:linear-gradient(160deg,#F9D3DF,#EFB3C6);box-shadow:0 8px 20px #b5173f1f;border:1px solid #fff8}
-.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
-.card:hover .ph img{transform:scale(1.04)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
 .save{position:absolute;top:12px;left:12px;background:var(--yellow);color:var(--green);font-weight:800;font-size:.75rem;padding:8px 14px;border-radius:999px;z-index:2;transform:rotate(-4deg)}
-.reg-tag{position:absolute;top:12px;right:12px;background:#fffd;color:var(--green);font-weight:800;font-size:.68rem;padding:4px 10px;border-radius:999px;z-index:2}
 .add{position:absolute;right:10px;bottom:10px;background:var(--green);color:#fff;border:1px solid #ffffff55;border-radius:999px;padding:11px 16px;font-weight:800;font-size:.78rem;letter-spacing:.1em;text-decoration:none;display:inline-block}
-.add:hover{background:#2a5245}
 .card h3{font-size:1.1rem;font-weight:800;margin-top:12px;line-height:1.25}
 .pr{margin-top:2px;font-size:1.05rem}
 .pr b{font-weight:800}.pr b.sale{color:var(--rose)}
 .pr s{color:#6d7c74;margin-left:6px}
-.empty{grid-column:1/-1;padding:30px 0;text-align:center;font-weight:700;color:#5c7a6c}
+.empty{grid-column:1/-1;padding:30px 0}
+
 .chat{position:fixed;right:14px;bottom:16px;z-index:25;background:var(--green);color:#fff;text-decoration:none;border-radius:999px;padding:14px 22px;font-size:1.05rem;box-shadow:0 8px 20px #0003}
 footer{max-width:1100px;margin:60px auto 0;padding:24px 8px;border-top:1px solid var(--blush);font-size:.85rem;color:#5c7a6c}
-dialog{border:0;border-radius:28px;padding:24px;width:min(92vw,440px);max-height:90vh;overflow:auto;background:var(--card);color:var(--green);margin:auto}
+
+dialog{border:0;border-radius:28px;padding:24px;width:min(92vw,440px);max-height:90vh;overflow:auto;background:var(--card);color:var(--green)}
 dialog::backdrop{background:#1f3d3355}
 dialog h2{font-size:1.4rem;margin-bottom:12px}
 dialog h3{font-size:1.05rem;font-weight:800;margin:18px 0 8px}
@@ -60,286 +58,316 @@ dialog h3{font-size:1.05rem;font-weight:800;margin:18px 0 8px}
 .actions{display:flex;gap:10px;align-items:center}
 .actions .add{position:static;border:0;cursor:pointer}
 .actions .chip{padding:10px 18px}
+
 #delivery[hidden]{display:none}
 #delivery label{display:block;font-size:.8rem;font-weight:700;margin-top:10px}
 #delivery input{width:100%;margin-top:4px;padding:10px 14px;border-radius:14px;border:1.5px solid var(--blush);font:inherit;background:#fff;color:var(--green)}
 #delivery .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 #delivery .note{font-size:.78rem;color:#5c7a6c;margin:14px 0 4px}
-#statusMsg{margin-top:12px;font-weight:700;color:var(--green);font-size:.9rem}
 </style>
 </head>
 <body>
+
 <header class="top">
   <div class="row">
     <div class="left">
       <button class="icon" id="menuBtn" aria-label="Menu" aria-expanded="false">☰</button>
       <button class="icon" id="searchBtn" aria-label="Search">🔍</button>
     </div>
-    <a class="logo" href="#" id="logo" aria-label="Maison Anna Flowers">MAISON ANNA<small>HAUTE FLORISTRY</small></a>
-    <div class="right">
-      <button class="curr-btn" id="currBtn" aria-label="Switch currency">USD $</button>
-      <button class="icon cart" id="cartBtn" aria-label="Open cart">🛒<span id="badge">0</span></button>
-    </div>
+    <a class="logo" href="#" id="logo" aria-label="Maison Anna Flowers"></a>
+    <button class="icon cart" id="cartBtn" aria-label="Open cart">🛒<span id="badge">0</span></button>
   </div>
   <nav id="menu" hidden aria-label="Filters">
     <div id="regions" style="display:flex;gap:8px;flex-wrap:wrap"></div>
     <div id="prices" style="display:flex;gap:8px;flex-wrap:wrap"></div>
   </nav>
-  <input id="q" type="search" placeholder="Search 64 flowers (e.g. peony, orchid, tulip, rose...)" hidden aria-label="Search flowers">
+  <input id="q" type="search" placeholder="Search flowers" hidden aria-label="Search flowers">
 </header>
+
 <section class="intro">
-  <div>
-    <h1>Luxury flowers for the USA and Europe</h1>
-    <p>Arrangements from $500 to $1,000,000. Confirmed personally.</p>
-  </div>
-  <span id="countLabel">64 Arrangements</span>
+  <h1>Luxury flowers for the USA and Europe</h1>
+  <p>Arrangements from $500 to $1,000,000. <span id="followers"></span></p>
 </section>
+
 <main class="grid" id="grid"></main>
+
 <footer>© Maison Anna Flowers. Every order is confirmed personally.</footer>
-<a class="chat" href="mailto:Riayoung280@://gmail.com">💬 Live chat</a>
+
+<a class="chat" href="mailto:Riayoung280@gmail.com?subject=Live%20chat%20request">💬 Live chat</a>
+
 <dialog id="cartDlg">
   <h2>Your cart</h2>
   <div id="items"></div>
   <p class="total" id="total"></p>
+
   <form id="delivery" hidden>
     <h3>Delivery details</h3>
-    <label>Full name<input name="name" autocomplete="name" required></label>
-    <label>Email<input name="email" type="email" autocomplete="email" required></label>
+    <label>Full name
+      <input name="name" autocomplete="name" required>
+    </label>
+    <label>Email
+      <input name="email" type="email" autocomplete="email" required>
+    </label>
     <div class="two">
-      <label>Country<input name="country" autocomplete="country-name" required></label>
-      <label>State / Region<input name="state" autocomplete="address-level1" required></label>
+      <label>Country
+        <input name="country" autocomplete="country-name" required>
+      </label>
+      <label>State
+        <input name="state" autocomplete="address-level1" required>
+      </label>
     </div>
-    <label>Delivery address<input name="address" autocomplete="street-address" required></label>
+    <label>Delivery address
+      <input name="address" autocomplete="street-address" required>
+    </label>
     <p class="note">Payment will be added soon. For now we confirm every order personally by email.</p>
     <div class="actions" style="margin-top:12px">
-      <button class="add" type="submit" id="submitOrderBtn">PLACE ORDER</button>
+      <button class="add" type="submit">PLACE ORDER</button>
       <button class="chip" type="button" id="closeCart2">Close</button>
     </div>
-    <p id="statusMsg"></p>
   </form>
+
   <div class="actions" id="emptyActions">
     <button class="chip" type="button" id="closeCart">Close</button>
   </div>
 </dialog>
+
 <script>
-const EMAIL = "Riayoung280@gmail.com";
-const FORMSPREE_ENDPOINT = "";
-const EUR_RATE = 0.92;
-const PHOTOS = [
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-  "https://unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com",
-"unsplash.com"
+const GITHUB_USERNAME="Maison-Anna";
+const EMAIL="Riayoung280@gmail.com";
+
+// PHOTOS
+// 1) Put your own photos in an "images" folder next to this file, named after the product:
+//    "Classic Red Rose Dozen"  ->  images/classic-red-rose-dozen.jpg
+// 2) If a photo is missing, the card shows a pink flower picture so it is never empty.
+// 3) Or paste a full photo link as the 6th item on any product line below.
+const slug=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const photo=x=>x.img||"images/"+slug(x.n)+".jpg";
+
+// generated flower picture (used when a photo is missing)
+const EMOJI=[[/rose/,"🌹"],[/tulip/,"🌷"],[/peon|cherry|magnolia/,"🌸"],[/orchid|camellia/,"🌺"],[/lilac|wisteria|delphinium/,"🪻"],[/gardenia|jasmine|sweetpea|stephan/,"🌼"],[/wedding|bridal|proposal/,"💍"],[/hydrangea|lily|ranunculus/,"💐"]];
+const GRADS=[["#F9D3DF","#EFB3C6"],["#FCE4EC","#F5C6D4"],["#F7D9E3","#E8A1BB"],["#FFE3EA","#F2B8C9"],["#F8D6E0","#E9A9C0"],["#FDE7EE","#F0BCCF"]];
+function art(id){
+  const x=products[id],e=(EMOJI.find(m=>m[0].test(x.kw))||[0,"💐"])[1],g=GRADS[id%GRADS.length];
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${g[0]}"/><stop offset="1" stop-color="${g[1]}"/></linearGradient></defs><rect width="400" height="500" fill="url(#g)"/><circle cx="200" cy="250" r="130" fill="#ffffff55"/><text x="200" y="295" font-size="150" text-anchor="middle">${e}</text></svg>`;
+  return "data:image/svg+xml,"+encodeURIComponent(svg);
+}
+
+// [name, region (USA / Europe / Both), price, flags, flower keyword, optional photo link]
+// flags: "f" = shows "From", "s" = 10% sale badge
+const list=[
+ // Your originals
+ ["Blush Rose Bouquet","USA",500,"f","pink,rose","https://unsplash.com/photos/PYP3x1lEUXU/download?force=true&w=800"],
+ ["Garden Rose Vase","Europe",1500,"s","garden,rose","https://unsplash.com/photos/vN8HQcKv8Lg/download?force=true&w=800"],
+ ["Bridal Rose Collection","USA",2200,"f","bridal,rose","https://unsplash.com/photos/ibdyFSFWOkg/download?force=true&w=800"],
+ ["Pink Peony Cloud","Europe",4500,"","peony","https://unsplash.com/photos/QfaXkfe5g3A/download?force=true&w=800"],
+ ["Parisian Rose Box","Europe",990,"fs","rose","https://unsplash.com/photos/nZc3vd7BoCg/download?force=true&w=800"],
+ ["Manhattan Pink Garden","USA",7500,"f","pink,flowers","https://unsplash.com/photos/1Dy0nRW1Sas/download?force=true&w=800"],
+ ["Paper-Wrapped Roses","Europe",650,"f","roses,bouquet","https://unsplash.com/photos/FXHCqfusN-c/download?force=true&w=800"],
+ ["Wedding Arch Collection","USA",18000,"f","wedding,arch,flowers"],
+ ["Château Estate Installation","Europe",240000,"f","chateau,garden,flowers"],
+ ["The Grand Gala Commission","Both",1000000,"","floral,installation"],
+
+ // Roses
+ ["Classic Red Rose Dozen","USA",520,"","red,rose"],
+ ["Two Dozen Long-Stem Roses","USA",780,"s","longstem,rose"],
+ ["Champagne Rose Bouquet","Europe",860,"","peach,rose"],
+ ["Ecuadorian Rose Tower","Europe",1250,"","roses,vase"],
+ ["Eternal Rose Hat Box","Europe",1900,"f","rose,box"],
+ ["White Rose Cascade","Europe",2800,"s","white,rose"],
+ ["Velvet Red Rose Hundred","USA",3800,"","red,roses"],
+ ["Juliet Garden Rose Dome","Europe",5200,"","garden,roses"],
+ ["Rose Petal Bridal Suite","USA",6400,"f","rose,petals"],
+ ["Five Hundred Roses Gift","USA",9800,"","rose,bouquet"],
+ ["Thousand Rose Declaration","Both",24000,"","roses,heart"],
+
+ // Peonies
+ ["Coral Charm Peony Bouquet","USA",640,"f","coral,peony"],
+ ["Sarah Bernhardt Peony Vase","Europe",1350,"","peony,vase"],
+ ["Blush Peony Centerpiece","USA",2100,"s","blush,peonies"],
+ ["Peony and Ranunculus Cloud","Europe",3300,"","peonies,bouquet"],
+ ["White Peony Grand Urn","Europe",4800,"","white,peony"],
+ ["Peony Season Signature Suite","USA",8700,"f","peony,flowers"],
+
+ // Orchids
+ ["White Phalaenopsis Duo","USA",560,"","white,orchid"],
+ ["Orchid Silk Pavilion","Europe",1700,"s","orchid"],
+ ["Cymbidium Cascade Planter","Europe",2600,"","cymbidium,orchid"],
+ ["Black Orchid Collection","USA",3900,"f","dark,orchid"],
+ ["Vanda Orchid Sculpture","Europe",6900,"","vanda,orchid"],
+ ["Imperial Orchid Conservatory","Both",32000,"f","orchids,greenhouse"],
+
+ // Lilies and tulips
+ ["Casablanca Lily Bouquet","USA",590,"","white,lily"],
+ ["Stargazer Lily Arrangement","Europe",720,"s","stargazer,lily"],
+ ["Calla Lily Elegance","Europe",1100,"","calla,lily"],
+ ["Dutch Tulip Masterpiece","Europe",1450,"f","tulip,bouquet"],
+ ["Parrot Tulip Display","Europe",2400,"","parrot,tulip"],
+ ["Royal Lily Column","USA",3600,"s","lilies,vase"],
+
+ // Hydrangea, ranunculus, delphinium
+ ["Blue Hydrangea Grand Bowl","USA",880,"","blue,hydrangea"],
+ ["Antique Hydrangea Cloud","Europe",1650,"s","hydrangea"],
+ ["Ranunculus Silk Bouquet","Europe",1200,"","ranunculus"],
+ ["Delphinium and Larkspur Tower","Europe",2950,"","delphinium"],
+ ["White Garden Hydrangea Wall","USA",7200,"f","white,hydrangea"],
+
+ // Fragrant classics
+ ["Gardenia Perfumed Collection","USA",830,"","gardenia"],
+ ["Lilac Spring Bouquet","Europe",950,"","lilac"],
+ ["Sweet Pea Heirloom Vase","Europe",1050,"s","sweetpea"],
+ ["Lily of the Valley Heirloom","Europe",1800,"f","lily,valley"],
+ ["Stephanotis Bridal Crown","USA",2300,"","stephanotis,bridal"],
+ ["Jasmine Garland Collection","Europe",3100,"","jasmine"],
+ ["Camellia Imperial Garden","Europe",4100,"","camellia"],
+ ["Magnolia Estate Collection","USA",5600,"s","magnolia"],
+ ["Wisteria Cascade Canopy","Europe",8400,"f","wisteria"],
+ ["Cherry Blossom Cloud","USA",11000,"","cherry,blossom"],
+
+ // Anniversaries and gifts
+ ["Silver Anniversary Bouquet","USA",1600,"","white,bouquet"],
+ ["Gold Anniversary Collection","USA",2750,"s","yellow,roses"],
+ ["Mother's Day Signature Box","USA",700,"s","flower,box"],
+ ["Valentine's Grand Declaration","Both",12500,"","valentine,roses"],
+ ["Birthday Luxe Bouquet","Europe",610,"","colorful,bouquet"],
+ ["Sympathy Lily Tribute","USA",900,"","white,lilies"],
+ ["Anniversary Rose Garden Box","Europe",3200,"f","rose,garden"],
+ ["Proposal Rose Ring Display","Europe",15000,"f","proposal,roses"],
+ ["Diamond Jubilee Collection","Europe",28000,"","white,flowers"],
+ ["Golden Wedding Celebration","USA",14500,"s","wedding,bouquet"],
+
+ // Weddings and events
+ ["Ceremony Aisle Garland","Europe",9500,"f","wedding,aisle"],
+ ["Wedding Chuppah Florals","USA",13500,"","wedding,canopy"],
+ ["Grand Ballroom Centerpieces","Europe",16000,"f","ballroom,flowers"],
+ ["Cathedral Entrance Arrangement","Europe",21000,"","church,flowers"],
+ ["Bridal Bouquet and Bridesmaids Set","USA",8200,"","bridal,bouquet"],
+ ["Rehearsal Dinner Florals","USA",10500,"f","dinner,table,flowers"],
+ ["Royal Wedding Collection","Europe",38000,"f","royal,wedding"],
+ ["Gala Table Suite, 20 Tables","USA",45000,"","table,centerpiece"],
+ ["Red Carpet Floral Walkway","USA",52000,"f","red,carpet,flowers"],
+ ["Palace Wedding Installation","Europe",85000,"","palace,flowers"],
+
+ // Estates and ultra luxury
+ ["Rooftop Garden Transformation","USA",60000,"f","rooftop,garden"],
+ ["Mansion Entry Floral Sculpture","USA",72000,"","mansion,flowers"],
+ ["Yacht Charter Florals","Europe",95000,"f","yacht,flowers"],
+ ["Grand Staircase Floral Cascade","Europe",120000,"","staircase,flowers"],
+ ["Penthouse Seasonal Subscription","USA",150000,"f","penthouse,flowers"],
+ ["Chateau Wedding Weekend","Europe",180000,"","chateau,wedding"],
+ ["Museum Gala Floral Takeover","USA",210000,"f","museum,flowers"],
+ ["Vineyard Estate Floral Season","Europe",260000,"","vineyard,flowers"],
+ ["Estate Year of Flowers","Both",320000,"","estate,garden"],
+ ["Opera House Opening Night","Europe",360000,"f","opera,flowers"],
+ ["Royal Garden Party Commission","Europe",400000,"f","garden,party"],
+ ["Presidential Gala Florals","USA",440000,"","gala,flowers"],
+ ["Hotel Lobby Floral Season","USA",480000,"","hotel,flowers"],
+ ["Fashion Week Floral Runway","Europe",550000,"f","runway,flowers"],
+ ["Palace Gardens Restoration","Europe",650000,"","palace,garden"],
+ ["Riviera Estate Rose Garden","Europe",700000,"f","rose,garden"],
+ ["Imperial Wedding Spectacular","Both",750000,"f","wedding,flowers"],
+ ["Crown Jewel Flower Ceremony","Europe",850000,"","floral,arrangement"],
+ ["Hamptons Estate Floral Legacy","USA",920000,"f","estate,flowers"],
+ ["The Millionaire's Rose Garden","Both",1000000,"","rose,garden"]
 ];
-const list = [
-["Blush Rose Bouquet", "USA", 500, "f", "pink rose classic", 0],
-["Parisian Morning Tulips", "Europe", 550, "", "tulip pastel spring", 19],
-["Ivory Sweet Pea Posy", "USA", 650, "s", "sweet pea white bridal", 2],
-["Provence Lavender & Rose", "Europe", 750, "", "lavender purple french", 13],
-["Sunset Coral Peony Vase", "USA", 880, "f", "coral peony summer", 3],
-["English Garden Delphinium", "Europe", 950, "", "delphinium blue cottage", 24],
-["Champagne Spray Roses", "Both", 1100, "s", "champagne cream rose", 12],
-["Amalfi Lemon Blossom & Lily", "Europe", 1250, "", "white lily citrus", 21],
-["Beverly Hills Orchid Trio", "USA", 1400, "f", "white phalaenopsis orchid", 5],
-["Garden Rose Crystal Vase", "Europe", 1500, "s", "garden rose pink", 1],
-["Velvet Burgundy Dahlia", "USA", 1650, "", "burgundy dahlia autumn", 16],
-["Vienna Opera Carnation Cloud", "Europe", 1800, "f", "carnation ruffled pink", 15],
-["Manhattan White Calla", "USA", 1950, "", "calla lily modern", 28],
-["Bridal Rose Collection", "USA", 2200, "f", "bridal white rose wedding", 2],
-["Loire Valley Hydrangea Bowl", "Europe", 2450, "s", "hydrangea blue white", 6],
-["Golden Ranunculus Hatbox", "Both", 2700, "", "yellow ranunculus box", 7],
-["Kensington Blush Anemone", "Europe", 2950, "f", "anemone white black center", 17],
-["Hamptons Coastal Peony", "USA", 3200, "", "peony pink coastal", 10],
-["Milanese Velvet Anthurium", "Europe", 3500, "s", "anthurium modern red", 23],
-["Aspen Winter White Amaryllis", "USA", 3800, "f", "amaryllis winter white", 30],
-["Monaco Grand Prix Roses", "Europe", 4100, "", "red rose luxury", 4],
-["Pink Peony Cloud", "Europe", 4500, "", "pink peony lush", 3],
-["Georgetown Magnolia & Rose", "USA", 4850, "s", "magnolia white grand", 29],
-["Cannes Film Gala Centerpiece", "Europe", 5200, "f", "centerpiece luxury gala", 8],
-["Palm Beach Tropical Orchid", "USA", 5600, "", "orchid exotic pink", 14],
-["Swiss Alps Edelweiss & Rose", "Europe", 6100, "", "white alpine botanical", 31],
-["Crimson Velvet 200 Roses", "Both", 6800, "s", "red rose two hundred", 4],
-["Tuscan Olive & Wildflower Urn", "Europe", 7400, "f", "wildflower rustic urn", 26],
-["SoHo Loft Sculptural Lilies", "USA", 8000, "", "stargazer lily pink", 18],
-["Saint-Tropez Bougainvillea", "Europe", 8800, "s", "magenta summer floral", 20],
-["Imperial White Phalaenopsis", "USA", 9500, "f", "white orchid cascading", 5],
-["Zürich Diamond Dust Roses", "Europe", 10500, "", "white rose sparkle", 11],
-["Bel Air Estate Rose Wall", "USA", 12000, "f", "pink rose wall backdrop", 0],
-["Château Hydrangea & Lily", "Europe", 14000, "", "hydrangea lily pastel", 6],
-["Napa Valley Vineyard Arch", "USA", 16500, "s", "vineyard floral arch", 9],
-["Venetian Palazzo Candlelight", "Europe", 19000, "f", "romantic dinner floral", 8],
-["Boston Symphony Grand Bouquet", "USA", 22000, "", "classical mixed bouquet", 22],
-["Ranunculus Silk Hatbox Suite", "Both", 25000, "s", "ranunculus silk luxury", 7],
-["Stockholm Midsummer Crown", "Europe", 28500, "f", "wildflower meadow crown", 25],
-["Chicago Penthouse Orchid Bar", "USA", 32000, "", "orchid arrangement modern", 14],
-["Madrid Royal Botanical Tier", "Europe", 36000, "s", "tiered floral display", 10],
-["San Francisco Fog & Peony", "USA", 40000, "f", "soft pink peony misty", 12],
-["Geneva Lakefront Swan Urn", "Europe", 45000, "", "white swan floral urn", 21],
-["Miami Art Basel Floral Cube", "USA", 50000, "s", "avant garde floral art", 27],
-["Copenhagen Nordic Minimalist", "Europe", 56000, "f", "nordic dried fresh stem", 17],
-["Versailles Grand Urn", "Europe", 65000, "f", "versailles gold floral", 8],
-["Dallas Ballroom Chandelier", "USA", 75000, "", "hanging floral chandelier", 9],
-["Florence Renaissance Tapestry", "Europe", 88000, "s", "renaissance rich roses", 16],
-["Seattle Glasshouse Conservatory", "USA", 100000, "f", "glasshouse rare blooms", 23],
-["Brussels Grand Place Carpet", "Europe", 120000, "", "floral tapestry installation", 20],
-["Malibu Cliffside Ceremony", "USA", 145000, "f", "oceanfront wedding arch", 9],
-["Vienna Imperial Ball Cascade", "Europe", 165000, "s", "ballroom cascade roses", 1],
-["Fifth Avenue Gala Arch", "USA", 180000, "f", "fifth avenue luxury arch", 9],
-["Lake Como Villa Balbianello", "Europe", 220000, "", "lake como wedding floral", 2],
-["Central Park Conservatory Gala", "USA", 260000, "f", "botanical gala dinner", 10],
-["Paris Fashion Week Runway", "Europe", 310000, "s", "runway flower meadow", 26],
-["Montecito Estate Tenting", "USA", 380000, "f", "estate floral ceiling", 11],
-["Royal Conservatory Estate", "Both", 450000, "", "botanical roses peonies", 10],
-["Côte d'Azur Superyacht Deck", "Europe", 550000, "f", "yacht floral installation", 5],
-["Newport Mansion Ballroom", "USA", 680000, "", "gilded age floral hall", 8],
-["Louvre Private Soirée", "Europe", 790000, "s", "museum gala floral", 15],
-["The Beverly Hills Centennial", "USA", 880000, "f", "ten thousand roses", 4],
-["Château de Chantilly Fireworks", "Europe", 950000, "", "castle floral spectacle", 19],
-["The Million Dollar Couture", "Both", 1000000, "f", "bespoke diamond floral", 11]
-];
-const products = list.map((item, idx) => ({
-id: idx + 1,
-name: item[0],
-region: item[1],
-priceUSD: item[2],
-flags: item[3],
-kw: item[4],
-img: PHOTOS[item[5] % PHOTOS.length]
-}));
-let state = { currency: "USD", region: "All", price: "All", query: "", cart: [] };
-function convertPrice(usd) { return state.currency === "EUR" ? Math.round(usd * EUR_RATE) : usd; }
-function fmt(usd) {
-const val = convertPrice(usd);
-return state.currency === "EUR" ? "€" + val.toLocaleString("de-DE") : "$" + val.toLocaleString("en-US");
-}
-document.getElementById("currBtn").addEventListener("click", function() {
-state.currency = state.currency === "USD" ? "EUR" : "USD";
-this.textContent = state.currency === "USD" ? "USD $" : "EUR €";
-renderFilters(); renderGrid(); updateCartUI();
+
+const products=list.map((a,i)=>{
+  const fl=a[3]||"",sale=fl.includes("s");
+  return{n:a[0],reg:a[1],p:a[2],from:fl.includes("f"),sale,kw:a[4],img:a[5],id:i,price:sale?Math.round(a[2]*0.9):a[2]};
 });
-const regions = ["All", "USA", "Europe"];
-function getPriceRanges() {
-const sym = state.currency === "EUR" ? "€" : "$";
-return [
-{ label: "All Prices", val: "All" },
-{ label: Under ${sym}5,000, val: "under5k" },
-{ label: ${sym}5,000 – ${sym}50,000, val: "5kto50k" },
-{ label: ${sym}50,000+, val: "over50k" }
-];
+
+const fmt=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
+const $=id=>document.getElementById(id);
+
+// logo with coloured letters
+const colors=["#E8508A","#F0762C","#9B6BD6","#E8508A","#4F7A38"];
+$("logo").innerHTML=[..."MAISON ANNA"].map((c,i)=>c===" "?" ":`<span style="color:${colors[i%colors.length]}">${c}</span>`).join("")+"<small>FLOWERS · USA &amp; EUROPE</small>";
+
+// followers
+fetch("https://api.github.com/users/"+GITHUB_USERNAME)
+ .then(r=>r.ok?r.json():Promise.reject())
+ .then(u=>{$("followers").textContent=u.followers.toLocaleString("en-US")+" followers"})
+ .catch(()=>{});
+
+// filters
+const regions=["All","USA","Europe"];
+const bands=[["All prices",0,Infinity],["$500 – $5K",0,5000],["$5K – $50K",5000,50000],["$50K – $1M",50000,Infinity]];
+let region="All",band=0,query="",cart=[];
+
+function chips(box,items,label,set){
+  items.forEach((it,i)=>{
+    const b=document.createElement("button");
+    b.className="chip";b.textContent=label(it);
+    b.onclick=()=>{set(i);sync();render()};
+    $(box).appendChild(b);
+  });
 }
-function renderFilters() {
-document.getElementById("regions").innerHTML = regions.map(r => <button class="chip" aria-pressed="${state.region === r}" onclick="setRegion('${r}')">${r === 'All' ? 'All Regions' : r}</button>).join("");
-document.getElementById("prices").innerHTML = getPriceRanges().map(p => <button class="chip" aria-pressed="${state.price === p.val}" onclick="setPrice('${p.val}')">${p.label}</button>).join("");
+function sync(){
+  document.querySelectorAll("#regions .chip").forEach((b,i)=>b.setAttribute("aria-pressed",regions[i]===region));
+  document.querySelectorAll("#prices .chip").forEach((b,i)=>b.setAttribute("aria-pressed",i===band));
 }
-function setRegion(r) { state.region = r; renderFilters(); renderGrid(); }
-function setPrice(p) { state.price = p; renderFilters(); renderGrid(); }
-function renderGrid() {
-const grid = document.getElementById("grid");
-const filtered = products.filter(p => {
-const matchRegion = state.region === "All" || p.region === state.region || p.region === "Both";
-let matchPrice = true;
-if (state.price === "under5k") matchPrice = p.priceUSD < 5000;
-if (state.price === "5kto50k") matchPrice = p.priceUSD >= 5000 && p.priceUSD <= 50000;
-if (state.price === "over50k") matchPrice = p.priceUSD > 50000;
-const q = state.query.trim().toLowerCase();
-const matchQuery = !q || p.name.toLowerCase().includes(q) || p.kw.toLowerCase().includes(q) || p.region.toLowerCase().includes(q);
-return matchRegion && matchPrice && matchQuery;
-});
-document.getElementById("countLabel").textContent = ${filtered.length} Arrangement${filtered.length === 1 ? '' : 's'};
-if (!filtered.length) { grid.innerHTML = <p class="empty">No floral arrangements match your filter.</p>; return; }
-grid.innerHTML = filtered.map(p => {
-const isSale = p.flags.includes("s");
-const isFrom = p.flags.includes("f");
-const finalUSD = isSale ? Math.round(p.priceUSD * 0.9) : p.priceUSD;
-return <article class="card"><div class="ph">${isSale ? 10% OFF: ""}<span class="reg-tag">${p.region === 'Both' ? 'USA & EU' : p.region}</span><img src="${p.img}" alt="${p.name}" loading="lazy"><button class="add" onclick="addToCart(${p.id})">+ ADD</button></div><h3>${p.name}</h3><p class="pr">${isFrom ? "From " : ""}<b class="${isSale ? 'sale' : ''}">${fmt(finalUSD)}</b>${isSale ?${fmt(p.priceUSD)} : ""}</p></article>;
-}).join("");
+chips("regions",regions,x=>x,i=>region=regions[i]);
+chips("prices",bands,x=>x[0],i=>band=i);
+
+$("menuBtn").onclick=()=>{const m=$("menu");m.hidden=!m.hidden;$("menuBtn").setAttribute("aria-expanded",!m.hidden)};
+$("searchBtn").onclick=()=>{const q=$("q");q.hidden=!q.hidden;if(!q.hidden)q.focus()};
+$("q").oninput=e=>{query=e.target.value.toLowerCase();render()};
+
+// products
+function render(){
+  const [,lo,hi]=bands[band];
+  const shown=products.filter(x=>
+    (region==="All"||x.reg===region||x.reg==="Both")&&
+    x.price>lo&&x.price<=hi&&
+    x.n.toLowerCase().includes(query));
+  $("grid").innerHTML=shown.length?shown.map(x=>`
+    <article class="card">
+      <div class="ph">
+        ${x.sale?'<span class="save">SAVE 10%</span>':''}
+        <img src="${photo(x)}" alt="${x.n}" loading="lazy" onerror="this.onerror=null;this.src=art(${x.id})">
+        <button class="add" data-id="${x.id}" aria-label="Add ${x.n} to cart">ADD TO 🛒</button>
+      </div>
+      <h3>${x.n}</h3>
+      <div class="pr">${x.from?"From ":""}<b class="${x.sale?"sale":""}">${fmt(x.price)}</b>${x.sale?`<s>${fmt(x.p)}</s>`:""}</div>
+    </article>`).join(""):'<p class="empty">Nothing matches yet. Try another search or price.</p>';
 }
-function addToCart(id) {
-const item = products.find(p => p.id === id);
-if (!item) return;
-const finalUSD = item.flags.includes("s") ? Math.round(item.priceUSD * 0.9) : item.priceUSD;
-state.cart.push({ ...item, finalUSD });
-updateCartUI();
+$("grid").onclick=e=>{
+  const b=e.target.closest(".add");if(!b)return;
+  cart.push(+b.dataset.id);updateCart();
+  b.textContent="ADDED ✓";setTimeout(()=>b.textContent="ADD TO 🛒",1200);
+};
+
+// cart
+function updateCart(){
+  $("badge").textContent=cart.length;
+  const total=cart.reduce((s,id)=>s+products[id].price,0);
+  $("items").innerHTML=cart.length?cart.map((id,i)=>`<div class="line"><span>${products[id].n}<br><small>${fmt(products[id].price)}</small></span><button type="button" data-r="${i}">Remove</button></div>`).join(""):"<p>Your cart is empty.</p>";
+  $("total").textContent=cart.length?"Total: "+fmt(total):"";
+  $("delivery").hidden=!cart.length;
+  $("emptyActions").style.display=cart.length?"none":"flex";
 }
-function removeFromCart(index) { state.cart.splice(index, 1); updateCartUI(); }
-function updateCartUI() {
-document.getElementById("badge").textContent = state.cart.length;
-const itemsEl = document.getElementById("items");
-const totalEl = document.getElementById("total");
-const deliveryForm = document.getElementById("delivery");
-const emptyActions = document.getElementById("emptyActions");
-if (!state.cart.length) {
-itemsEl.innerHTML = <p>Your cart is currently empty.</p>;
-totalEl.textContent = ""; deliveryForm.hidden = true; emptyActions.hidden = false; return;
-}
-itemsEl.innerHTML = state.cart.map((item, idx) => <div class="line"><div><strong>${item.name}</strong><br><small>${fmt(item.finalUSD)}</small></div><button type="button" onclick="removeFromCart(${idx})" aria-label="Remove ${item.name}">Remove</button></div>).join("");
-const sumUSD = state.cart.reduce((acc, item) => acc + item.finalUSD, 0);
-totalEl.textContent = Total: ${fmt(sumUSD)} (${state.currency});
-deliveryForm.hidden = false; emptyActions.hidden = true;
-}
-document.getElementById("menuBtn").addEventListener("click", function() {
-const menu = document.getElementById("menu"); const open = menu.hidden; menu.hidden = !open; this.setAttribute("aria-expanded", open);
-});
-document.getElementById("searchBtn").addEventListener("click", () => {
-const q = document.getElementById("q"); q.hidden = !q.hidden; if (!q.hidden) q.focus();
-});
-document.getElementById("q").addEventListener("input", e => { state.query = e.target.value; renderGrid(); });
-const cartDlg = document.getElementById("cartDlg");
-document.getElementById("cartBtn").addEventListener("click", () => { document.getElementById("statusMsg").textContent = ""; updateCartUI(); cartDlg.showModal(); });
-document.getElementById("closeCart").addEventListener("click", () => cartDlg.close());
-document.getElementById("closeCart2").addEventListener("click", () => cartDlg.close());
-document.getElementById("delivery").addEventListener("submit", async e => {
-e.preventDefault();
-const fd = new FormData(e.target);
-const statusMsg = document.getElementById("statusMsg");
-const submitBtn = document.getElementById("submitOrderBtn");
-const orderSummary = state.cart.map(i => ${i.name} (${fmt(i.finalUSD)})).join("\n");
-const totalStr = ${fmt(state.cart.reduce((acc, i) => acc + i.finalUSD, 0))} (${state.currency});
-if (FORMSPREE_ENDPOINT) {
-submitBtn.disabled = true; submitBtn.textContent = "SENDING...";
-try {
-const res = await fetch(FORMSPREE_ENDPOINT, {
-method: "POST",
-headers: { "Content-Type": "application/json", "Accept": "application/json" },
-body: JSON.stringify({ name: fd.get("name"), email: fd.get("email"), country: fd.get("country"), state: fd.get("state"), address: fd.get("address"), currency: state.currency, order: orderSummary, total: totalStr })
-});
-if (res.ok) {
-statusMsg.textContent = "Order received! We will confirm personally by email shortly.";
-state.cart = []; e.target.reset(); setTimeout(() => { updateCartUI(); }, 2500);
-} else { statusMsg.textContent = "Submission failed. Please try again or use Live Chat."; }
-} catch { statusMsg.textContent = "Network error. Please check your connection."; }
-finally { submitBtn.disabled = false; submitBtn.textContent = "PLACE ORDER"; }
-} else {
-const body = encodeURIComponent(Name: ${fd.get("name")}\nEmail: ${fd.get("email")}\nAddress: ${fd.get("address")}, ${fd.get("state")}, ${fd.get("country")}\n\nOrder:\n${orderSummary}\n\nTotal: ${totalStr});
-window.location.href = mailto:${EMAIL}?subject=Maison%20Anna%20Order%20Confirmation&body=${body};
-}
-});
-renderFilters(); renderGrid();
+$("items").onclick=e=>{const r=e.target.dataset.r;if(r!==undefined){cart.splice(+r,1);updateCart()}};
+$("cartBtn").onclick=()=>$("cartDlg").showModal();
+$("closeCart").onclick=()=>$("cartDlg").close();
+$("closeCart2").onclick=()=>$("cartDlg").close();
+
+// delivery form -> order request email
+// LATER: put your payment code here (Stripe, PayPal, etc.) before the email is sent.
+$("delivery").onsubmit=e=>{
+  e.preventDefault();
+  if(!cart.length)return;
+  const f=Object.fromEntries(new FormData(e.target));
+  const total=cart.reduce((s,id)=>s+products[id].price,0);
+  const lines=cart.map(id=>products[id].n+" - "+fmt(products[id].price)).join("\n");
+  const body="ORDER\n"+lines+"\n\nTotal: "+fmt(total)+
+    "\n\nDELIVERY DETAILS\nName: "+f.name+
+    "\nEmail: "+f.email+
+    "\nCountry: "+f.country+
+    "\nState: "+f.state+
+    "\nAddress: "+f.address;
+  location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Order request")+"&body="+encodeURIComponent(body);
+};
+
+sync();render();updateCart();
+</script>
+</body>
+</html>
