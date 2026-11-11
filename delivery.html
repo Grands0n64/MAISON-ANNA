@@ -36,7 +36,7 @@ a{color:inherit}.wrap{max-width:760px;margin:auto}.top{display:flex;justify-cont
 <label class="method"><input type="radio" name="shipping" value="Air cargo — standard floral shipment"><span><strong>Air cargo — standard floral shipment</strong><small>Air freight for large flower orders, shipped by plane. Airport handling and destination delivery are quoted separately.</small></span></label>
 <label class="method"><input type="radio" name="shipping" value="Air cargo — oversized wedding installation"><span><strong>Air cargo — oversized wedding installation</strong><small>For wedding arches, standing floral frames and large event structures. Requires freight dimensions and airline cargo approval; may need a specialist freight service.</small></span></label>
 </div>
-<div class="quote"><strong>Delivery price:</strong> We will request a carrier quote using the bulky-flower weight allowance shown above. Wedding arches and standing floral frames use a heavier freight allowance. Final price depends on packed dimensions, destination and carrier availability.</div>
+<div class="quote" id="priceBox"><strong>Delivery price:</strong> Choose a delivery method to see your estimated price. Final price depends on packed dimensions, destination and carrier availability.</div>
 <label>Delivery notes (optional)<textarea name="notes" placeholder="Gate code, preferred delivery date, or other instructions"></textarea></label>
 <button class="submit" type="submit">REQUEST DELIVERY &amp; ORDER CONFIRMATION</button>
 <p class="fine">Card and bank payment checkout will be connected after the payment provider is configured. This form sends an order request by email; it does not charge your card.</p>
@@ -60,8 +60,32 @@ if(Array.isArray(order.items)&&order.items.length){
  total.textContent="Order total: $"+Number(order.total||0).toLocaleString("en-US");
  document.getElementById("weightEstimate").textContent="Planning weight: approximately "+estimatedKg+" kg "+(estimatedKg===20?"for a large packed flower order":estimatedKg===100?"for a wedding arch / standing floral frame":"for a large-scale floral installation")+". Final packed weight and dimensions must be confirmed.";
 }else{lines.textContent="Cart details could not be loaded. Please return to the shop and add your flowers again.";document.querySelector(".submit").disabled=true}
+
+// ===== DELIVERY PRICES (edit numbers here, USD) =====
+const tier = estimatedKg===250 ? "large" : estimatedKg===100 ? "medium" : "small";
+const PRICES = {
+  "DHL Express":   {small:275, medium:900,  large:2000},
+  "FedEx Express": {small:275, medium:900,  large:2000},
+  "UPS Express":   {small:275, medium:900,  large:2000},
+  "Air cargo — standard floral shipment":       {small:150, medium:450,  large:1100},
+  "Air cargo — oversized wedding installation": {small:400, medium:1200, large:2000}
+};
+const priceBox = document.getElementById("priceBox");
+const defaultPriceText = priceBox.innerHTML;
+let shippingPrice = null;
+
+function showPrice(){
+  const r = document.querySelector('input[name="shipping"]:checked');
+  if(!r || !PRICES[r.value]){ shippingPrice=null; priceBox.innerHTML=defaultPriceText; return; }
+  shippingPrice = PRICES[r.value][tier];
+  priceBox.innerHTML = "<strong>Estimated delivery price:</strong> $" + shippingPrice.toLocaleString("en-US") +
+    " <span>(" + tier + " shipment, about " + estimatedKg + " kg)</span><br>" +
+    "Estimate only. The final price is confirmed by the carrier quote based on packed dimensions, destination and availability.";
+}
+document.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListener("change", showPrice));
+
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-document.getElementById("deliveryForm").addEventListener("submit",e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.currentTarget));const itemText=(order.items||[]).map(x=>x.name+" - $"+x.price).join("\n");const body="MAISON ANNA ORDER REQUEST\n\n"+itemText+"\nOrder total: $"+Number(order.total||0)+"\n\nCUSTOMER\n"+Object.entries(f).map(([k,v])=>k+": "+v).join("\n")+"\n\nDispatch from Miami, Florida 33131\nShipping charge: quote required; not yet calculated.\nPayment: not collected; awaiting confirmed quote and payment setup.";location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Maison Anna international order request")+"&body="+encodeURIComponent(body)});
+document.getElementById("deliveryForm").addEventListener("submit",e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.currentTarget));const itemText=(order.items||[]).map(x=>x.name+" - $"+x.price).join("\n");const body="MAISON ANNA ORDER REQUEST\n\n"+itemText+"\nOrder total: $"+Number(order.total||0)+"\n\nCUSTOMER\n"+Object.entries(f).map(([k,v])=>k+": "+v).join("\n")+"\n\nDispatch from Miami, Florida 33131\nShipping estimate: "+(shippingPrice?"$"+shippingPrice+" ("+tier+" tier)":"quote required")+"; final carrier quote to be confirmed.\nPayment: not collected; awaiting confirmed quote and payment setup.";location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Maison Anna international order request")+"&body="+encodeURIComponent(body)});
 </script>
 </body>
 </html>
