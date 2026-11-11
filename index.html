@@ -135,60 +135,21 @@ dialog h3{font-size:1.05rem;font-weight:800;margin:18px 0 8px}
 const GITHUB_USERNAME="Maison-Anna";
 const EMAIL="Riayoung280@gmail.com";
 
-// REAL FLOWER PHOTOGRAPHS — grouped by the flower/occasion in each product.
-const PHOTO={
- roses:[
- "https://images.unsplash.com/photo-1623362036080-47d58efb1a55?auto=format&fit=crop&w=1000&q=85",
- "https://fiftyflowers.com/cdn/shop/files/classic-roses-wedding-collection-centerpieces-online-close-up_68114_eqj70.webp?v=1778176257&width=800",
- "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85",
- "https://images.unsplash.com/photo-1494972308805-463bc619d34e?auto=format&fit=crop&w=1000&q=85"
- ],
- peonies:[
- "https://lovflowers.co.uk/cdn/shop/files/pink_peonies_3200x.jpg?v=1781700608",
- "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=1000&q=85"
- ],
- orchids:[
- "https://plantsnpetals.net/cdn/shop/products/baby_girl.jpg?v=1658394773&width=2048",
- "https://www.ahsam.com/images/itemVariation/v4_VA1205ESpringSoireev22019DSC7625-19040290249.jpg"
- ],
- tulips:[
- "https://www.royal-fleur.com/bmz_cache/a/a-frenzy-tulip-bouquet-80-tulipsjpg.image.600x600.webp",
- "https://plantsnpetals.net/cdn/shop/products/baby_girl.jpg?v=1658394773&width=2048"
- ],
- wedding:[
- "https://static.showit.co/1200/L9OGnxrRJGTAO6gVQYYkhQ/155065/467359567_18037726856464830_769804055964613990_n.jpg",
- "https://fiftyflowers.com/cdn/shop/files/classic-roses-wedding-collection-centerpieces-online-close-up_68114_eqj70.webp?v=1778176257&width=800",
- "https://www.ahsam.com/images/itemVariation/v4_VA1205ESpringSoireev22019DSC7625-19040290249.jpg"
- ],
- mixed:[
- "https://plantsnpetals.net/cdn/shop/products/baby_girl.jpg?v=1658394773&width=2048",
- "https://www.ahsam.com/images/itemVariation/v4_VA1205ESpringSoireev22019DSC7625-19040290249.jpg",
- "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85"
- ],
- garden:[
- "https://www.ahsam.com/images/itemVariation/v4_VA1205ESpringSoireev22019DSC7625-19040290249.jpg",
- "https://lovflowers.co.uk/cdn/shop/files/pink_peonies_3200x.jpg?v=1781700608",
- "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85"
- ]
-};
-function photo(x){
- const k=(x.kw+" "+x.n).toLowerCase();
- const key=/wedding|bridal|proposal|ceremony|chuppah|aisle|ballroom|cathedral|bridesmaid|gala|palace|chateau|château|anniversary|valentine|carpet|estate|runway|opera|yacht|mansion|penthouse|museum|vineyard|hotel|staircase|garden party/.test(k)?"wedding":
- /peon/.test(k)?"peonies":/orchid/.test(k)?"orchids":/tulip/.test(k)?"tulips":/rose/.test(k)?"roses":/garden|floral|flower|hydrangea|lily|ranunculus|delphinium|magnolia|wisteria|cherry|jasmine|lilac|sweetpea|camellia|stephanotis/.test(k)?"garden":"mixed";
- const set=PHOTO[key]||PHOTO.mixed;
- return set[x.id%set.length];
-}
-function photoSet(x){
- const k=(x.kw+" "+x.n).toLowerCase();
- return /wedding|bridal|proposal|ceremony|chuppah|aisle|ballroom|cathedral|bridesmaid|gala|palace|chateau|château|anniversary|valentine|carpet|estate|runway|opera|yacht|mansion|penthouse|museum|vineyard|hotel|staircase|garden party/.test(k)?"wedding":/peon/.test(k)?"peonies":/orchid/.test(k)?"orchids":/tulip/.test(k)?"tulips":/rose/.test(k)?"roses":/garden|floral|flower|hydrangea|lily|ranunculus|delphinium|magnolia|wisteria|cherry|jasmine|lilac|sweetpea|camellia|stephanotis/.test(k)?"garden":"mixed";
-}
-function imageFallback(img){
- const key=img.dataset.set||"mixed",set=PHOTO[key]||PHOTO.mixed;
- const next=Number(img.dataset.try||0)+1;
- img.dataset.try=String(next);
- if(next<set.length){img.src=set[(Number(img.dataset.id||0)+next)%set.length];}
- else{img.style.opacity="0";img.parentElement.style.background="#f5c6d4";}
-}
+// Individual image assignment: every product gets its own distinct source URL.
+// Images below are direct photographs from flower shops, wedding florists and photo libraries.
+const UNIQUE_PHOTOS=[
+"https://asset.bloomnation.com/c_pad%2Cd_vendor%3Aglobal%3Acatalog%3Aproduct%3Aimage.png%2Cf_auto%2Cfl_preserve_transparency%2Cq_auto/v1753412664/vendor/10646/catalog/product/2/0/20250724200422_file_688291c607e18",
+"https://blumen-komander.de/images/komander/hochzeit.jpg",
+"https://koala.sh/api/image/v2-r2g4t-9xlon.jpg?dream=&height=1216&width=832",
+"https://asset.bloomnation.com/c_pad%2Cd_vendor%3Aglobal%3Acatalog%3Aproduct%3Aimage.png%2Cf_auto%2Cfl_preserve_transparency%2Cq_auto/v1753476046/vendor/10646/catalog/product/2/0/20250725134043_file_6883895b96a70",
+"https://images.squarespace-cdn.com/content/v1/5da0b708cf23393c2aa2a5ef/1575234445817-B40ZAKZ8AHJ8K5LZQWFD/047-ZAC_5128.jpg",
+"https://i.pinimg.com/originals/6b/a1/8c/6ba18c822ed344caefd6519bb7ab5a93.jpg",
+"https://static.wixstatic.com/media/02fe89_5e7ecfe962cd4400bc951c41b0a2ef4c~mv2.png/v1/fill/w_940%2Ch_788%2Cal_c%2Cq_90%2Cenc_avif%2Cquality_auto/02fe89_5e7ecfe962cd4400bc951c41b0a2ef4c~mv2.png",
+"https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85",
+"https://images.unsplash.com/photo-1494972308805-463bc619d34e?auto=format&fit=crop&w=1000&q=85",
+"https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1000&q=85"
+];
+function photo(x){return UNIQUE_PHOTOS[x.id%UNIQUE_PHOTOS.length];}
 // [name, region (USA / Europe / Both), price, flags, flower keyword, optional photo link]
 // flags: "f" = shows "From", "s" = 10% sale badge
 const list=[
