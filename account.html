@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Account | Maison Anna Flowers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--pink:#FCE4EC;--card:#FFF5F8;--green:#1F3D33;--rose:#B5173F;--blush:#F5C6D4}
+*{box-sizing:border-box}body{margin:0;padding:24px 14px;background:var(--pink);color:var(--green);font:500 16px/1.5 Nunito,system-ui,sans-serif}
+.wrap{max-width:480px;margin:5vh auto}.top,.panel{background:var(--card);border-radius:26px;padding:22px;box-shadow:0 8px 24px #b5173f18}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.brand{font-size:1.25rem;font-weight:800;letter-spacing:.06em;text-decoration:none}.back{font-weight:800;text-decoration:none}
+h1{font-size:2rem;line-height:1.1;margin:4px 0 8px}.muted{color:#63776d}.tabs{display:flex;gap:8px;margin:20px 0}.tabs button,.primary,.secondary{border:0;border-radius:999px;padding:12px 18px;font:800 .95rem Nunito;cursor:pointer}.tabs button{background:#f9e5ec;color:var(--green);flex:1}.tabs button[aria-pressed=true],.primary{background:var(--green);color:white}.secondary{background:#f9e5ec;color:var(--green)}label{display:block;font-weight:800;font-size:.88rem;margin-top:14px}input{display:block;width:100%;padding:13px 14px;border:1.5px solid var(--blush);border-radius:13px;background:white;font:inherit;color:var(--green);margin-top:5px}.primary,.secondary{width:100%;margin-top:18px}.status{margin-top:14px;padding:12px;border-radius:12px;background:#f9e5ec;overflow-wrap:anywhere}.fine{font-size:.8rem;color:#63776d;margin-top:14px}
+</style>
+</head>
+<body><div class="wrap">
+<header class="top"><a class="brand" href="index.html">MAISON ANNA</a><a class="back" href="index.html">← Shop</a></header>
+<main class="panel">
+<div class="muted" style="font-weight:800;letter-spacing:.16em;font-size:.75rem">YOUR MAISON ANNA ACCOUNT</div>
+<h1 id="heading">Create your account</h1>
+<p class="muted">Sign in or create an account before placing a delivery order. Your session will stay active on this device until you sign out.</p>
+<div id="authArea">
+<div class="tabs"><button type="button" id="signupTab" aria-pressed="true">Sign up</button><button type="button" id="loginTab" aria-pressed="false">Sign in</button></div>
+<form id="authForm">
+<label>Email address<input id="email" type="email" autocomplete="email" required></label>
+<label>Password<input id="password" type="password" minlength="8" autocomplete="new-password" required></label>
+<button class="primary" id="submitBtn" type="submit">CREATE ACCOUNT</button>
+</form>
+<p class="fine">Use a password with at least 8 characters. If email confirmation is enabled, verify the message sent to your inbox before signing in.</p>
+</div>
+<div id="signedIn" hidden><p id="signedEmail" style="font-weight:800;overflow-wrap:anywhere"></p><button class="primary" id="continueBtn" type="button">CONTINUE TO DELIVERY</button><button class="secondary" id="signOutBtn" type="button">SIGN OUT</button></div>
+<p class="status" id="status" role="status" hidden></p>
+</main></div>
+<script>
+const SUPABASE_URL="https://ypzseilwcmvrzcjxanrs.supabase.co";
+const SUPABASE_KEY="sb_publishable_jgOjltlzCN42FWFiroFmig_VCW0TCZq";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const params=new URLSearchParams(location.search);
+const requested=params.get("redirect");
+const destination=requested==="delivery.html"?"delivery.html":"index.html";
+let mode="signup";
+function showStatus(message){$("status").hidden=false;$("status").textContent=message}
+function setMode(next){mode=next;const signup=mode==="signup";$("heading").textContent=signup?"Create your account":"Welcome back";$("signupTab").setAttribute("aria-pressed",String(signup));$("loginTab").setAttribute("aria-pressed",String(!signup));$("submitBtn").textContent=signup?"CREATE ACCOUNT":"SIGN IN";$("password").autocomplete=signup?"new-password":"current-password";$("password").minLength=signup?8:1}
+$("signupTab").onclick=()=>setMode("signup");$("loginTab").onclick=()=>setMode("login");
+function showSignedIn(user){$("authArea").hidden=true;$("signedIn").hidden=false;$("signedEmail").textContent="Signed in as "+user.email}
+async function checkSession(){const {data,error}=await db.auth.getSession();if(error){showStatus(error.message);return}if(data.session)showSignedIn(data.session.user)}
+$("authForm").addEventListener("submit",async e=>{e.preventDefault();const email=$("email").value.trim(),password=$("password").value;$("submitBtn").disabled=true;$("submitBtn").textContent=mode==="signup"?"CREATING…":"SIGNING IN…";
+try{if(mode==="signup"){const {data,error}=await db.auth.signUp({email,password,options:{emailRedirectTo:location.origin+"/account.html?redirect="+encodeURIComponent(destination)}});if(error)throw error;if(data.session){showSignedIn(data.user);showStatus("Account created and signed in.")}else{showStatus("Account created. Check your email to confirm the address, then return here and sign in.")}}
+else{const {data,error}=await db.auth.signInWithPassword({email,password});if(error)throw error;showSignedIn(data.user);showStatus("You are signed in.")}
+}catch(error){showStatus(error.message||"Unable to complete account request.")}finally{$("submitBtn").disabled=false;$("submitBtn").textContent=mode==="signup"?"CREATE ACCOUNT":"SIGN IN"}});
+$("continueBtn").onclick=()=>location.href=destination;
+$("signOutBtn").onclick=async()=>{const {error}=await db.auth.signOut();if(error){showStatus(error.message);return}location.href="index.html"};
+checkSession();
+</script></body></html>
