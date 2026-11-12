@@ -127,9 +127,8 @@
       } else {
         const tx = $("ma-tx").value.trim();
         if (!tx) throw new Error("Enter the transaction hash or reference.");
-        const {data:createdOrders,error} = await db.from("orders").insert({...customer,cart_items:cart.items,total_amount:Number(cart.total || 0),currency:"USD",payment_method:method,transaction_hash:tx,payment_network:method === "bitcoin" ? "Bitcoin mainnet" : "BNB Smart Chain (BEP20)",payment_status:"pending",order_status:"pending",customer_notes:"Delivery: " + (f.shipping || "Not selected") + ". Notes: " + (f.notes || "")}).select("id");
+        const {data:orderReference,error} = await db.rpc("ma_create_crypto_order",{p_order:{...customer,cart_items:cart.items,total_amount:Number(cart.total || 0),currency:"USD",payment_method:method,transaction_hash:tx,payment_network:method === "bitcoin" ? "Bitcoin mainnet" : "BNB Smart Chain (BEP20)",customer_notes:"Delivery: " + (f.shipping || "Not selected") + ". Notes: " + (f.notes || "")}});
         if (error) throw error;
-        const orderReference = createdOrders?.[0]?.id;
         status("Order submitted. Payment is PENDING VERIFICATION. Reference: " + (orderReference || "Contact Maison Anna for your reference") + ". Check status at payment-status.html.");
         form.reset(); $("ma-crypto").hidden = true; wallet = "";
       }
