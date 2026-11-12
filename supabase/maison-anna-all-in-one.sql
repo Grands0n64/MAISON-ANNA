@@ -165,7 +165,7 @@ AS $ma_customer_history$
   SELECT to_jsonb(o)
   FROM public.orders o
   WHERE auth.uid() IS NOT NULL
-    AND lower(COALESCE(NULLIF(o.customer_email,''), o.email)) = lower(auth.jwt() ->> 'email')
+    AND lower(o.customer_email) = lower(auth.jwt() ->> 'email')
   ORDER BY o.created_at DESC
   LIMIT 100;
 $ma_customer_history$;
