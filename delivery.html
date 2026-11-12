@@ -17,7 +17,7 @@ a{color:inherit}.wrap{max-width:760px;margin:auto}.top{display:flex;justify-cont
 </head>
 <body>
 <div class="wrap">
-<header class="top"><a class="brand" href="index.html">MAISON ANNA</a><a class="back" href="index.html">← Back to shop</a></header>
+<header class="top"><a class="brand" href="index.html">MAISON ANNA</a><div style="display:flex;gap:12px;align-items:center"><span id="signedInEmail" style="font-size:.8rem;font-weight:800"></span><button id="deliverySignOut" type="button" style="border:0;background:#f9e5ec;border-radius:999px;padding:9px 12px;font:800 .8rem Nunito;color:#1F3D33">Sign out</button><a class="back" href="index.html">← Back to shop</a></div></header>
 <main class="panel">
 <div class="eyebrow">CHECKOUT · DELIVERY</div>
 <h1>Where should we deliver?</h1>
@@ -88,6 +88,16 @@ document.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListe
 
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 document.getElementById("deliveryForm").addEventListener("submit",e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.currentTarget));const itemText=(order.items||[]).map(x=>x.name+" - $"+x.price).join("\n");const body="MAISON ANNA ORDER REQUEST\n\n"+itemText+"\nOrder total: $"+Number(order.total||0)+"\n\nCUSTOMER\n"+Object.entries(f).map(([k,v])=>k+": "+v).join("\n")+"\n\nDispatch from Miami, Florida 33131\nShipping estimate: "+(shippingPrice?"$"+shippingPrice+" ("+tier+" tier)":"quote required")+"; final carrier quote to be confirmed.\nPayment: not collected; awaiting confirmed quote and payment setup.";location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Maison Anna international order request")+"&body="+encodeURIComponent(body)});
+</script>
+<script>
+(async()=>{
+ const db=window.supabase.createClient("https://ypzseilwcmvrzcjxanrs.supabase.co","sb_publishable_jgOjltlzCN42FWFiroFmig_VCW0TCZq");
+ const {data,error}=await db.auth.getSession();
+ if(error||!data.session){location.replace("account.html?redirect=delivery.html");return}
+ document.getElementById("signedInEmail").textContent=data.session.user.email;
+ const email=document.querySelector('input[name="email"]');if(email&&!email.value)email.value=data.session.user.email||"";
+ document.getElementById("deliverySignOut").onclick=async()=>{const {error}=await db.auth.signOut();if(error){alert(error.message);return}location.replace("account.html?redirect=delivery.html")};
+})();
 </script>
 </body>
 </html>
