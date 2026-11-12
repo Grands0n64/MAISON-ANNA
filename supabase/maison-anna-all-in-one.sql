@@ -259,7 +259,12 @@ GRANT EXECUTE ON FUNCTION public.ma_admin_list_gift_cards() TO authenticated;
 GRANT EXECUTE ON FUNCTION public.ma_admin_set_order_status(uuid,text) TO authenticated;
 GRANT EXECUTE ON FUNCTION public.ma_admin_set_gift_status(uuid,text,text) TO authenticated;
 
-REVOKE ALL ON FUNCTION public.ma_customer_list_orders() FROM PUBLIC, anon;\nREVOKE ALL ON FUNCTION public.ma_customer_list_gift_cards() FROM PUBLIC, anon;\nGRANT EXECUTE ON FUNCTION public.ma_customer_list_orders() TO authenticated;\nGRANT EXECUTE ON FUNCTION public.ma_customer_list_gift_cards() TO authenticated;\n\nREVOKE ALL ON FUNCTION public.ma_customer_order_status(uuid,text) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.ma_customer_list_orders() FROM PUBLIC, anon;
+REVOKE ALL ON FUNCTION public.ma_customer_list_gift_cards() FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.ma_customer_list_orders() TO authenticated;
+GRANT EXECUTE ON FUNCTION public.ma_customer_list_gift_cards() TO authenticated;
+
+REVOKE ALL ON FUNCTION public.ma_customer_order_status(uuid,text) FROM PUBLIC;
 REVOKE ALL ON FUNCTION public.ma_customer_gift_status(uuid,text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.ma_customer_order_status(uuid,text) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.ma_customer_gift_status(uuid,text) TO anon, authenticated;
