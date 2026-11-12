@@ -29,8 +29,9 @@
       <p>Add each gift card separately. Multiple photos are accepted for every card.</p>
       <div id="ma-cards"></div><button type="button" id="ma-add">+ Add another card</button>
     </div>
-    <p id="ma-status" role="status" style="margin-top:12px"></p>
+    <p id="ma-status" role="status" style="margin-top:12px"></p><p style="margin-top:12px"><a href="payment-status.html" style="color:#B5173F;font-weight:800">Already submitted a payment? Check your payment status →</a></p>
   `;
+  submit.textContent = "SUBMIT ORDER & PAYMENT DETAILS";
   submit.parentNode.insertBefore(box, submit);
   const $ = id => document.getElementById(id);
   let wallet = "";
