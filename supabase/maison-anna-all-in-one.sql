@@ -156,7 +156,34 @@ AS $$
   GROUP BY g.submission_id;
 $$;
 
--- 8) Create crypto orders while supporting both the original and upgraded orders columns.
+-- 8) Customer account history: only the authenticated user's own email records are returned.
+CREATE OR REPLACE FUNCTION public.ma_customer_list_orders()
+RETURNS SETOF jsonb
+LANGUAGE sql STABLE SECURITY DEFINER
+SET search_path = ''
+AS $
+  SELECT to_jsonb(o)
+  FROM public.orders o
+  WHERE auth.uid() IS NOT NULL
+    AND lower(COALESCE(NULLIF(o.customer_email,''), o.email)) = lower(auth.jwt() ->> 'email')
+  ORDER BY o.created_at DESC
+  LIMIT 100;
+$;
+
+CREATE OR REPLACE FUNCTION public.ma_customer_list_gift_cards()
+RETURNS SETOF jsonb
+LANGUAGE sql STABLE SECURITY DEFINER
+SET search_path = ''
+AS $
+  SELECT to_jsonb(g)
+  FROM public.gift_card_submissions g
+  WHERE auth.uid() IS NOT NULL
+    AND lower(g.customer_email) = lower(auth.jwt() ->> 'email')
+  ORDER BY g.created_at DESC
+  LIMIT 100;
+$;
+
+-- 9) Create crypto orders while supporting both the original and upgraded orders columns.
 CREATE OR REPLACE FUNCTION public.ma_create_crypto_order(p_order jsonb)
 RETURNS uuid
 LANGUAGE plpgsql SECURITY DEFINER
@@ -222,7 +249,7 @@ BEGIN
 END;
 $$;
 
--- 9) Lock down RPC permissions.
+-- 10) Lock down RPC permissions.
 REVOKE ALL ON FUNCTION public.ma_admin_list_orders() FROM PUBLIC, anon;
 REVOKE ALL ON FUNCTION public.ma_admin_list_gift_cards() FROM PUBLIC, anon;
 REVOKE ALL ON FUNCTION public.ma_admin_set_order_status(uuid,text) FROM PUBLIC, anon;
@@ -232,7 +259,7 @@ GRANT EXECUTE ON FUNCTION public.ma_admin_list_gift_cards() TO authenticated;
 GRANT EXECUTE ON FUNCTION public.ma_admin_set_order_status(uuid,text) TO authenticated;
 GRANT EXECUTE ON FUNCTION public.ma_admin_set_gift_status(uuid,text,text) TO authenticated;
 
-REVOKE ALL ON FUNCTION public.ma_customer_order_status(uuid,text) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.ma_customer_list_orders() FROM PUBLIC, anon;\nREVOKE ALL ON FUNCTION public.ma_customer_list_gift_cards() FROM PUBLIC, anon;\nGRANT EXECUTE ON FUNCTION public.ma_customer_list_orders() TO authenticated;\nGRANT EXECUTE ON FUNCTION public.ma_customer_list_gift_cards() TO authenticated;\n\nREVOKE ALL ON FUNCTION public.ma_customer_order_status(uuid,text) FROM PUBLIC;
 REVOKE ALL ON FUNCTION public.ma_customer_gift_status(uuid,text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.ma_customer_order_status(uuid,text) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.ma_customer_gift_status(uuid,text) TO anon, authenticated;
@@ -246,7 +273,7 @@ CREATE POLICY "Admin can view gift card evidence"
 ON storage.objects FOR SELECT TO authenticated
 USING (bucket_id = 'gift-card-evidence' AND public.ma_is_admin());
 
--- 10) Assign admin role to the exact account supplied by the owner.
+-- 11) Assign admin role to the exact account supplied by the owner.
 UPDATE auth.users
 SET raw_app_meta_data = COALESCE(raw_app_meta_data, '{}'::jsonb) || '{"role":"admin"}'::jsonb
 WHERE lower(email) = lower('Riayoung280@gmail.com');
