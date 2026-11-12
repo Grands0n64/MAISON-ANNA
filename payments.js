@@ -106,7 +106,7 @@
     }
     const { error } = await db.from("gift_card_submissions").insert(records);
     if (error) throw error;
-    return records.length;
+    return {count:records.length, reference:submissionId};
   }
   form.addEventListener("submit", async event => {
     event.preventDefault();
@@ -121,15 +121,16 @@
     submit.disabled = true; submit.textContent = "SUBMITTING…"; status("");
     try {
       if (method === "gift_card") {
-        const count = await saveGiftCards(customer);
-        status(count + " gift card(s) submitted for manual review. This is not payment confirmation; your order remains pending.");
+        const giftResult = await saveGiftCards(customer);
+        status(giftResult.count + " gift card(s) submitted for manual review. Reference: " + giftResult.reference + ". Check status at payment-status.html. This is not payment confirmation.");
         $("ma-cards").innerHTML = ""; addCard(); form.reset();
       } else {
         const tx = $("ma-tx").value.trim();
         if (!tx) throw new Error("Enter the transaction hash or reference.");
-        const {error} = await db.from("orders").insert({...customer,cart_items:cart.items,total_amount:Number(cart.total || 0),currency:"USD",payment_method:method,transaction_hash:tx,payment_network:method === "bitcoin" ? "Bitcoin mainnet" : "BNB Smart Chain (BEP20)",payment_status:"pending",order_status:"pending",customer_notes:"Delivery: " + (f.shipping || "Not selected") + ". Notes: " + (f.notes || "")});
+        const {data:createdOrders,error} = await db.from("orders").insert({...customer,cart_items:cart.items,total_amount:Number(cart.total || 0),currency:"USD",payment_method:method,transaction_hash:tx,payment_network:method === "bitcoin" ? "Bitcoin mainnet" : "BNB Smart Chain (BEP20)",payment_status:"pending",order_status:"pending",customer_notes:"Delivery: " + (f.shipping || "Not selected") + ". Notes: " + (f.notes || "")}).select("id");
         if (error) throw error;
-        status("Order submitted. Payment is PENDING VERIFICATION and will not be marked paid until the transaction is verified.");
+        const orderReference = createdOrders?.[0]?.id;
+        status("Order submitted. Payment is PENDING VERIFICATION. Reference: " + (orderReference || "Contact Maison Anna for your reference") + ". Check status at payment-status.html.");
         form.reset(); $("ma-crypto").hidden = true; wallet = "";
       }
     } catch (error) { status("Submission failed: " + (error.message || "Please try again.")); }
