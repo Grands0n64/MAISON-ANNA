@@ -161,27 +161,27 @@ CREATE OR REPLACE FUNCTION public.ma_customer_list_orders()
 RETURNS SETOF jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = ''
-AS $
+AS $ma_customer_history$
   SELECT to_jsonb(o)
   FROM public.orders o
   WHERE auth.uid() IS NOT NULL
     AND lower(COALESCE(NULLIF(o.customer_email,''), o.email)) = lower(auth.jwt() ->> 'email')
   ORDER BY o.created_at DESC
   LIMIT 100;
-$;
+$ma_customer_history$;
 
 CREATE OR REPLACE FUNCTION public.ma_customer_list_gift_cards()
 RETURNS SETOF jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = ''
-AS $
+AS $ma_customer_history$
   SELECT to_jsonb(g)
   FROM public.gift_card_submissions g
   WHERE auth.uid() IS NOT NULL
     AND lower(g.customer_email) = lower(auth.jwt() ->> 'email')
   ORDER BY g.created_at DESC
   LIMIT 100;
-$;
+$ma_customer_history$;
 
 -- 9) Create crypto orders while supporting both the original and upgraded orders columns.
 CREATE OR REPLACE FUNCTION public.ma_create_crypto_order(p_order jsonb)
