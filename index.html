@@ -65,6 +65,7 @@ dialog h3{font-size:1.05rem;font-weight:800;margin:18px 0 8px}
 #delivery .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 #delivery .note{font-size:.78rem;color:#5c7a6c;margin:14px 0 4px}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -83,6 +84,7 @@ dialog h3{font-size:1.05rem;font-weight:800;margin:18px 0 8px}
   </nav>
   <input id="q" type="search" placeholder="Search flowers" hidden aria-label="Search flowers">
 </header>
+<div id="accountBar" style="max-width:1100px;margin:10px auto 0;display:flex;justify-content:flex-end;gap:10px;align-items:center;font-size:.9rem"><a id="accountLink" href="account.html?redirect=index.html" style="font-weight:800;color:var(--green)">Sign up / Sign in</a><span id="accountEmail" hidden style="font-weight:700"></span><button id="signOutBtn" hidden class="chip" type="button">Sign out</button></div>
 
 <section class="intro">
   <h1>Luxury flowers, delivered worldwide</h1>
@@ -361,10 +363,14 @@ $("closeCart2").onclick=()=>$("cartDlg").close();
 $("continueDelivery").onclick=()=>{
   if(!cart.length)return;
   try{sessionStorage.setItem("maisonAnnaCart",JSON.stringify({items:cart.map(id=>({name:products[id].n,price:products[id].price})),total:cart.reduce((s,id)=>s+products[id].price,0)}));}catch(e){}
-  location.href="delivery.html";
+  const client=window.supabase.createClient("https://ypzseilwcmvrzcjxanrs.supabase.co","sb_publishable_jgOjltlzCN42FWFiroFmig_VCW0TCZq");
+  client.auth.getSession().then(({data})=>{location.href=data.session?"delivery.html":"account.html?redirect=delivery.html"});
 };
 
 sync();render();updateCart();
+const accountDb=window.supabase.createClient("https://ypzseilwcmvrzcjxanrs.supabase.co","sb_publishable_jgOjltlzCN42FWFiroFmig_VCW0TCZq");
+accountDb.auth.getSession().then(({data})=>{if(data.session){$("accountLink").hidden=true;$("accountEmail").hidden=false;$("accountEmail").textContent=data.session.user.email;$("signOutBtn").hidden=false;}});
+$("signOutBtn").onclick=async()=>{const {error}=await accountDb.auth.signOut();if(error){alert(error.message);return}location.reload()};
 </script>
 </body>
 </html>
