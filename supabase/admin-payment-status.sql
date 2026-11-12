@@ -123,3 +123,50 @@ ON storage.objects FOR SELECT TO authenticated
 USING (bucket_id = 'gift-card-evidence' AND public.ma_is_admin());
 
 -- Admin page reads sensitive submissions only through the guarded admin RPCs.
+
+
+-- Create crypto order and return its reference without granting customers SELECT access.
+CREATE OR REPLACE FUNCTION public.ma_create_crypto_order(p_order jsonb)
+RETURNS uuid
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = ''
+AS $$
+DECLARE
+  new_id uuid;
+  method text := p_order ->> 'payment_method';
+BEGIN
+  IF method NOT IN ('bitcoin','usdt_bep20') THEN
+    RAISE EXCEPTION 'Unsupported payment method';
+  END IF;
+  INSERT INTO public.orders (
+    customer_name, customer_email, customer_phone,
+    country, state, city, delivery_address, postal_code,
+    cart_items, total_amount, currency, payment_method,
+    transaction_hash, payment_network, payment_status,
+    order_status, customer_notes
+  ) VALUES (
+    p_order ->> 'customer_name',
+    p_order ->> 'customer_email',
+    p_order ->> 'customer_phone',
+    p_order ->> 'country',
+    p_order ->> 'state',
+    p_order ->> 'city',
+    p_order ->> 'delivery_address',
+    p_order ->> 'postal_code',
+    COALESCE(p_order -> 'cart_items', '[]'::jsonb),
+    (p_order ->> 'total_amount')::numeric,
+    COALESCE(p_order ->> 'currency','USD'),
+    method,
+    p_order ->> 'transaction_hash',
+    p_order ->> 'payment_network',
+    'pending',
+    'pending',
+    p_order ->> 'customer_notes'
+  ) RETURNING id INTO new_id;
+  RETURN new_id;
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.ma_create_crypto_order(jsonb) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.ma_create_crypto_order(jsonb) TO anon, authenticated;
