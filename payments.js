@@ -124,27 +124,16 @@
     submit.disabled = true; submit.textContent = "SUBMITTING…"; status("");
     try {
       if (method === "paystack") {
-        const response = await fetch("/api/paystack/initialize", {
-          method:"POST", headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({items:cart.items.map(item=>({id:item.id})),customer:{
-            name:customer.customer_name,email:customer.customer_email,phone:customer.customer_phone,
-            country:customer.country,state:customer.state,city:customer.city,address:customer.delivery_address,
-            postal:customer.postal_code,shipping:f.shipping,notes:f.notes
-          }})
-        });
-        const contentType = response.headers.get("content-type") || "";
-        const raw = await response.text();
-        let result = null;
-        try { if (contentType.includes("application/json")) result = JSON.parse(raw); } catch {}
-        if (!result) {
-          const detail = response.status === 404
-            ? "Paystack API route is missing from this Vercel deployment. Confirm Vercel deploys the latest main-branch commit from Grands0n64/MAISON-ANNA with the project root set to the repository root."
-            : "The server returned a non-JSON response (HTTP " + response.status + "). Check Vercel deployment logs for the Paystack API function.";
-          throw new Error(detail);
-        }
-        if (!response.ok) throw new Error(result.error || "Could not start card payment.");
-        status("Redirecting to secure Paystack checkout. Amount: ₦" + Number(result.amountNGN).toLocaleString("en-NG",{maximumFractionDigits:2}) + " (rate: ₦" + Number(result.rate).toLocaleString("en-NG",{maximumFractionDigits:2}) + " per USD).");
-        location.href = result.authorization_url;
+        const {data:orderReference,error} = await db.rpc("ma_create_manual_payment_order",{p_order:{
+          ...customer,cart_items:cart.items,total_amount:Number(cart.total || 0),currency:"USD",
+          payment_method:"paystack_manual",payment_network:"Paystack payment link",
+          customer_notes:"Delivery: "+(f.shipping||"Not selected")+". Notes: "+(f.notes||"")
+        }});
+        if (error) throw error;
+        status("Your flower order has been submitted and is awaiting Maison Anna's review. We will confirm the final amount and send your Paystack payment link. Order reference: "+orderReference+". Your order is not yet paid or confirmed.");
+        submit.textContent = "ORDER SUBMITTED";
+        form.reset();
+        sessionStorage.removeItem("maisonAnnaCart");
         return;
       } else if (method === "gift_card") {
         const giftResult = await saveGiftCards(customer);
