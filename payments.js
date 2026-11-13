@@ -130,7 +130,17 @@
           customer_notes:"Delivery: "+(f.shipping||"Not selected")+". Notes: "+(f.notes||"")
         }});
         if (error) throw error;
-        status("Your flower order has been submitted and is awaiting Maison Anna's review. We will confirm the final amount and send your Paystack payment link. Order reference: "+orderReference+". Your order is not yet paid or confirmed.");
+        const statusBox = $("ma-status");
+        statusBox.textContent = "";
+        const message = document.createElement("p");
+        message.textContent = "Your flower order has been submitted. Order reference: " + orderReference + ". To pay by card, tap the Paystack link below. Your order remains pending until payment is verified.";
+        const paystackLink = document.createElement("a");
+        paystackLink.href = "https://paystack.shop/pay/maison-anna-flowers";
+        paystackLink.target = "_blank";
+        paystackLink.rel = "noopener noreferrer";
+        paystackLink.textContent = "Pay with Paystack";
+        paystackLink.style.cssText = "display:inline-block;margin-top:12px;padding:14px 22px;background:#B5173F;color:#fff;border-radius:10px;font-weight:800;text-decoration:none";
+        statusBox.append(message, paystackLink);
         submit.textContent = "ORDER SUBMITTED";
         form.reset();
         sessionStorage.removeItem("maisonAnnaCart");
