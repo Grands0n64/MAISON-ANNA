@@ -40,8 +40,9 @@ a{color:inherit}.wrap{max-width:760px;margin:auto}.top{display:flex;justify-cont
 </div>
 <div class="quote" id="priceBox"><strong>Delivery price:</strong> Choose a delivery method to see your estimated price. Final price depends on packed dimensions, destination and carrier availability.</div>
 <label>Delivery notes (optional)<textarea name="notes" placeholder="Gate code, preferred delivery date, or other instructions"></textarea></label>
-<button class="submit" type="submit">REQUEST DELIVERY &amp; ORDER CONFIRMATION</button>
-<p class="fine">Card and bank payment checkout will be connected after the payment provider is configured. This form sends an order request by email; it does not charge your card.</p>
+<div class="quote" id="paymentQuote">Card payment is charged in NGN using the latest available USD/NGN exchange rate. Final carrier shipping charges are quoted separately and are not included in this card payment.</div>
+<button class="submit" id="payButton" type="submit">PAY BY CARD</button>
+<p class="fine">Secure Paystack card checkout · Visa · Mastercard · American Express (when enabled on your Paystack account). Your product prices remain in USD; payment is processed in NGN. Shipping is quoted separately.</p>
 </form>
 </main>
 </div>
@@ -87,7 +88,20 @@ function showPrice(){
 document.querySelectorAll('input[name="shipping"]').forEach(r => r.addEventListener("change", showPrice));
 
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-document.getElementById("deliveryForm").addEventListener("submit",e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.currentTarget));const itemText=(order.items||[]).map(x=>x.name+" - $"+x.price).join("\n");const body="MAISON ANNA ORDER REQUEST\n\n"+itemText+"\nOrder total: $"+Number(order.total||0)+"\n\nCUSTOMER\n"+Object.entries(f).map(([k,v])=>k+": "+v).join("\n")+"\n\nDispatch from Miami, Florida 33131\nShipping estimate: "+(shippingPrice?"$"+shippingPrice+" ("+tier+" tier)":"quote required")+"; final carrier quote to be confirmed.\nPayment: not collected; awaiting confirmed quote and payment setup.";location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Maison Anna international order request")+"&body="+encodeURIComponent(body)});
+document.getElementById("deliveryForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ if(!e.currentTarget.reportValidity())return;
+ const button=document.getElementById("payButton"),quote=document.getElementById("paymentQuote");
+ const f=Object.fromEntries(new FormData(e.currentTarget));
+ button.disabled=true;button.textContent="PREPARING SECURE PAYMENT…";quote.textContent="Fetching the latest available USD/NGN rate and preparing your Paystack checkout…";
+ try{
+  const response=await fetch("/api/paystack/initialize",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:(order.items||[]).map(x=>({id:x.id})),customer:f})});
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.error||"Unable to start payment.");
+  quote.textContent="USD/NGN rate: ₦"+Number(data.rate).toLocaleString("en-NG",{maximumFractionDigits:2})+" per $1. Product total: $"+Number(data.totalUSD).toLocaleString("en-US")+" · Pay now: ₦"+Number(data.amountNGN).toLocaleString("en-NG",{maximumFractionDigits:2})+". Shipping will be quoted separately.";
+  location.href=data.authorization_url;
+ }catch(error){quote.textContent=error.message;button.disabled=false;button.textContent="PAY BY CARD";}
+});
 </script>
 <script>
 (async()=>{
