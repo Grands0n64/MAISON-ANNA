@@ -16,7 +16,7 @@
   box.innerHTML = `
     <h2 style="margin:0 0 8px">Payment method</h2>
     <p>Choose how you would like to pay for your Maison Anna order.</p>
-    <label><input type="radio" name="paymentMethod" value="paystack" required> Card payment — Visa, Mastercard or American Express</label>
+    <label><input type="radio" name="paymentMethod" value="paystack" required> Card payment — Paystack (one-time payment link after order review)</label>
     <label><input type="radio" name="paymentMethod" value="bitcoin" required> Bitcoin (BTC) — Bitcoin mainnet</label>
     <label><input type="radio" name="paymentMethod" value="usdt_bep20"> USDT — BNB Smart Chain (BEP20)</label>
     <label><input type="radio" name="paymentMethod" value="gift_card"> Gift card — manual review</label>
