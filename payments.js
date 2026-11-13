@@ -15,7 +15,9 @@
   box.style.cssText = "margin:20px 0;padding:18px;background:#fff;border:1px solid #F5C6D4;border-radius:18px";
   box.innerHTML = `
     <h2 style="margin:0 0 8px">Payment method</h2>
-    <p>Pay with Bitcoin, USDT (BEP20), or submit gift cards for manual review. Card payments via Paystack will be added later.</p>
+    <p>Choose how you would like to pay for your Maison Anna order.</p>
+    <label><input type="radio" name="paymentMethod" value="paystack" required> Card payment — Visa, Mastercard or American Express</label>
+    <small style="display:block;margin:4px 0 10px 26px;color:#63776d">Secure checkout powered by Paystack. Your USD order total is converted to NGN at checkout.</small>
     <label><input type="radio" name="paymentMethod" value="bitcoin" required> Bitcoin (BTC) — Bitcoin mainnet</label>
     <label><input type="radio" name="paymentMethod" value="usdt_bep20"> USDT — BNB Smart Chain (BEP20)</label>
     <label><input type="radio" name="paymentMethod" value="gift_card"> Gift card — manual review</label>
@@ -121,7 +123,21 @@
     const customer = {customer_name:f.name.trim(),customer_email:f.email.trim(),customer_phone:f.phone.trim(),country:f.country,state:f.state || null,city:f.city.trim(),delivery_address:f.address.trim(),postal_code:f.postal || null};
     submit.disabled = true; submit.textContent = "SUBMITTING…"; status("");
     try {
-      if (method === "gift_card") {
+      if (method === "paystack") {
+        const response = await fetch("/api/paystack/initialize", {
+          method:"POST", headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({items:cart.items.map(item=>({id:item.id})),customer:{
+            name:customer.customer_name,email:customer.customer_email,phone:customer.customer_phone,
+            country:customer.country,state:customer.state,city:customer.city,address:customer.delivery_address,
+            postal:customer.postal_code,shipping:f.shipping,notes:f.notes
+          }})
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Could not start card payment.");
+        status("Redirecting to secure Paystack checkout. Amount: ₦" + Number(result.amountNGN).toLocaleString("en-NG",{maximumFractionDigits:2}) + " (rate: ₦" + Number(result.rate).toLocaleString("en-NG",{maximumFractionDigits:2}) + " per USD).");
+        location.href = result.authorization_url;
+        return;
+      } else if (method === "gift_card") {
         const giftResult = await saveGiftCards(customer);
         status(giftResult.count + " gift card(s) submitted for manual review. Reference: " + giftResult.reference + ". Check status at payment-status.html. This is not payment confirmation.");
         $("ma-cards").innerHTML = ""; addCard(); form.reset();
