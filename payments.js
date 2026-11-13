@@ -17,7 +17,6 @@
     <h2 style="margin:0 0 8px">Payment method</h2>
     <p>Choose how you would like to pay for your Maison Anna order.</p>
     <label><input type="radio" name="paymentMethod" value="paystack" required> Card payment — Visa, Mastercard or American Express</label>
-    <small style="display:block;margin:4px 0 10px 26px;color:#63776d">Secure checkout powered by Paystack. Your USD order total is converted to NGN at checkout.</small>
     <label><input type="radio" name="paymentMethod" value="bitcoin" required> Bitcoin (BTC) — Bitcoin mainnet</label>
     <label><input type="radio" name="paymentMethod" value="usdt_bep20"> USDT — BNB Smart Chain (BEP20)</label>
     <label><input type="radio" name="paymentMethod" value="gift_card"> Gift card — manual review</label>
@@ -63,6 +62,7 @@
   }
   setGiftFieldsEnabled(false);
   methodInputs.forEach(input => input.addEventListener("change", () => {
+    submit.textContent = input.value === "paystack" ? "CONTINUE TO PAYSTACK CHECKOUT" : "SUBMIT ORDER & PAYMENT DETAILS";
     const crypto = input.value === "bitcoin" || input.value === "usdt_bep20";
     const gift = input.value === "gift_card";
     $("ma-crypto").hidden = !crypto;
