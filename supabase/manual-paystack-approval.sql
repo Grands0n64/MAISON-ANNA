@@ -1,8 +1,49 @@
--- MAISON ANNA: manual Paystack payment approval
--- Run this once in Supabase SQL Editor. Existing orders and payment methods are preserved.
+-- MAISON ANNA: create the orders table if missing, then enable manual Paystack approval.
+-- Run this complete file in Supabase SQL Editor.
+
+CREATE TABLE IF NOT EXISTS public.orders (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  customer_name text NOT NULL,
+  customer_email text,
+  customer_phone text,
+  country text,
+  state text,
+  city text,
+  delivery_address text,
+  postal_code text,
+  cart_items jsonb NOT NULL DEFAULT '[]'::jsonb,
+  total_amount numeric(14,2) NOT NULL DEFAULT 0,
+  currency text NOT NULL DEFAULT 'USD',
+  payment_method text,
+  transaction_hash text,
+  payment_network text,
+  customer_notes text,
+  payment_status text NOT NULL DEFAULT 'pending',
+  order_status text NOT NULL DEFAULT 'pending',
+  approved_amount_ngn numeric(14,2)
+);
 
 ALTER TABLE public.orders
-  ADD COLUMN IF NOT EXISTS approved_amount_ngn numeric(14,2);
+  ADD COLUMN IF NOT EXISTS customer_email text,
+  ADD COLUMN IF NOT EXISTS customer_phone text,
+  ADD COLUMN IF NOT EXISTS country text,
+  ADD COLUMN IF NOT EXISTS state text,
+  ADD COLUMN IF NOT EXISTS city text,
+  ADD COLUMN IF NOT EXISTS delivery_address text,
+  ADD COLUMN IF NOT EXISTS postal_code text,
+  ADD COLUMN IF NOT EXISTS cart_items jsonb DEFAULT '[]'::jsonb,
+  ADD COLUMN IF NOT EXISTS total_amount numeric(14,2) DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS currency text DEFAULT 'USD',
+  ADD COLUMN IF NOT EXISTS payment_method text,
+  ADD COLUMN IF NOT EXISTS transaction_hash text,
+  ADD COLUMN IF NOT EXISTS payment_network text,
+  ADD COLUMN IF NOT EXISTS customer_notes text,
+  ADD COLUMN IF NOT EXISTS payment_status text DEFAULT 'pending',
+  ADD COLUMN IF NOT EXISTS order_status text DEFAULT 'pending',
+  ADD COLUMN IF NOT EXISTS approved_amount_ngn numeric(14,2),
+  ADD COLUMN IF NOT EXISTS updated_at timestamptz DEFAULT now();
 
 CREATE OR REPLACE FUNCTION public.ma_create_manual_payment_order(p_order jsonb)
 RETURNS uuid
@@ -11,49 +52,22 @@ SET search_path = ''
 AS $$
 DECLARE
   new_id uuid;
-  payload jsonb;
-  insert_columns text;
-  select_columns text;
 BEGIN
   IF auth.uid() IS NULL THEN RAISE EXCEPTION 'Please sign in before placing an order'; END IF;
   IF COALESCE(trim(p_order ->> 'customer_email'),'') = '' THEN RAISE EXCEPTION 'Customer email is required'; END IF;
-  payload := jsonb_build_object(
-    'customer_name', p_order ->> 'customer_name',
-    'customer_email', p_order ->> 'customer_email',
-    'email', p_order ->> 'customer_email',
-    'customer_phone', p_order ->> 'customer_phone',
-    'phone', p_order ->> 'customer_phone',
-    'country', p_order ->> 'country',
-    'state', p_order ->> 'state',
-    'city', p_order ->> 'city',
-    'delivery_address', p_order ->> 'delivery_address',
-    'postal_code', p_order ->> 'postal_code',
-    'cart_items', COALESCE(p_order -> 'cart_items', '[]'::jsonb),
-    'items', COALESCE(p_order -> 'cart_items', '[]'::jsonb),
-    'total_amount', (p_order ->> 'total_amount')::numeric,
-    'currency', 'USD',
-    'payment_method', 'paystack_manual',
-    'payment_network', 'Paystack one-time payment link',
-    'payment_status', 'pending',
-    'order_status', 'pending',
-    'customer_notes', p_order ->> 'customer_notes',
-    'updated_at', now()
-  );
-  SELECT string_agg(format('%I', c.column_name), ', ' ORDER BY c.ordinal_position),
-         string_agg(format('(r).%I', c.column_name), ', ' ORDER BY c.ordinal_position)
-  INTO insert_columns, select_columns
-  FROM information_schema.columns c
-  WHERE c.table_schema='public' AND c.table_name='orders'
-    AND c.column_name = ANY (ARRAY[
-      'customer_name','customer_email','email','customer_phone','phone','country','state','city',
-      'delivery_address','postal_code','cart_items','items','total_amount','currency',
-      'payment_method','payment_network','payment_status','order_status','customer_notes','updated_at'
-    ]);
-  IF insert_columns IS NULL THEN RAISE EXCEPTION 'Orders table is missing checkout columns'; END IF;
-  EXECUTE format(
-    'INSERT INTO public.orders (%s) SELECT %s FROM jsonb_populate_record(NULL::public.orders, $1) AS r RETURNING id',
-    insert_columns, select_columns
-  ) USING payload INTO new_id;
+  INSERT INTO public.orders (
+    customer_name, customer_email, customer_phone, country, state, city,
+    delivery_address, postal_code, cart_items, total_amount, currency,
+    payment_method, payment_network, payment_status, order_status, customer_notes
+  ) VALUES (
+    p_order ->> 'customer_name', p_order ->> 'customer_email',
+    p_order ->> 'customer_phone', p_order ->> 'country', p_order ->> 'state',
+    p_order ->> 'city', p_order ->> 'delivery_address', p_order ->> 'postal_code',
+    COALESCE(p_order -> 'cart_items','[]'::jsonb),
+    COALESCE((p_order ->> 'total_amount')::numeric,0), 'USD',
+    'paystack_manual', 'Paystack one-time payment link', 'pending', 'pending',
+    p_order ->> 'customer_notes'
+  ) RETURNING id INTO new_id;
   RETURN new_id;
 END;
 $$;
@@ -66,8 +80,7 @@ AS $$
 BEGIN
   IF NOT public.ma_is_admin() THEN RAISE EXCEPTION 'Admin access required'; END IF;
   IF p_amount_ngn IS NULL OR p_amount_ngn <= 0 THEN RAISE EXCEPTION 'Enter a valid amount in NGN'; END IF;
-  UPDATE public.orders
-  SET approved_amount_ngn = round(p_amount_ngn,2), updated_at=now()
+  UPDATE public.orders SET approved_amount_ngn=round(p_amount_ngn,2), updated_at=now()
   WHERE id=p_order_id AND payment_method='paystack_manual';
   IF NOT FOUND THEN RAISE EXCEPTION 'Paystack order not found'; END IF;
 END;
