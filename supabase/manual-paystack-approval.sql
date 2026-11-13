@@ -45,6 +45,12 @@ ALTER TABLE public.orders
   ADD COLUMN IF NOT EXISTS approved_amount_ngn numeric(14,2),
   ADD COLUMN IF NOT EXISTS updated_at timestamptz DEFAULT now();
 
+-- Keep all Maison Anna checkout methods, including manual Paystack card payment.
+ALTER TABLE public.orders DROP CONSTRAINT IF EXISTS orders_payment_method_check;
+ALTER TABLE public.orders
+  ADD CONSTRAINT orders_payment_method_check
+  CHECK (payment_method IS NULL OR payment_method IN ('bitcoin', 'usdt_bep20', 'gift_card', 'paystack_manual'));
+
 CREATE OR REPLACE FUNCTION public.ma_create_manual_payment_order(p_order jsonb)
 RETURNS uuid
 LANGUAGE plpgsql SECURITY DEFINER
