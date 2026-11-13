@@ -19,8 +19,8 @@ module.exports = async (req,res) => {
       return product;
     });
     const totalUSD=cleanItems.reduce((sum,p)=>sum+p.price,0);
-    const fx=await request("https://open.er-api.com/v6/latest/USD");
-    if(fx.status!==200||fx.data.result!=="success"||!Number.isFinite(fx.data.rates?.NGN)) throw new Error("The live exchange rate is temporarily unavailable. Please try again shortly.");
+    const fx=await request("https://api.exchangerate.fun/latest?base=USD");
+    if(fx.status!==200||fx.data.base!=="USD"||!Number.isFinite(fx.data.rates?.NGN)) throw new Error("The live exchange rate is temporarily unavailable. Please try again shortly.");
     const rate=fx.data.rates.NGN;
     const amountKobo=Math.round(totalUSD*rate*100);
     if(!Number.isSafeInteger(amountKobo)||amountKobo<100) throw new Error("The converted payment amount is invalid.");
@@ -28,6 +28,6 @@ module.exports = async (req,res) => {
     const payload={email:String(customer.email).trim(),amount:amountKobo,currency:"NGN",reference,channels:["card"],callback_url:(process.env.SITE_URL||("https://"+req.headers.host))+"/payment-success.html",metadata:{brand:"MAISON ANNA FLOWERS",reference,customer:{name:String(customer.name||"").slice(0,120),email:String(customer.email).slice(0,180),phone:String(customer.phone||"").slice(0,60),country:String(customer.country||"").slice(0,100),state:String(customer.state||"").slice(0,100),city:String(customer.city||"").slice(0,100),address:String(customer.address||"").slice(0,300),postal:String(customer.postal||"").slice(0,40)},items:cleanItems.map(p=>({name:p.name,priceUSD:p.price})),totalUSD,exchangeRate:rate,amountNGN:amountKobo/100,shippingMethod:String(customer.shipping||"").slice(0,100),shipping:"Not included; final carrier quote to be confirmed separately."}};
     const result=await request("https://api.paystack.co/transaction/initialize",{method:"POST",headers:{"Authorization":"Bearer "+secret,"Content-Type":"application/json"},body:JSON.stringify(payload)});
     if(result.status!==200||!result.data.status||!result.data.data?.authorization_url) return res.status(502).json({error:result.data.message||"Paystack could not start this payment."});
-    return res.status(200).json({authorization_url:result.data.data.authorization_url,reference,rate,amountNGN:amountKobo/100,totalUSD,rateUpdated:fx.data.time_last_update_utc||null});
+    return res.status(200).json({authorization_url:result.data.data.authorization_url,reference,rate,amountNGN:amountKobo/100,totalUSD,rateUpdated:fx.data.date||null});
   } catch(error) { return res.status(400).json({error:error.message||"Unable to initialize payment."}); }
 };
