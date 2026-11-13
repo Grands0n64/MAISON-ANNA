@@ -132,7 +132,16 @@
             postal:customer.postal_code,shipping:f.shipping,notes:f.notes
           }})
         });
-        const result = await response.json();
+        const contentType = response.headers.get("content-type") || "";
+        const raw = await response.text();
+        let result = null;
+        try { if (contentType.includes("application/json")) result = JSON.parse(raw); } catch {}
+        if (!result) {
+          const detail = response.status === 404
+            ? "Paystack API route is missing from this Vercel deployment. Confirm Vercel deploys the latest main-branch commit from Grands0n64/MAISON-ANNA with the project root set to the repository root."
+            : "The server returned a non-JSON response (HTTP " + response.status + "). Check Vercel deployment logs for the Paystack API function.";
+          throw new Error(detail);
+        }
         if (!response.ok) throw new Error(result.error || "Could not start card payment.");
         status("Redirecting to secure Paystack checkout. Amount: ₦" + Number(result.amountNGN).toLocaleString("en-NG",{maximumFractionDigits:2}) + " (rate: ₦" + Number(result.rate).toLocaleString("en-NG",{maximumFractionDigits:2}) + " per USD).");
         location.href = result.authorization_url;
